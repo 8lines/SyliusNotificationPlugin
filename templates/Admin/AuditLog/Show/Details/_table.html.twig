@@ -1,0 +1,57 @@
+<table class="ui very basic celled table">
+    <tbody>
+    <tr>
+        <td class="five wide">
+            <strong class="gray text">{{ 'sylius.ui.id'|trans }}</strong>
+        </td>
+        <td>{{ resource.id }}</td>
+    </tr>
+
+    <tr>
+        <td class="five wide">
+            <strong class="gray text">{{ 'sylius.ui.content'|trans }}</strong>
+        </td>
+        <td>{{ resource.content }}</td>
+    </tr>
+
+    <tr>
+        <td class="five wide">
+            <strong class="gray text">{{ 'eightlines_sylius_notification_plugin.ui.invoker'|trans }}</strong>
+        </td>
+        <td>
+            {% if resource.invoker.id and resource.invoker.isCustomer %}
+                <a href="{{ path('sylius_admin_customer_show', { id: resource.invoker.id }) }}">
+                    {{ resource.invoker.fullName|default('sylius.ui.show'|trans) }}
+                </a>
+            {% else %}
+                {{ resource.invoker.fullName|default('-') }}
+
+                {% if resource.invoker.id and resource.invoker.isAdminUser %}
+                    <span class="ui label">#{{ resource.invoker.id }}</span>
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td class="five wide">
+            <strong class="gray text">{{ 'eightlines_sylius_notification_plugin.ui.event'|trans }}</strong>
+        </td>
+        <td>{{ resource.eventCode|default('-') }}</td>
+    </tr>
+
+    <tr>
+        <td class="five wide">
+            <strong class="gray text">{{ 'sylius.ui.channel'|trans }}</strong>
+        </td>
+        <td>{{ resource.channel.name|default('-') }}</td>
+    </tr>
+
+    <tr>
+        <td class="five wide">
+            <strong class="gray text">{{ 'sylius.ui.datetime'|trans }}</strong>
+        </td>
+        <td>{{ resource.createdAt|date }}</td>
+    </tr>
+    </tbody>
+</table>

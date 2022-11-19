@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="eightlines_sylius_notification_plugin.form.type.notification.validation_groups" type="collection">
+            <parameter>sylius</parameter>
+        </parameter>
+
+        <parameter key="eightlines_sylius_notification_plugin.form.type.notification_rule.validation_groups" type="collection">
+            <parameter>sylius</parameter>
+        </parameter>
+
+        <parameter key="eightlines_sylius_notification_plugin.form.type.notification_action.validation_groups" type="collection">
+            <parameter>sylius</parameter>
+        </parameter>
+
+        <parameter key="eightlines_sylius_notification_plugin.form.type.notification_content.validation_groups" type="collection">
+            <parameter>sylius</parameter>
+        </parameter>
+
+        <parameter key="eightlines_sylius_notification_plugin.form.type.notification_content_translation.validation_groups" type="collection">
+            <parameter>sylius</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <defaults public="true" autowire="false" autoconfigure="false" />
+
+        <!-- Menu -->
+        <service id="EightLines\SyliusNotificationPlugin\Menu\AdminMenuListener">
+            <tag name="kernel.event_listener" method="buildMenu" event="sylius.menu.admin.main" />
+        </service>
+
+        <!-- Form Types -->
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationType">
+            <argument>%eightlines_sylius_notification_plugin.model.notification.class%</argument>
+            <argument>%eightlines_sylius_notification_plugin.form.type.notification.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationRuleType">
+            <argument>%eightlines_sylius_notification_plugin.model.notification_rule.class%</argument>
+            <argument>%eightlines_sylius_notification_plugin.form.type.notification_rule.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationActionType">
+            <argument>%eightlines_sylius_notification_plugin.model.notification_action.class%</argument>
+            <argument>%eightlines_sylius_notification_plugin.form.type.notification_action.validation_groups%</argument>
+            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_channel.configuration_form_types" />
+            <tag name="form.type" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationContentType">
+            <argument>%eightlines_sylius_notification_plugin.model.notification_content.class%</argument>
+            <argument>%eightlines_sylius_notification_plugin.form.type.notification_content.validation_groups%</argument>
+            <argument type="service" id="sylius.translation_locale_provider.immutable" />
+            <tag name="form.type" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationContentTranslationType">
+            <argument>%eightlines_sylius_notification_plugin.model.notification_content_translation.class%</argument>
+            <argument>%eightlines_sylius_notification_plugin.form.type.notification_content_translation.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationActionCollectionType">
+            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_channels" />
+            <tag name="form.type" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationChannelChoiceType">
+            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_channels" />
+            <tag name="form.type" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationEventChoiceType">
+            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_events" />
+            <tag name="form.type" />
+        </service>
+
+        <!-- Service Registry -->
+        <service id="eightlines_sylius_notification_plugin.registry.notification_events"
+                 class="Sylius\Component\Registry\ServiceRegistry">
+            <argument>EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface</argument>
+            <argument>notification event</argument>
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.registry.notification_channels"
+                 class="Sylius\Component\Registry\ServiceRegistry">
+            <argument>EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationChannelInterface</argument>
+            <argument>notification channel</argument>
+        </service>
+
+        <instanceof id="EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface"
+                    autowire="true">
+            <tag name="eightlines_sylius_notification_plugin.notification_event" />
+        </instanceof>
+
+        <instanceof id="EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationChannelInterface"
+                    autowire="true">
+            <tag name="eightlines_sylius_notification_plugin.notification_channel" />
+        </instanceof>
+
+        <!-- Form Type Registry -->
+        <service id="eightlines_sylius_notification_plugin.registry.notification_channel.configuration_form_types"
+                 class="Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry" />
+
+        <!-- Event Listeners -->
+        <service id="eightlines_sylius_notification_plugin.event_listener.notification_event"
+                 class="EightLines\SyliusNotificationPlugin\EventListener\NotificationEventListener">
+            <argument type="service" id="messenger.default_bus" />
+        </service>
+
+        <!-- Notification Events -->
+        <service id="eightlines_sylius_notification_plugin.notification_event.sylius.customer_registered"
+                 class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\CustomerRegisteredNotificationEvent">
+            <argument type="service" id="sylius.context.channel.request_based"/>
+            <argument type="service" id="sylius.context.locale.request_based"/>
+
+            <tag name="eightlines_sylius_notification_plugin.notification_event" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.notification_event.sylius.order_placed"
+                 class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\OrderPlacedNotificationEvent">
+            <argument type="service" id="sylius.money_formatter"/>
+            <tag name="eightlines_sylius_notification_plugin.notification_event" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.notification_event.sylius.order_paid"
+                 class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\OrderPaidNotificationEvent">
+            <argument type="service" id="sylius.money_formatter"/>
+            <tag name="eightlines_sylius_notification_plugin.notification_event" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.notification_event.sylius.order_shipped"
+                 class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\OrderShippedNotificationEvent">
+            <argument type="service" id="sylius.money_formatter"/>
+            <tag name="eightlines_sylius_notification_plugin.notification_event" />
+        </service>
+
+        <!-- Notification Channels -->
+        <service id="eightlines_sylius_notification_plugin.notification_channel.mailer"
+                 class="EightLines\SyliusNotificationPlugin\NotificationChannel\Symfony\MailerNotificationChannel">
+            <argument type="service" id="mailer.mailer" />
+            <argument type="service" id="twig" />
+
+            <tag name="eightlines_sylius_notification_plugin.notification_channel" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.notification_channel.audit_log"
+                 class="EightLines\SyliusNotificationPlugin\NotificationChannel\Sylius\AuditLogNotificationChannel">
+            <argument type="service" id="eightlines_sylius_notification_plugin.factory.audit_log" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+
+            <tag name="eightlines_sylius_notification_plugin.notification_channel" />
+        </service>
+
+        <!-- Controllers -->
+        <service id="EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController"
+                 autowire="true"
+                 autoconfigure="true">
+            <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_event" />
+        </service>
+
+        <!-- Applicators -->
+        <service id="EightLines\SyliusNotificationPlugin\Applicator\NotificationVariablesApplicatorInterface"
+                 class="EightLines\SyliusNotificationPlugin\Applicator\NotificationVariablesApplicator">
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.applicator.notification_variables"
+                 alias="EightLines\SyliusNotificationPlugin\Applicator\NotificationVariablesApplicatorInterface" />
+
+        <!-- Resolvers -->
+        <service id="EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolverInterface"
+                 class="EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolver">
+            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_channels" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.resolver.notification_channel"
+                 alias="EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolverInterface" />
+
+        <service id="EightLines\SyliusNotificationPlugin\Resolver\NotificationEventResolverInterface"
+                 class="EightLines\SyliusNotificationPlugin\Resolver\NotificationEventResolver">
+            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_events" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.resolver.notification_event"
+                 alias="EightLines\SyliusNotificationPlugin\Resolver\NotificationEventResolverInterface" />
+
+        <service id="EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface"
+                 class="EightLines\SyliusNotificationPlugin\Resolver\NotificationResolver">
+            <argument type="service" id="eightlines_sylius_notification_plugin.repository.notification" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.resolver.notification"
+                 alias="EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface" />
+
+        <service id="EightLines\SyliusNotificationPlugin\Resolver\ComparatorResolverInterface"
+                 class="EightLines\SyliusNotificationPlugin\Resolver\ComparatorResolver">
+            <argument type="tagged_locator" tag="eightlines_sylius_notification_plugin.comparator" index-by="type" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.resolver.comparator"
+                 alias="EightLines\SyliusNotificationPlugin\Resolver\ComparatorResolverInterface" />
+
+        <!-- Command Handlers -->
+        <service id="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventInterface"
+                 class="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEvent">
+            <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification" />
+            <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_event" />
+            <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_channel" />
+            <argument type="service" id="eightlines_sylius_notification_plugin.applicator.notification_variables" />
+            <argument type="service" id="logger" />
+            <argument type="service" id="parameter_bag" />
+            <argument type="service" id="eightlines_sylius_notification_plugin.checker.notification_rules_eligibility" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.command.service.send_notification_by_event"
+                 alias="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventInterface" />
+
+        <service id="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventHandler">
+            <argument type="service" id="eightlines_sylius_notification_plugin.command.service.send_notification_by_event" />
+
+            <tag name="messenger.message_handler"
+                 handles="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventCommand" />
+        </service>
+
+        <!-- Factories -->
+        <service id="EightLines\SyliusNotificationPlugin\Factory\AuditLogFactoryInterface"
+                 class="EightLines\SyliusNotificationPlugin\Factory\AuditLogFactory">
+            <argument type="service" id="serializer" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.factory.audit_log"
+                 alias="EightLines\SyliusNotificationPlugin\Factory\AuditLogFactoryInterface" />
+
+        <!-- Validators -->
+        <service id="EightLines\SyliusNotificationPlugin\Validator\TemplateExistsValidator">
+            <argument type="service" id="twig" />
+            <tag name="validator.constraint_validator" />
+        </service>
+
+        <!-- Checkers -->
+        <service id="EightLines\SyliusNotificationPlugin\Checker\NotificationRulesEligibilityCheckerInterface"
+                 class="EightLines\SyliusNotificationPlugin\Checker\NotificationRulesEligibilityChecker">
+            <argument type="service" id="eightlines_sylius_notification_plugin.resolver.comparator" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.checker.notification_rules_eligibility"
+                 alias="EightLines\SyliusNotificationPlugin\Checker\NotificationRulesEligibilityCheckerInterface" />
+
+        <!-- Comparators -->
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\EqualToComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="equal_to" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\GreaterThanComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="greater_than" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\GreaterThanOrEqualToComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="greater_than_or_equal_to" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\LessThanComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="less_than" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\LessThanOrEqualToComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="less_than_or_equal_to" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\NotEqualToComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="not_equal_to" />
+        </service>
+    </services>
+</container>

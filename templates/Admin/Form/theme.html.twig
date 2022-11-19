@@ -1,0 +1,40 @@
+{% extends '@SyliusUi/Form/theme.html.twig' %}
+
+{% block eightlines_sylius_notification_plugin_admin_user_autocomplete_choice_row %}
+    {{ form_row(form, {
+        'remote_url': path('eightlines_sylius_notification_plugin_admin_ajax_admin_users_by_phrase'),
+        'load_edit_url': path('eightlines_sylius_notification_plugin_admin_ajax_admin_users_by_id')
+    }) }}
+{% endblock %}
+
+{% block notification_content_row %}
+    {% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+    {{ translationForm(form.translations) }}
+{% endblock %}
+
+{% block notification_action_widget %}
+    <div class="ui segment">
+        {{ form_row(form.channelCode) }}
+        {{ form_row(form.configuration) }}
+    </div>
+{% endblock %}
+
+{% block notification_rule_widget %}
+    <div class="ui segment">
+        <div class="ui three column stackable centered grid">
+            <div class="bottom aligned row">
+                <div class="six wide column field">
+                    {{ form_row(form.variableName) }}
+                </div>
+
+                <div class="four wide column field">
+                    {{ form_row(form.comparatorType) }}
+                </div>
+
+                <div class="six wide column field">
+                    {{ form_row(form.comparableValue) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

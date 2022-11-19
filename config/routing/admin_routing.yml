@@ -1,0 +1,83 @@
+eightlines_sylius_notification_plugin_notification:
+    resource: |
+        alias: eightlines_sylius_notification_plugin.notification
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        grid: eightlines_sylius_notification_plugin.notification
+        permission: true
+        redirect: update
+        except: ['show']
+        vars:
+            all:
+                templates:
+                    form: "@EightLinesSyliusNotificationPlugin/Admin/Notification/_form.html.twig"
+            index:
+                icon: linkify
+            update:
+                templates:
+                    form: "@EightLinesSyliusNotificationPlugin/Admin/Notification/_form.html.twig"
+    type: sylius.resource
+    
+eightlines_sylius_notification_plugin_audit_log:
+    resource: |
+        alias: eightlines_sylius_notification_plugin.audit_log
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        grid: eightlines_sylius_notification_plugin.audit_log
+        permission: true
+        redirect: update
+        except: ['create', 'delete', 'update']
+        vars:
+            index:
+                icon: linkify
+    type: sylius.resource    
+    
+eightlines_sylius_notification_plugin_admin_audit_log_show:
+    path: /audit-logs/{id}
+    methods: [GET]
+    defaults:
+        _controller: eightlines_sylius_notification_plugin.controller.audit_log::showAction
+        _sylius:
+            permission: true
+            template: "@EightLinesSyliusNotificationPlugin/Admin/AuditLog/show.html.twig"
+            criteria:
+                id: $id
+    
+eightlines_sylius_notification_plugin_admin_ajax_notification_event_variables_by_event:
+    path: /ajax/notification-event-variables/search-all
+    methods: [GET]
+    defaults:
+        _controller: EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController::findAll
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+
+eightlines_sylius_notification_plugin_admin_ajax_admin_users_by_phrase:
+    path: /ajax/admin-users/search-all
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.admin_user::indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findByPhrase
+                arguments:
+                    phrase: $phrase
+                    limit: "!!int %sylius.ajax.product.variant_autocomplete_limit%"
+
+eightlines_sylius_notification_plugin_admin_ajax_admin_users_by_id:
+    path: /ajax/admin-users/search
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.admin_user::indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findById
+                arguments:
+                    id: $id

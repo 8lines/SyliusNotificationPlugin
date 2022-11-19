@@ -1,0 +1,35 @@
+eightlines_sylius_notification_plugin:
+    ui:
+        notifications: Notifications
+        new_notification: Add new notification
+        edit_notification: Edit notification
+        event: Event
+        subject: Subject
+        message: Message
+        notification_channel: Notification channel
+        notification_channels: Notification channels
+        recipient: Recipient
+        recipients: Recipients
+        notify_primary_recipient: Should primary recipient receive this notification?
+        additional_recipients: Additional recipients
+        notification_messages: Notification messages
+        audit_logs: Audit Logs
+        audit_log: Audit Log
+        invoker: Invoker
+        context: Context
+        email_from: Email from
+        phone_number_from: Phone number from
+        template: Template
+        actions: Actions
+        rules: Rules
+        actions_and_rules: Actions & Rules
+        available_notification_variables: Available notification variables
+        variable_name: Variable name
+        comparable_value: Comparable value
+        comparator_type:
+            equal_to: '=='
+            not_equal_to: '!='
+            greater_than: '>'
+            greater_than_or_equal_to: '>='
+            less_than: '<'
+            less_than_or_equal_to: '<='

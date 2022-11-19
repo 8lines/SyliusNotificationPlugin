@@ -1,0 +1,23 @@
+EightLines\SyliusNotificationPlugin\Entity\Notification:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+              fields: [code]
+              groups: ['sylius']
+              message: 'eightlines_sylius_notification_plugin.notification.code.unique'
+    properties:
+        code:
+            - NotBlank:
+                  message: 'eightlines_sylius_notification_plugin.notification.code.not_blank'
+                  groups: ['sylius']
+            - Length:
+                  min: 2
+                  max: 250
+                  minMessage: 'eightlines_sylius_notification_plugin.notification.code.min_length'
+                  maxMessage: 'eightlines_sylius_notification_plugin.notification.code.max_length'
+                  groups: ['sylius']
+            - Regex:
+                  pattern: '/^[\w-]*$/'
+                  message: 'eightlines_sylius_notification_plugin.notification.code.regex'
+                  groups: ['sylius']
+        actions: 
+            - Valid: ~

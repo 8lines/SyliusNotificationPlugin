@@ -1,0 +1,4 @@
+EightLines\SyliusNotificationPlugin\Entity\NotificationContent:
+    properties:
+        translations:
+            - Valid: ~

@@ -1,0 +1,5 @@
+# config/packages/notifier.yaml
+framework:
+    notifier:
+        chatter_transports:
+            slack: '%env(SLACK_DSN)%'

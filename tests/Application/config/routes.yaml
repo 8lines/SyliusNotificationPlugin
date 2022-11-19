@@ -1,0 +1,3 @@
+sylius_notification_plugin_admin:
+    resource: "@EightLinesSyliusNotificationPlugin/config/routing/admin_routing.yml"
+    prefix: /admin

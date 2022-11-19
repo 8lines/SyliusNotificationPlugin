@@ -1,0 +1,6 @@
+sylius_user:
+    resources:
+        admin:
+            user: 
+                classes:
+                    repository: EightLines\SyliusNotificationPlugin\Repository\Sylius\AdminUserRepository

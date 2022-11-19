@@ -1,0 +1,9 @@
+imports:
+    - { resource: 'config/**/*.yml' }
+
+jms_serializer:
+    metadata:
+        directories:
+            custom-sylius-admin-user:
+                namespace_prefix: "Sylius\\Component\\Core\\Model"
+                path: "@EightLinesSyliusNotificationPlugin/../config/serializer"

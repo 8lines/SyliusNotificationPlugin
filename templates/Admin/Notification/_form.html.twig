@@ -1,0 +1,67 @@
+{% form_theme form '@EightLinesSyliusNotificationPlugin/Admin/Form/theme.html.twig' %}
+
+<div class="ui one column stackable grid">
+    <div class="column">
+        {{ form_errors(form) }}
+
+        <div class="ui segment">
+            <div class="ui two column stackable grid">
+                <div class="row">
+                    <div class="column field">
+                        {{ form_row(form.code) }}
+                    </div>
+
+                    <div class="column field">
+                        {{ form_row(form.eventCode) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column field">
+                        {{ form_row(form.enabled) }}
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="ui dividing header">
+                {{ 'sylius.ui.channels'|trans }}
+            </h4>
+
+            <div class="one field">
+                {{ form_row(form.channels) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="ui segment">
+            <h4 class="ui dividing header">
+                {{ 'eightlines_sylius_notification_plugin.ui.actions_and_rules'|trans }}
+            </h4>
+
+            <div data-type="notification-variables" class="ui segment">
+                <h5 class="ui header">
+                    {{ 'eightlines_sylius_notification_plugin.ui.available_notification_variables'|trans }}
+                </h5>
+
+                <div data-type="loader" class="ui inverted dimmer">
+                    <div class="ui loader"></div>
+                </div>
+
+                <div data-type="notification-variables-list"></div>
+            </div>
+
+            <div class="ui segment">
+                <div class="ui two column stackable grid">
+                    <div id="rules" class="column field">
+                        {{ form_row(form.rules) }}
+                    </div>
+
+                    <div id="actions" class="column field">
+                        {{ form_row(form.actions) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

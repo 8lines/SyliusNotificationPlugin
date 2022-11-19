@@ -1,0 +1,39 @@
+sylius_resource:
+    resources:
+        eightlines_sylius_notification_plugin.audit_log:
+            classes:
+                model: EightLines\SyliusNotificationPlugin\Entity\AuditLog
+                interface: EightLines\SyliusNotificationPlugin\Entity\AuditLogInterface
+                repository: EightLines\SyliusNotificationPlugin\Repository\AuditLogRepository
+                factory: EightLines\SyliusNotificationPlugin\Factory\AuditLogFactory
+        eightlines_sylius_notification_plugin.notification:
+            classes:
+                model: EightLines\SyliusNotificationPlugin\Entity\Notification
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationInterface
+                form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationType
+                repository: EightLines\SyliusNotificationPlugin\Repository\NotificationRepository
+        eightlines_sylius_notification_plugin.notification_rule:
+            classes:
+                model: EightLines\SyliusNotificationPlugin\Entity\NotificationRule
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationRuleInterface
+                form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationRuleType
+        eightlines_sylius_notification_plugin.notification_action:
+            classes:
+                model: EightLines\SyliusNotificationPlugin\Entity\NotificationAction
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationActionInterface
+                form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationActionType
+        eightlines_sylius_notification_plugin.notification_configuration:
+            classes:
+                model: EightLines\SyliusNotificationPlugin\Entity\NotificationConfiguration
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationConfigurationInterface
+                form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationConfigurationType
+        eightlines_sylius_notification_plugin.notification_content:
+            classes:
+                model: EightLines\SyliusNotificationPlugin\Entity\NotificationContent
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationContentInterface
+                form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationContentType
+            translation:
+                classes:
+                    model: EightLines\SyliusNotificationPlugin\Entity\NotificationContentTranslation
+                    interface: EightLines\SyliusNotificationPlugin\Entity\NotificationContentTranslationInterface
+                    form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationContentTranslationType

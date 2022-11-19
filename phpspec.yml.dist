@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: EightLines\SyliusNotificationPlugin
+        psr4_prefix: EightLines\SyliusNotificationPlugin
