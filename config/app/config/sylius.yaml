@@ -1,0 +1,5 @@
+sylius_promotion:
+    resources:
+        promotion:
+            classes:
+                repository: EightLines\SyliusCartLinksPlugin\Repository\Sylius\PromotionRepository

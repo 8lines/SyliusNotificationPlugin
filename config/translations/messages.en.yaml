@@ -1,0 +1,12 @@
+cart_links:
+    ui:
+        cart_links: Cart links
+        manage_your_cart_links: Manage your Cart links
+        new_cart_link: New cart link
+        edit_cart_link: Edit cart link
+    form:
+        add_product_variant: Add product variant
+        apply_promotion: Apply promotion
+        cart_link_action:
+            apply_promotion:
+                promotion: Promotion

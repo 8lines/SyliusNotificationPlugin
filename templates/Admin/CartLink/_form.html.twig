@@ -1,0 +1,25 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationFormWithSlug %}
+
+{% form_theme form '@EightLinesSyliusCartLinksPlugin/Admin/Form/theme.html.twig' %}
+
+<div class="ui two column stackable grid">
+    <div class="column">
+        {{ form_errors(form) }}
+        <div class="ui segment">
+            <div class="one field">
+                {{ form_row(form.code) }}
+                {{ form_row(form.channels) }}
+            </div>
+            <div class="one field">
+                {{ translationFormWithSlug(form.translations, '@SyliusAdmin/Product/_slugField.html.twig', resource) }}
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="ui segment">
+            <div class="column" id="actions">
+                {{ form_row(form.actions) }}
+            </div>
+        </div>
+    </div>
+</div>

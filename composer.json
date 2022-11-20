@@ -1,7 +1,7 @@
 {
-    "name": "sylius/plugin-skeleton",
+    "name": "8lines/sylius-cart-links-plugin",
     "type": "sylius-plugin",
-    "description": "Acme example plugin for Sylius.",
+    "description": "Cart links plugin for Sylius.",
     "keywords": [
         "sylius",
         "sylius-plugin"
@@ -58,8 +58,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Acme\\SyliusExamplePlugin\\": "src/",
-            "Tests\\Acme\\SyliusExamplePlugin\\": "tests/"
+            "EightLines\\SyliusCartLinksPlugin\\": "src/",
+            "Tests\\EightLines\\SyliusCartLinksPlugin\\": "tests/"
         }
     },
     "autoload-dev": {

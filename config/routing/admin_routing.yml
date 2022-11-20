@@ -1,0 +1,48 @@
+eightlines_cart_links_cart_link:
+    resource: |
+        alias: cart_links.cart_link
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        grid: cart_links_cart_link
+        permission: true
+        redirect: update
+        vars:
+            all:
+                subheader: cart_links.ui.manage_your_cart_links
+                templates:
+                    form: "@EightLinesSyliusCartLinksPlugin/Admin/CartLink/_form.html.twig"
+            index:
+                icon: linkify
+            update:
+                templates:
+                    form: "@EightLinesSyliusCartLinksPlugin/Admin/CartLink/_form.html.twig"
+    type: sylius.resource
+
+eightlines_admin_ajax_promotions_by_phrase:
+    path: /ajax/promotions/search-all
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.promotion::indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Default]
+            permission: true
+            repository:
+                method: findByPhrase
+                arguments:
+                    phrase: $phrase
+                    limit: "!!int %sylius.ajax.product.variant_autocomplete_limit%"
+
+eightlines_admin_ajax_promotion_by_code:
+    path: /ajax/promotions/search
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.promotion::indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Default]
+            permission: true
+            repository:
+                method: findByCode
+                arguments:
+                    code: $code

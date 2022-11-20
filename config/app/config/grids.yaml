@@ -1,0 +1,14 @@
+sylius_grid:
+    grids:
+        cart_links_cart_link:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%cart_links.model.cart_link.class%"
+            sorting:
+                code: asc
+            fields:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                    sortable: ~
