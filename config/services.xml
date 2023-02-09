@@ -14,7 +14,7 @@
     </parameters>
 
     <services>
-        <service id="EightLines\SyliusCartLinksPlugin\Controller\GreetingController" autowire="true" autoconfigure="true" public="true">
+        <service id="EightLines\SyliusCartLinksPlugin\Controller\CartLinkController" autowire="true" autoconfigure="true" public="true">
             <argument type="service" key="$cartItemFactory" id="sylius.custom_factory.order_item" />
         </service>
 

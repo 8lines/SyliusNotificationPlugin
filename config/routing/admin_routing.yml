@@ -40,7 +40,7 @@ eightlines_admin_ajax_promotion_by_code:
         _controller: sylius.controller.promotion::indexAction
         _format: json
         _sylius:
-            serialization_groups: [Default]
+            serialization_groups: [Default] # TODO: Find a way to override the Serializer model and change this with "Autocomplete"
             permission: true
             repository:
                 method: findByCode

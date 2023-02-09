@@ -1,11 +1,4 @@
-# Delete these routes and define your own shop routes here
-
-8lines_sylius_cart_links_static_welcome:
-    path: /static-welcome/{productCode}
+8lines_sylius_cart_links_cart_link:
+    path: /cart-link/{code}
     defaults:
-        _controller: EightLines\SyliusCartLinksPlugin\Controller\GreetingController::staticallyGreetAction
-
-8lines_sylius_cart_links_dynamic_welcome:
-    path: /dynamic-welcome/{name}
-    defaults:
-        _controller: EightLines\SyliusCartLinksPlugin\Controller\GreetingController::dynamicallyGreetAction
+        _controller: EightLines\SyliusCartLinksPlugin\Controller\CartLinkController

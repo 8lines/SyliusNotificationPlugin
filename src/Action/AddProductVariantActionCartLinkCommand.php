@@ -8,7 +8,7 @@ use EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface;
 
 final class AddProductVariantActionCartLinkCommand implements CartLinkActionCommandInterface
 {
-    public function execute($subject, array $configuration, CartLinkInterface $cartLink): bool
+    public function execute($subject, array $actionConfiguration, CartLinkInterface $cartLink): bool
     {
         return true;
     }
