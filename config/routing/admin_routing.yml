@@ -6,6 +6,7 @@ eightlines_cart_links_cart_link:
         grid: cart_links_cart_link
         permission: true
         redirect: update
+        except: ['show']
         vars:
             all:
                 subheader: cart_links.ui.manage_your_cart_links
