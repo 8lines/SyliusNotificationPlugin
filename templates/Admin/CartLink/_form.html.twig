@@ -5,16 +5,20 @@
 <div class="ui two column stackable grid">
     <div class="column">
         {{ form_errors(form) }}
+
         <div class="ui segment">
             <div class="one field">
                 {{ form_row(form.code) }}
                 {{ form_row(form.channels) }}
+                {{ form_row(form.emptyCart) }}
             </div>
+
             <div class="one field">
                 {{ translationFormWithSlug(form.translations, '@SyliusAdmin/Product/_slugField.html.twig', resource) }}
             </div>
         </div>
     </div>
+
     <div class="column">
         <div class="ui segment">
             <div class="column" id="actions">
