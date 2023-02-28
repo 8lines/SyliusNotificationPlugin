@@ -8,7 +8,6 @@ use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
 
 final class AddProductVariantActionCartLinkCommand implements CartLinkActionCommandInterface
 {
@@ -16,7 +15,6 @@ final class AddProductVariantActionCartLinkCommand implements CartLinkActionComm
         private ProductVariantRepositoryInterface $productVariantRepository,
         private OrderItemQuantityModifierInterface $itemQuantityModifier,
         private CartItemFactoryInterface $cartItemFactory,
-        private OrderProcessorInterface $orderProcessor,
     ) { }
 
     public function execute(OrderInterface $order, array $actionConfiguration): bool
@@ -28,8 +26,6 @@ final class AddProductVariantActionCartLinkCommand implements CartLinkActionComm
             $cartItem->setVariant($productVariant);
             $this->itemQuantityModifier->modify($cartItem, $cartItem->getQuantity() + 1);
         }
-
-        $this->orderProcessor->process($order);
 
         return true;
     }

@@ -4,33 +4,24 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusCartLinksPlugin\Action;
 
-use Sylius\Component\Channel\Context\ChannelContextInterface;
+use EightLines\SyliusCartLinksPlugin\Repository\Sylius\PromotionRepository;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Repository\PromotionRepositoryInterface;
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
 
 final class ApplyPromotionActionCartLinkCommand implements CartLinkActionCommandInterface
 {
     public function __construct(
-        private PromotionRepositoryInterface $promotionRepository,
-        private ChannelContextInterface $channelContext,
-        private OrderProcessorInterface $orderProcessor,
+        private PromotionRepository $promotionRepository,
     ) { }
 
     public function execute(OrderInterface $order, array $actionConfiguration): bool
     {
-        $promotion = $this->promotionRepository->findActiveByChannel($this->channelContext->getChannel());
+        $promotion = $this->promotionRepository->findByPhrase($actionConfiguration['promotion_code'], 1);
 
-        foreach ($promotion as $promotionItem) {
-            if ($promotionItem->getCode() !== $actionConfiguration['promotion_code']) {
-                continue;
-            }
-
-            $order->addPromotion($promotionItem);
+        if (count($promotion) < 1 || null === $promotion[0]) {
+            return true;
         }
 
-        $this->orderProcessor->process($order);
-
+        $order->addPromotion($promotion[0]);
         return true;
     }
 }
