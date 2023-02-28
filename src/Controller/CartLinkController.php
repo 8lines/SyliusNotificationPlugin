@@ -30,6 +30,6 @@ final class CartLinkController extends AbstractController
         $cart = $this->cartContext->getCart();
         $this->cartLinkProcessor->process($cart, $cartLink);
 
-        return $this->json([], Response::HTTP_NO_CONTENT);
+        return $this->redirectToRoute('sylius_shop_cart_summary');
     }
 }
