@@ -23,11 +23,6 @@ final class CartLinkActionApplicator implements CartLinkActionApplicatorInterfac
 
     public function apply(OrderInterface $order, CartLinkInterface $cartLink): void
     {
-        if (true === $cartLink->getEmptyCart()) {
-            $order->clearItems();
-            // TODO: handle remove promotion (?)
-        }
-
         foreach ($cartLink->getActions() as $action) {
             $this->handleAction($action, $order);
         }

@@ -22,8 +22,6 @@ final class CartLink implements CartLinkInterface
 
     private ?string $code = null;
 
-    private bool $emptyCart = false;
-
     /**
      * @var Collection|ChannelInterface[]
      *
@@ -87,14 +85,6 @@ final class CartLink implements CartLinkInterface
         }
 
         $this->channels->add($channel);
-    }
-
-    public function setEmptyCart(bool $emptyCart): void {
-        $this->emptyCart = $emptyCart;
-    }
-
-    public function getEmptyCart(): bool {
-        return $this->emptyCart;
     }
 
     public function getActions(): Collection

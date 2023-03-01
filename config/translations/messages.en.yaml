@@ -7,7 +7,6 @@ cart_links:
     form:
         add_product_variant: Add product variant
         apply_promotion: Apply promotion
-        whether_empty_cart: Empty cart after using cart link?
         cart_link_action:
             apply_promotion:
                 promotion: Promotion

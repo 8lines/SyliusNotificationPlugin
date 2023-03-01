@@ -8,7 +8,6 @@ use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class CartLinkType extends AbstractResourceType
@@ -21,10 +20,6 @@ final class CartLinkType extends AbstractResourceType
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'sylius.form.product.channels',
-            ])
-            ->add('emptyCart', CheckboxType::class, [
-                'label' => 'cart_links.form.whether_empty_cart',
-                'required' => false,
             ])
             ->add('translations', ResourceTranslationsType::class, [
                 'entry_type' => CartLinkTranslationType::class,
