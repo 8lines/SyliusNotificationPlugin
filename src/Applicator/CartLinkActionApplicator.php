@@ -32,7 +32,8 @@ final class CartLinkActionApplicator implements CartLinkActionApplicatorInterfac
         $this->entityManager->flush();
     }
 
-    private function handleAction(CartLinkActionInterface $action, OrderInterface $order): void {
+    private function handleAction(CartLinkActionInterface $action, OrderInterface $order): void
+    {
         if ('add_product_variant' === $action->getType()) {
             $this->addProductVariantCommand->execute($order, $action->getConfiguration());
 
