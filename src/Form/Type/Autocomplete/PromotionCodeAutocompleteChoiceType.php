@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class PromotionAutocompleteChoiceType extends AbstractType
+final class PromotionCodeAutocompleteChoiceType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -32,7 +32,7 @@ final class PromotionAutocompleteChoiceType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'eightlines_sylius_cart_links_promotion_autocomplete_choice';
+        return 'eightlines_sylius_cart_links_promotion_code_autocomplete_choice';
     }
 
     public function getParent(): string

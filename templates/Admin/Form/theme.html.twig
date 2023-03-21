@@ -4,6 +4,10 @@
     {{ form_row(form, {'remote_url': path('sylius_admin_ajax_all_product_variants_by_phrase'), 'load_edit_url': path('sylius_admin_ajax_all_product_variants_by_codes')}) }}
 {% endblock %}
 
-{% block eightlines_sylius_cart_links_promotion_autocomplete_choice_row %}
+{% block eightlines_sylius_cart_links_promotion_code_autocomplete_choice_row %}
     {{ form_row(form, {'remote_url': path('eightlines_admin_ajax_promotions_by_phrase'), 'load_edit_url': path('eightlines_admin_ajax_promotion_by_code')}) }}
+{% endblock %}
+
+{% block eightlines_sylius_cart_links_promotion_coupon_autocomplete_choice_row %}
+    {{ form_row(form, {'remote_url': path('eightlines_admin_ajax_promotion_coupons_by_phrase'), 'load_edit_url': path('eightlines_admin_ajax_promotion_coupon_by_code')}) }}
 {% endblock %}

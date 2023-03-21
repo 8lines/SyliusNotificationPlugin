@@ -47,3 +47,32 @@ eightlines_admin_ajax_promotion_by_code:
                 method: findByCode
                 arguments:
                     code: $code
+                    
+eightlines_admin_ajax_promotion_coupons_by_phrase:
+    path: /ajax/promotions/coupons/search-all
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.promotion_coupon::indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Default]
+            permission: true
+            repository:
+                method: findByPhrase
+                arguments:
+                    phrase: $phrase
+                    limit: "!!int %sylius.ajax.product.variant_autocomplete_limit%"
+
+eightlines_admin_ajax_promotion_coupon_by_code:
+    path: /ajax/promotions/coupons/search
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.promotion_coupon::indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Default] # TODO: Find a way to override the Serializer model and change this with "Autocomplete"
+            permission: true
+            repository:
+                method: findByCode
+                arguments:
+                    code: $code
