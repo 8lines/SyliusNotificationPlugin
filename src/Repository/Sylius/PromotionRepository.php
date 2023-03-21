@@ -17,7 +17,7 @@ final class PromotionRepository extends BasePromotionRepository
                 'o.name LIKE :phrase',
                 'o.code LIKE :phrase',
             ))
-            ->setParameter('phrase', $phrase)
+            ->setParameter('phrase', '%' . $phrase . '%')
             ->orderBy('o.priority', 'ASC')
             ->setMaxResults($limit)
             ->getQuery()
