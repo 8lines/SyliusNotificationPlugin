@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EightLines\SyliusCartLinksPlugin\Entity;
 
 use Sylius\Component\Resource\Model\TimestampableTrait;
+use Sylius\Component\Resource\Model\ToggleableTrait;
 use Sylius\Component\Resource\Model\TranslatableTrait;
 use Sylius\Component\Resource\Model\TranslationInterface;
 
@@ -15,6 +16,8 @@ final class CartLink implements CartLinkInterface
     use ChannelsAwareTrait;
 
     use ActionsAwareTrait;
+
+    use ToggleableTrait;
 
     use TranslatableTrait {
         __construct as private initializeTranslationsCollection;
