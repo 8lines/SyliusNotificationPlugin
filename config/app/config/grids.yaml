@@ -12,10 +12,6 @@ sylius_grid:
                 code: asc
             limits: [10, 25, 50]
             fields:
-                id:
-                    type: string
-                    label: sylius.ui.id
-                    sortable: id
                 code:
                     type: string
                     label: sylius.ui.code
@@ -28,6 +24,10 @@ sylius_grid:
                     type: string
                     label: sylius.ui.slug
                     sortable: translation.slug
+                used:
+                    type: string
+                    label: sylius.ui.used
+                    sortable: used
             filters:
                 search:
                     type: string
