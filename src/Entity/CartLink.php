@@ -14,6 +14,7 @@ use Sylius\Component\Resource\Model\TranslationInterface;
 final class CartLink implements CartLinkInterface
 {
     use TimestampableTrait;
+
     use TranslatableTrait {
         __construct as private initializeTranslationsCollection;
     }
