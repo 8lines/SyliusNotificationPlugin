@@ -9,7 +9,7 @@ use Sylius\Component\Resource\Model\SlugAwareInterface;
 
 interface CartLinkTranslationInterface extends ResourceInterface, SlugAwareInterface
 {
-    public function getName(): string;
+    public function getName(): ?string;
 
     public function setName(string $name): void;
 }

@@ -6,9 +6,8 @@ namespace EightLines\SyliusCartLinksPlugin\Entity;
 
 use Sylius\Component\Resource\Model\AbstractTranslation;
 use Sylius\Component\Resource\Model\ResourceInterface;
-use Sylius\Component\Resource\Model\TranslatableTrait;
 
-final class CartLinkTranslation extends AbstractTranslation implements ResourceInterface
+final class CartLinkTranslation extends AbstractTranslation implements ResourceInterface, CartLinkTranslationInterface
 {
     private int $id;
 

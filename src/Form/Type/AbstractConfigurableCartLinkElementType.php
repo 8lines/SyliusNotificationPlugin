@@ -7,7 +7,6 @@ namespace EightLines\SyliusCartLinksPlugin\Form\Type;
 use EightLines\SyliusCartLinksPlugin\Entity\CartLinkActionInterface;
 use Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistryInterface;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
-use Sylius\Component\Promotion\Model\ConfigurablePromotionElementInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -56,14 +55,13 @@ abstract class AbstractConfigurableCartLinkElementType extends AbstractResourceT
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    protected function getRegistryIdentifier(FormInterface $form, $data = null): ?string
     {
-        parent::configureOptions($resolver);
+        if ($data instanceof CartLinkActionInterface && null !== $data->getType()) {
+            return $data->getType();
+        }
 
-        $resolver
-            ->setDefault('configuration_type', null)
-            ->setAllowedTypes('configuration_type', ['string', 'null'])
-        ;
+        return $form->getConfig()->getOption('configuration_type');
     }
 
     protected function addConfigurationFields(FormInterface $form, string $configurationType): void
@@ -73,13 +71,13 @@ abstract class AbstractConfigurableCartLinkElementType extends AbstractResourceT
         ]);
     }
 
-    protected function getRegistryIdentifier(FormInterface $form, $data = null): ?string
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        dump('pre', $data);
-        if ($data instanceof CartLinkActionInterface && null !== $data->getType()) {
-            return $data->getType();
-        }
+        parent::configureOptions($resolver);
 
-        return $form->getConfig()->getOption('configuration_type');
+        $resolver
+            ->setDefault('configuration_type', null)
+            ->setAllowedTypes('configuration_type', ['string', 'null'])
+        ;
     }
 }

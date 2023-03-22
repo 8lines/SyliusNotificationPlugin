@@ -17,7 +17,8 @@ class CartLinkRepository extends EntityRepository implements CartLinkRepositoryI
         string $slug,
         ?string $localeCode,
         string $channelCode
-    ): ?CartLinkInterface {
+    ): ?CartLinkInterface
+    {
         return $this->createQueryBuilder('o')
             ->leftJoin('o.translations', 'translation')
             ->innerJoin('o.channels', 'channels')

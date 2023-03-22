@@ -77,11 +77,6 @@ final class CartLink implements CartLinkInterface
         return $this->channels;
     }
 
-    public function hasChannel(ChannelInterface $channel): bool
-    {
-        return $this->channels->contains($channel);
-    }
-
     public function addChannel(ChannelInterface $channel): void
     {
         if ($this->hasChannel($channel)) {
@@ -89,6 +84,11 @@ final class CartLink implements CartLinkInterface
         }
 
         $this->channels->add($channel);
+    }
+
+    public function hasChannel(ChannelInterface $channel): bool
+    {
+        return $this->channels->contains($channel);
     }
 
     public function removeChannel(ChannelInterface $channel): void
@@ -116,6 +116,11 @@ final class CartLink implements CartLinkInterface
         $this->actions->add($action);
     }
 
+    public function hasAction(CartLinkActionInterface $action): bool
+    {
+        return $this->actions->contains($action);
+    }
+
     public function removeAction(CartLinkActionInterface $action): void
     {
         if (!$this->hasAction($action)) {
@@ -123,11 +128,6 @@ final class CartLink implements CartLinkInterface
         }
 
         $this->actions->removeElement($action);
-    }
-
-    public function hasAction(CartLinkActionInterface $action): bool
-    {
-        return $this->actions->contains($action);
     }
 
     protected function createTranslation(): TranslationInterface

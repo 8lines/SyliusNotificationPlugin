@@ -38,6 +38,16 @@ final class CartLinkActionApplicator implements CartLinkActionApplicatorInterfac
         $this->entityManager->flush();
     }
 
+    private function processEmptyCart(OrderInterface $order): void
+    {
+        $order->clearItems();
+        $order->setPromotionCoupon(null);
+
+        foreach ($order->getPromotions() as $promotionItem) {
+            $order->removePromotion($promotionItem);
+        }
+    }
+
     private function handleAction(CartLinkActionInterface $action, OrderInterface $order): void
     {
         if ('add_product_variant' === $action->getType()) {
@@ -48,16 +58,6 @@ final class CartLinkActionApplicator implements CartLinkActionApplicatorInterfac
 
         } elseif ('apply_random_promotion_coupon' === $action->getType()) {
             $this->applyRandomPromotionCouponCommand->execute($order, $action->getConfiguration());
-        }
-    }
-
-    private function processEmptyCart(OrderInterface $order): void
-    {
-        $order->clearItems();
-        $order->setPromotionCoupon(null);
-
-        foreach ($order->getPromotions() as $promotionItem) {
-            $order->removePromotion($promotionItem);
         }
     }
 }
