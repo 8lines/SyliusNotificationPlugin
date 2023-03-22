@@ -5,18 +5,35 @@ sylius_grid:
                 name: doctrine/orm
                 options:
                     class: "%cart_links.model.cart_link.class%"
+                    repository:
+                        method: createListQueryBuilder
+                        arguments: ["%locale%"]
             sorting:
                 code: asc
+            limits: [10, 25, 50]
             fields:
                 id:
                     type: string
                     label: sylius.ui.id
-                    sortable: ~
+                    sortable: id
                 code:
                     type: string
                     label: sylius.ui.code
-                    sortable: ~
-                
+                    sortable: code
+                translation.name:
+                    type: string
+                    label: sylius.ui.name
+                    sortable: translation.name
+                translation.slug:
+                    type: string
+                    label: sylius.ui.slug
+                    sortable: translation.slug
+            filters:
+                search:
+                    type: string
+                    label: sylius.ui.search
+                    options:
+                        fields: [code, translation.name, translation.slug]
             actions:
                 main:
                     create:
@@ -25,5 +42,8 @@ sylius_grid:
                 item:
                     update:
                         type: update
+                    delete:
+                        type: delete
+                bulk:
                     delete:
                         type: delete

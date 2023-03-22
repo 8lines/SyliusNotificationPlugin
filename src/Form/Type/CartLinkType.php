@@ -22,6 +22,10 @@ final class CartLinkType extends AbstractResourceType
                 'expanded' => true,
                 'label' => 'sylius.form.product.channels',
             ])
+            ->add('enabled', CheckboxType::class, [
+                'label' => 'sylius.ui.enabled',
+                'required' => false,
+            ])
             ->add('emptyCart', CheckboxType::class, [
                 'label' => 'cart_links.form.whether_empty_cart',
                 'required' => false,
