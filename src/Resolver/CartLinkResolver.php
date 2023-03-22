@@ -19,7 +19,7 @@ final class CartLinkResolver implements CartLinkResolverInterface
 
     public function findBySlug(string $slug): ?CartLinkInterface
     {
-        $cartLink = $this->cartLinkRepository->findOneBySlugAndChannelCode(
+        $cartLink = $this->cartLinkRepository->findOneAvailableBySlugAndChannelCode(
             $slug,
             $this->localeContext->getLocaleCode(),
             $this->channelContext->getChannel()->getCode(),

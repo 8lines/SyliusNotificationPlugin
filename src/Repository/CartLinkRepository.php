@@ -23,19 +23,26 @@ class CartLinkRepository extends EntityRepository implements CartLinkRepositoryI
     /**
      * @throws NonUniqueResultException
      */
-    public function findOneBySlugAndChannelCode(
+    public function findOneAvailableBySlugAndChannelCode(
         string $slug,
         ?string $localeCode,
         string $channelCode
     ): ?CartLinkInterface
     {
+        $expr = $this->getEntityManager()->getExpressionBuilder();
+
         return $this->createQueryBuilder('o')
             ->leftJoin('o.translations', 'translation')
             ->innerJoin('o.channels', 'channels')
-            ->where('translation.locale = :localeCode')
-            ->andWhere('translation.slug = :slug')
-            ->andWhere('channels.code = :channelCode')
-            ->andWhere('o.enabled = true')
+            ->where($expr->andX(
+                'o.enabled = true',
+                'translation.slug = :slug',
+                'channels.code = :channelCode',
+                'translation.locale = :localeCode',
+                $expr->orX('o.usageLimit IS NULL', 'o.usageLimit > o.used'),
+                $expr->orX('o.startsAt IS NULL', 'o.startsAt <= CURRENT_DATE()'),
+                $expr->orX('o.endsAt IS NULL', 'o.endsAt > CURRENT_DATE()'),
+            ))
             ->setParameter('localeCode', $localeCode)
             ->setParameter('slug', $slug)
             ->setParameter('channelCode', $channelCode)

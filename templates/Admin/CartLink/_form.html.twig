@@ -7,12 +7,53 @@
         {{ form_errors(form) }}
 
         <div class="ui segment">
-            <div class="one field">
-                {{ form_row(form.code) }}
-                {{ form_row(form.enabled) }}
-                {{ form_row(form.channels) }}
-                {{ form_row(form.emptyCart) }}
+            <div class="ui two column stackable grid">
+                <div class="column">
+                    <div class="field">
+                        {{ form_row(form.code) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_row(form.enabled) }}
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="field">
+                        {{ form_row(form.usageLimit) }}
+                    </div>
+
+                    <div class="field">
+                        {{ form_row(form.emptyCart) }}
+                    </div>
+                </div>
             </div>
+
+            <h4 class="ui dividing header">
+                {{ 'sylius.ui.channels'|trans }}
+            </h4>
+
+            <div class="one field">
+                {{ form_row(form.channels) }}
+            </div>
+
+            <h4 class="ui dividing header">
+                {{ 'sylius.ui.date_range'|trans }}
+            </h4>
+
+            <div class="two fields">
+                <div class="field">
+                    {{ form_row(form.startsAt) }}
+                </div>
+
+                <div class="field">
+                    {{ form_row(form.endsAt) }}
+                </div>
+            </div>
+
+            <h4 class="ui dividing header">
+                {{ 'sylius.ui.translations'|trans }}
+            </h4>
 
             <div class="one field">
                 {{ translationFormWithSlug(form.translations, '@SyliusAdmin/Product/_slugField.html.twig', resource) }}
