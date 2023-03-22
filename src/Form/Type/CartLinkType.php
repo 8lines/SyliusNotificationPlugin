@@ -53,7 +53,7 @@ final class CartLinkType extends AbstractResourceType
                 'label' => 'sylius.form.product.translations',
             ])
             ->add('actions', CartLinkActionCollectionType::class, [
-                'label' => 'sylius.form.promotion.actions',
+                'label' => false,
                 'button_add_label' => 'sylius.form.promotion.add_action',
             ])
         ;
