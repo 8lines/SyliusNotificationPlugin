@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusCartLinksPlugin\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Resource\Model\TimestampableTrait;
+use Sylius\Component\Resource\Model\ToggleableTrait;
 use Sylius\Component\Resource\Model\TranslatableTrait;
 use Sylius\Component\Resource\Model\TranslationInterface;
 
 final class CartLink implements CartLinkInterface
 {
     use TimestampableTrait;
+
+    use ChannelsAwareTrait;
+
+    use ActionsAwareTrait;
+
+    use ToggleableTrait;
+
     use TranslatableTrait {
         __construct as private initializeTranslationsCollection;
     }
@@ -24,26 +29,19 @@ final class CartLink implements CartLinkInterface
 
     private bool $emptyCart = false;
 
-    /**
-     * @var Collection|ChannelInterface[]
-     *
-     * @psalm-var Collection<array-key, ChannelInterface>
-     */
-    private Collection $channels;
+    private ?int $usageLimit;
 
-    /**
-     * @var Collection|CartLinkActionInterface[]
-     *
-     * @psalm-var Collection<array-key, CartLinkInterface>
-     */
-    private Collection $actions;
+    private int $used = 0;
+
+    protected ?\DateTimeInterface $startsAt;
+
+    protected ?\DateTimeInterface $endsAt;
 
     public function __construct()
     {
         $this->initializeTranslationsCollection();
-
-        $this->channels = new ArrayCollection();
-        $this->actions = new ArrayCollection();
+        $this->initializeChannelsCollection();
+        $this->initializeActionsCollection();
     }
 
     public function getId(): ?int
@@ -71,66 +69,58 @@ final class CartLink implements CartLinkInterface
         $this->emptyCart = $emptyCart;
     }
 
-    public function getChannels(): Collection
-    {
-        return $this->channels;
-    }
-
-    public function hasChannel(ChannelInterface $channel): bool
-    {
-        return $this->channels->contains($channel);
-    }
-
-    public function addChannel(ChannelInterface $channel): void
-    {
-        if ($this->hasChannel($channel)) {
-            return;
-        }
-
-        $this->channels->add($channel);
-    }
-
-    public function removeChannel(ChannelInterface $channel): void
-    {
-        if (!$this->hasChannel($channel)) {
-            return;
-        }
-
-        $this->channels->add($channel);
-    }
-
-    public function getActions(): Collection
-    {
-        return $this->actions;
-    }
-
-    public function addAction(CartLinkActionInterface $action): void
-    {
-        if ($this->hasAction($action)) {
-            return;
-        }
-
-        $action->setCartLink($this);
-
-        $this->actions->add($action);
-    }
-
-    public function removeAction(CartLinkActionInterface $action): void
-    {
-        if (!$this->hasAction($action)) {
-            return;
-        }
-
-        $this->actions->removeElement($action);
-    }
-
-    public function hasAction(CartLinkActionInterface $action): bool
-    {
-        return $this->actions->contains($action);
-    }
-
     protected function createTranslation(): TranslationInterface
     {
         return new CartLinkTranslation();
+    }
+
+    public function getUsageLimit(): ?int
+    {
+        return $this->usageLimit;
+    }
+
+    public function setUsageLimit(?int $usageLimit): void
+    {
+        $this->usageLimit = $usageLimit;
+    }
+
+    public function getUsed(): int
+    {
+        return $this->used;
+    }
+
+    public function setUsed(int $used): void
+    {
+        $this->used = $used;
+    }
+
+    public function incrementUsed(): void
+    {
+        $this->used++;
+    }
+
+    public function decrementUsed(): void
+    {
+        $this->used--;
+    }
+
+    public function getStartsAt(): ?\DateTimeInterface
+    {
+        return $this->startsAt;
+    }
+
+    public function setStartsAt(?\DateTimeInterface $startsAt): void
+    {
+        $this->startsAt = $startsAt;
+    }
+
+    public function getEndsAt(): ?\DateTimeInterface
+    {
+        return $this->endsAt;
+    }
+
+    public function setEndsAt(?\DateTimeInterface $endsAt): void
+    {
+        $this->endsAt = $endsAt;
     }
 }

@@ -5,35 +5,28 @@ declare(strict_types=1);
 namespace EightLines\SyliusCartLinksPlugin\Controller;
 
 use EightLines\SyliusCartLinksPlugin\Processor\CartLinkProcessorInterface;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
+use EightLines\SyliusCartLinksPlugin\Resolver\CartLinkResolverInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class CartLinkController extends AbstractController
 {
     public function __construct(
         private CartLinkProcessorInterface $cartLinkProcessor,
-        private RepositoryInterface $cartLinkRepository,
         private CartContextInterface $cartContext,
-        private ChannelContextInterface $channelContext,
         private CustomerContextInterface $customerContext,
+        private CartLinkResolverInterface $cartLinkResolver,
     ) { }
 
-    public function __invoke(string $code): Response
+    public function __invoke(string $slug): Response
     {
-        $cartLink = $this->cartLinkRepository->findOneBy(['code' => $code]);
+        $cartLink = $this->cartLinkResolver->findBySlug($slug);
 
         if (null === $cartLink) {
-            throw new NotFoundHttpException('Given cart link does not exist.');
-        }
-
-        if (false === in_array($this->channelContext->getChannel(), $cartLink->getChannels()->toArray(), true)) {
-            throw new NotFoundHttpException('Given cart link is not available in this channel.');
+            throw $this->createNotFoundException('Given cart link does not exist.');
         }
 
         /** @var OrderInterface $cart */

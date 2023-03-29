@@ -20,6 +20,7 @@ final class AddProductVariantActionType extends AbstractType
         $builder
             ->add('product_variants', ProductVariantAutocompleteChoiceType::class, [
                 'label' => 'sylius.form.promotion_action.add_product_configuration.product',
+                'required' => true,
                 'multiple' => true,
             ])
         ;

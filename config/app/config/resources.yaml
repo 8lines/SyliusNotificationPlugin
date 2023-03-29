@@ -5,6 +5,7 @@ sylius_resource:
                 model: EightLines\SyliusCartLinksPlugin\Entity\CartLink
                 interface: EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface
                 form: EightLines\SyliusCartLinksPlugin\Form\Type\CartLinkType
+                repository: EightLines\SyliusCartLinksPlugin\Repository\CartLinkRepository
             translation:
                 classes:
                     model: EightLines\SyliusCartLinksPlugin\Entity\CartLinkTranslation
@@ -12,7 +13,3 @@ sylius_resource:
             classes:
                 model: EightLines\SyliusCartLinksPlugin\Entity\CartLinkAction
                 interface: EightLines\SyliusCartLinksPlugin\Entity\CartLinkActionInterface
-        cart_links.cart_link_usage:
-            classes:
-                model: EightLines\SyliusCartLinksPlugin\Entity\CartLinkUsage
-                interface: EightLines\SyliusCartLinksPlugin\Entity\CartLinkUsageInterface

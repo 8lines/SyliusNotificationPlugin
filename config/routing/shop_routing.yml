@@ -1,4 +1,4 @@
 8lines_sylius_cart_links_cart_link:
-    path: /cart-link/{code}
+    path: /cart-link/{slug}
     defaults:
         _controller: EightLines\SyliusCartLinksPlugin\Controller\CartLinkController

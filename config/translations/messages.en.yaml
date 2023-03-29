@@ -6,8 +6,8 @@ cart_links:
         edit_cart_link: Edit cart link
     form:
         add_product_variant: Add product variant
-        apply_specified_promotion_coupon: Apply Specified Promotion Coupon
-        apply_random_promotion_coupon: Apply Random Promotion Coupon
+        apply_specified_promotion_coupon: Apply specified promotion coupon
+        apply_random_promotion_coupon: Apply random promotion coupon
         whether_empty_cart: Whether empty the cart?
         cart_link_action:
             apply_specified_promotion_coupon:

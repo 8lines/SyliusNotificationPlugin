@@ -24,6 +24,7 @@ final class ApplySpecifiedPromotionCouponActionType extends AbstractType
         $builder
             ->add('promotion_coupon', PromotionCouponAutocompleteChoiceType::class, [
                 'label' => 'cart_links.form.cart_link_action.apply_specified_promotion_coupon.promotion_coupon',
+                'required' => true,
                 'constraints' => [
                     new NotBlank(['groups' => ['sylius']]),
                     new Type(['type' => 'string', 'groups' => ['sylius']]),
