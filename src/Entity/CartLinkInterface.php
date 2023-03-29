@@ -25,4 +25,8 @@ interface CartLinkInterface extends ResourceInterface, CodeAwareInterface, Trans
     public function removeAction(CartLinkActionInterface $action): void;
 
     public function hasAction(CartLinkActionInterface $action): bool;
+
+    public function getEmptyCart(): bool;
+
+    public function setEmptyCart(bool $emptyCart): void;
 }

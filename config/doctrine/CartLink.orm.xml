@@ -8,6 +8,7 @@
         </id>
 
         <field name="code" column="code" type="text" />
+        <field name="emptyCart" column="emptyCart" type="boolean" />
 
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
             <gedmo:timestampable on="update"/>
