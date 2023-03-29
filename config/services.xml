@@ -77,8 +77,11 @@
             <tag name="form.type" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\Action\ApplyPromotionActionType">
-            <argument type="service" id="sylius.repository.promotion" />
+        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\Action\ApplyRandomPromotionCouponActionType">
+            <tag name="form.type" />
+        </service>
+
+        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\Action\ApplySpecifiedPromotionCouponActionType">
             <tag name="form.type" />
         </service>
 
@@ -91,11 +94,18 @@
             <argument type="service" key="$cartItemFactory" id="sylius.custom_factory.order_item" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Action\ApplyPromotionActionCartLinkCommand">
+        <service id="EightLines\SyliusCartLinksPlugin\Action\ApplyRandomPromotionCouponActionCartLinkCommand">
             <tag name="eightlines_cart_links.cart_link_action"
-                 type="apply_promotion"
-                 label="cart_links.form.apply_promotion"
-                 form-type="EightLines\SyliusCartLinksPlugin\Form\Type\Action\ApplyPromotionActionType" />
+                 type="apply_random_promotion_coupon"
+                 label="cart_links.form.apply_random_promotion_coupon"
+                 form-type="EightLines\SyliusCartLinksPlugin\Form\Type\Action\ApplyRandomPromotionCouponActionType" />
+        </service>
+
+        <service id="EightLines\SyliusCartLinksPlugin\Action\ApplySpecifiedPromotionCouponActionCartLinkCommand">
+            <tag name="eightlines_cart_links.cart_link_action"
+                 type="apply_specified_promotion_coupon"
+                 label="cart_links.form.apply_specified_promotion_coupon"
+                 form-type="EightLines\SyliusCartLinksPlugin\Form\Type\Action\ApplySpecifiedPromotionCouponActionType" />
         </service>
     </services>
 </container>

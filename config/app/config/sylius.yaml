@@ -3,3 +3,6 @@ sylius_promotion:
         promotion:
             classes:
                 repository: EightLines\SyliusCartLinksPlugin\Repository\Sylius\PromotionRepository
+        promotion_coupon:
+            classes:
+                repository: EightLines\SyliusCartLinksPlugin\Repository\Sylius\PromotionCouponRepository

@@ -6,7 +6,8 @@ namespace EightLines\SyliusCartLinksPlugin\Applicator;
 
 use Doctrine\ORM\EntityManagerInterface;
 use EightLines\SyliusCartLinksPlugin\Action\AddProductVariantActionCartLinkCommand;
-use EightLines\SyliusCartLinksPlugin\Action\ApplyPromotionActionCartLinkCommand;
+use EightLines\SyliusCartLinksPlugin\Action\ApplyRandomPromotionCouponActionCartLinkCommand;
+use EightLines\SyliusCartLinksPlugin\Action\ApplySpecifiedPromotionCouponActionCartLinkCommand;
 use EightLines\SyliusCartLinksPlugin\Entity\CartLinkActionInterface;
 use EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -16,7 +17,8 @@ final class CartLinkActionApplicator implements CartLinkActionApplicatorInterfac
 {
     public function __construct(
         private AddProductVariantActionCartLinkCommand $addProductVariantCommand,
-        private ApplyPromotionActionCartLinkCommand $applyPromotionCommand,
+        private ApplyRandomPromotionCouponActionCartLinkCommand $applyRandomPromotionCouponCommand,
+        private ApplySpecifiedPromotionCouponActionCartLinkCommand $applySpecifiedPromotionCouponCommand,
         private EntityManagerInterface $entityManager,
         private OrderProcessorInterface $orderProcessor,
     ) { }
@@ -41,8 +43,11 @@ final class CartLinkActionApplicator implements CartLinkActionApplicatorInterfac
         if ('add_product_variant' === $action->getType()) {
             $this->addProductVariantCommand->execute($order, $action->getConfiguration());
 
-        } elseif ('apply_promotion' === $action->getType()) {
-            $this->applyPromotionCommand->execute($order, $action->getConfiguration());
+        } elseif ('apply_specified_promotion_coupon' === $action->getType()) {
+            $this->applySpecifiedPromotionCouponCommand->execute($order, $action->getConfiguration());
+
+        } elseif ('apply_random_promotion_coupon' === $action->getType()) {
+            $this->applyRandomPromotionCouponCommand->execute($order, $action->getConfiguration());
         }
     }
 

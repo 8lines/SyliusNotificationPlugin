@@ -4,21 +4,23 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusCartLinksPlugin\Repository\Sylius;
 
-use Sylius\Bundle\CoreBundle\Doctrine\ORM\PromotionRepository as BasePromotionRepository;
+use Sylius\Bundle\PromotionBundle\Doctrine\ORM\PromotionCouponRepository as BasePromotionCouponRepository;
 
-final class PromotionRepository extends BasePromotionRepository
+final class PromotionCouponRepository extends BasePromotionCouponRepository
 {
     public function findByPhrase(string $phrase, ?int $limit = null): array
     {
         $expr = $this->getEntityManager()->getExpressionBuilder();
 
         return $this->createQueryBuilder('o')
+            ->leftJoin('o.promotion', 'p')
             ->andWhere($expr->orX(
-                'o.name LIKE :phrase',
                 'o.code LIKE :phrase',
+                'p.code LIKE :phrase',
+                'p.name LIKE :phrase'
             ))
             ->setParameter('phrase', '%' . $phrase . '%')
-            ->orderBy('o.priority', 'ASC')
+            ->orderBy('p.priority', 'ASC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
