@@ -1,7 +1,8 @@
 <?php
 
-namespace EightLines\SyliusCartLinksPlugin\Entity;
+declare(strict_types=1);
 
+namespace EightLines\SyliusCartLinksPlugin\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

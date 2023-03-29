@@ -8,7 +8,16 @@
         </id>
 
         <field name="code" column="code" type="text" />
-        <field name="emptyCart" column="emptyCart" type="boolean" />
+
+        <field name="enabled" column="enabled" type="boolean" />
+
+        <field name="emptyCart" column="empty_cart" type="boolean" />
+
+        <field name="usageLimit" column="usage_limit" type="integer" nullable="true" />
+        <field name="used" column="used" type="integer" />
+
+        <field name="startsAt" column="starts_at" type="datetime" nullable="true" />
+        <field name="endsAt" column="ends_at" type="datetime" nullable="true" />
 
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
             <gedmo:timestampable on="update" />

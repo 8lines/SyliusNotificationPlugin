@@ -33,6 +33,8 @@ final class CartLinkActionApplicator implements CartLinkActionApplicatorInterfac
             $this->handleAction($action, $order);
         }
 
+        $cartLink->incrementUsed();
+
         $this->orderProcessor->process($order);
         $this->entityManager->persist($order);
         $this->entityManager->flush();

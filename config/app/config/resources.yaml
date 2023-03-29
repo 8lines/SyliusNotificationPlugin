@@ -13,7 +13,3 @@ sylius_resource:
             classes:
                 model: EightLines\SyliusCartLinksPlugin\Entity\CartLinkAction
                 interface: EightLines\SyliusCartLinksPlugin\Entity\CartLinkActionInterface
-        cart_links.cart_link_usage:
-            classes:
-                model: EightLines\SyliusCartLinksPlugin\Entity\CartLinkUsage
-                interface: EightLines\SyliusCartLinksPlugin\Entity\CartLinkUsageInterface
