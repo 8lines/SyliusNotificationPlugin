@@ -5,18 +5,29 @@
         <parameter key="cart_links.form.type.cart_link.validation_groups" type="collection">
             <parameter>sylius</parameter>
         </parameter>
+
         <parameter key="cart_links.form.type.cart_link_translation.validation_groups" type="collection">
             <parameter>sylius</parameter>
         </parameter>
+
         <parameter key="cart_links.form.type.cart_link_action.validation_groups" type="collection">
             <parameter>sylius</parameter>
         </parameter>
+
     </parameters>
 
     <services>
-        <service id="EightLines\SyliusCartLinksPlugin\Controller\CartLinkController" autowire="true" autoconfigure="true" public="true">
-            <argument type="service" key="$cartItemFactory" id="sylius.custom_factory.order_item" />
-        </service>
+        <defaults autowire="true" autoconfigure="true" />
+
+        <!-- Controller -->
+        <service id="EightLines\SyliusCartLinksPlugin\Controller\CartLinkController" public="true" />
+
+        <!-- Processors -->
+        <service id="EightLines\SyliusCartLinksPlugin\Processor\CartLinkProcessorInterface"
+                 class="EightLines\SyliusCartLinksPlugin\Processor\CartLinkProcessor" />
+
+        <service id="EightLines\SyliusCartLinksPlugin\Applicator\CartLinkActionApplicatorInterface"
+                 class="EightLines\SyliusCartLinksPlugin\Applicator\CartLinkActionApplicator" />
 
         <!-- Menu -->
         <service id="EightLines\SyliusCartLinksPlugin\Menu\AdminMenuListener">
@@ -77,6 +88,7 @@
                  type="add_product_variant"
                  label="cart_links.form.add_product_variant"
                  form-type="EightLines\SyliusCartLinksPlugin\Form\Type\Action\AddProductVariantActionType" />
+            <argument type="service" key="$cartItemFactory" id="sylius.custom_factory.order_item" />
         </service>
 
         <service id="EightLines\SyliusCartLinksPlugin\Action\ApplyPromotionActionCartLinkCommand">

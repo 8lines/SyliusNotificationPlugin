@@ -8,7 +8,22 @@ sylius_grid:
             sorting:
                 code: asc
             fields:
+                id:
+                    type: string
+                    label: sylius.ui.id
+                    sortable: ~
                 code:
                     type: string
                     label: sylius.ui.code
                     sortable: ~
+                
+            actions:
+                main:
+                    create:
+                        type: create
+                        label: cart_links.ui.new_cart_link
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

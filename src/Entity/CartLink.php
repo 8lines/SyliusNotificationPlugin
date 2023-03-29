@@ -18,7 +18,7 @@ final class CartLink implements CartLinkInterface
         __construct as private initializeTranslationsCollection;
     }
 
-    private int $id;
+    private ?int $id = null;
 
     private ?string $code = null;
 
@@ -44,7 +44,7 @@ final class CartLink implements CartLinkInterface
         $this->actions = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

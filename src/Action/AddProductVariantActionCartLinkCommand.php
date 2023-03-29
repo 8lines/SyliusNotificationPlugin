@@ -4,17 +4,29 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusCartLinksPlugin\Action;
 
-use EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface;
+use Sylius\Component\Core\Factory\CartItemFactoryInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
+use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 
 final class AddProductVariantActionCartLinkCommand implements CartLinkActionCommandInterface
 {
-    public function execute($subject, array $actionConfiguration, CartLinkInterface $cartLink): bool
-    {
-        return true;
-    }
+    public function __construct(
+        private ProductVariantRepositoryInterface $productVariantRepository,
+        private OrderItemQuantityModifierInterface $itemQuantityModifier,
+        private CartItemFactoryInterface $cartItemFactory,
+    ) { }
 
-    public function revert($subject, array $configuration, CartLinkInterface $cartLink): void
+    public function execute(OrderInterface $order, array $actionConfiguration): bool
     {
-        return;
+        $productVariants = $this->productVariantRepository->findByCodes($actionConfiguration['product_variants']);
+
+        foreach ($productVariants as $productVariant) {
+            $cartItem = $this->cartItemFactory->createForCart($order);
+            $cartItem->setVariant($productVariant);
+            $this->itemQuantityModifier->modify($cartItem, $cartItem->getQuantity() + 1);
+        }
+
+        return true;
     }
 }

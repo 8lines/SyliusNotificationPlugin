@@ -14,8 +14,7 @@ final class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('acme_sylius_example_plugin');
-
+        $treeBuilder = new TreeBuilder('eightlines_cart_links');
         $rootNode = $treeBuilder->getRootNode();
 
         return $treeBuilder;
