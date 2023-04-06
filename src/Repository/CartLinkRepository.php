@@ -40,8 +40,8 @@ class CartLinkRepository extends EntityRepository implements CartLinkRepositoryI
                 'channels.code = :channelCode',
                 'translation.locale = :localeCode',
                 $expr->orX('o.usageLimit IS NULL', 'o.usageLimit > o.used'),
-                $expr->orX('o.startsAt IS NULL', 'o.startsAt <= CURRENT_DATE()'),
-                $expr->orX('o.endsAt IS NULL', 'o.endsAt > CURRENT_DATE()'),
+                $expr->orX('o.startsAt IS NULL', 'o.startsAt <= CURRENT_TIMESTAMP()'),
+                $expr->orX('o.endsAt IS NULL', 'o.endsAt > CURRENT_TIMESTAMP()'),
             ))
             ->setParameter('localeCode', $localeCode)
             ->setParameter('slug', $slug)

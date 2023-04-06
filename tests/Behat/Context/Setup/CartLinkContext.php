@@ -149,6 +149,7 @@ final class CartLinkContext implements Context
         $cartLink->setCode($code);
         $cartLink->setCurrentLocale('en_US');
         $cartLink->setSlug($slug);
+        $cartLink->setName(strtoupper($slug));
         $cartLink->addChannel($this->sharedStorage->get('channel'));
 
         $this->cartLinkRepository->add($cartLink);

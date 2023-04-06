@@ -37,7 +37,7 @@ final class CartContext implements Context
     public function iUseCartLinkWithSlug(?CartLinkInterface $cartLink)
     {
         if ($cartLink === null) {
-            $this->sharedStorage->set('used_cart_link', null);
+            $this->sharedStorage->remove('used_cart_link');
             return;
         }
 
