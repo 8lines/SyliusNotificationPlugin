@@ -57,6 +57,6 @@ final class CartContext implements Context
      */
     public function usedCartLinkShouldNotExist(): void
     {
-        Assert::true(!$this->sharedStorage->has('used_cart_link'));
+        Assert::true(!$this->sharedStorage->has('used_cart_link'), 'Used cart link exists');
     }
 }
