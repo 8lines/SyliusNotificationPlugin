@@ -17,10 +17,10 @@
     </parameters>
 
     <services>
-        <defaults autowire="true" autoconfigure="true" />
+        <defaults public="true" autowire="true" autoconfigure="true" />
 
         <!-- Controllers -->
-        <service id="EightLines\SyliusCartLinksPlugin\Controller\CartLinkController" public="true" />
+        <service id="EightLines\SyliusCartLinksPlugin\Controller\CartLinkController" />
 
         <!-- Resolvers -->
         <service id="EightLines\SyliusCartLinksPlugin\Resolver\CartLinkResolverInterface"
@@ -39,12 +39,14 @@
         </service>
 
         <!-- Service Registry -->
-        <service id="eightlines_cart_links.registry.cart_link_action" class="Sylius\Component\Registry\ServiceRegistry">
+        <service id="eightlines_cart_links.registry.cart_link_action"
+                 class="Sylius\Component\Registry\ServiceRegistry">
             <argument>EightLines\SyliusCartLinksPlugin\Action\CartLinkActionCommandInterface</argument>
             <argument>cart link action</argument>
         </service>
 
-        <service id="eightlines_cart_links.form_registry.cart_link_action" class="Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry" />
+        <service id="eightlines_cart_links.form_registry.cart_link_action"
+                 class="Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry" />
 
         <!-- Form -->
         <service id="EightLines\SyliusCartLinksPlugin\Form\Type\CartLinkType">
