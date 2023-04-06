@@ -9,7 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
-class CartLinkRepository extends EntityRepository implements CartLinkRepositoryInterface
+final class CartLinkRepository extends EntityRepository implements CartLinkRepositoryInterface
 {
     public function createListQueryBuilder(string $localeCode): QueryBuilder
     {
