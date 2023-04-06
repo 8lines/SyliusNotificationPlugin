@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Page\Shop\Cart;
 
 use Behat\Mink\Exception\ElementNotFoundException;
