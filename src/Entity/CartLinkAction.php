@@ -12,8 +12,6 @@ final class CartLinkAction implements CartLinkActionInterface
 
     private array $configuration = [];
 
-    private CartLinkInterface $cartLink;
-
     public function getId(): int
     {
         return $this->id;
@@ -37,15 +35,5 @@ final class CartLinkAction implements CartLinkActionInterface
     public function setConfiguration(array $configuration): void
     {
         $this->configuration = $configuration;
-    }
-
-    public function getCartLink(): CartLinkInterface
-    {
-        return $this->cartLink;
-    }
-
-    public function setCartLink(CartLinkInterface $cartLink): void
-    {
-        $this->cartLink = $cartLink;
     }
 }

@@ -19,8 +19,12 @@
     <services>
         <defaults autowire="true" autoconfigure="true" />
 
-        <!-- Controller -->
+        <!-- Controllers -->
         <service id="EightLines\SyliusCartLinksPlugin\Controller\CartLinkController" public="true" />
+
+        <!-- Resolvers -->
+        <service id="EightLines\SyliusCartLinksPlugin\Resolver\CartLinkResolverInterface"
+                 class="EightLines\SyliusCartLinksPlugin\Resolver\CartLinkResolver" />
 
         <!-- Processors -->
         <service id="EightLines\SyliusCartLinksPlugin\Processor\CartLinkProcessorInterface"

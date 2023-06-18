@@ -15,8 +15,4 @@ interface CartLinkActionInterface extends ResourceInterface
     public function getConfiguration(): array;
 
     public function setConfiguration(array $configuration): void;
-
-    public function getCartLink(): CartLinkInterface;
-
-    public function setCartLink(CartLinkInterface $cartLink): void;
 }
