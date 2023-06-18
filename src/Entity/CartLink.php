@@ -123,4 +123,25 @@ final class CartLink implements CartLinkInterface
     {
         $this->endsAt = $endsAt;
     }
+
+    public function setSlug(string $slug): void
+    {
+        /** @var CartLinkTranslationInterface $cartLinkTranslationInterface */
+        $cartLinkTranslationInterface = $this->getCartLinkTranslation();
+
+        $cartLinkTranslationInterface->setSlug($slug);
+    }
+
+    public function setName(string $name): void
+    {
+        /** @var CartLinkTranslationInterface $cartLinkTranslationInterface */
+        $cartLinkTranslationInterface = $this->getCartLinkTranslation();
+
+        $cartLinkTranslationInterface->setName($name);
+    }
+
+    protected function getCartLinkTranslation(): TranslationInterface
+    {
+        return $this->getTranslation();
+    }
 }

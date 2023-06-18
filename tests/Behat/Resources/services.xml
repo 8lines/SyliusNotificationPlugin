@@ -3,14 +3,37 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-        <!-- Put your Behat services here -->
 
-        <service id="acme_sylius_example.context.ui.shop.welcome" class="Tests\Acme\SyliusExamplePlugin\Behat\Context\Ui\Shop\WelcomeContext">
-            <argument type="service" id="acme_sylius_example.page.shop.static_welcome" />
-            <argument type="service" id="acme_sylius_example.page.shop.dynamic_welcome" />
+        <!-- Setup context -->
+        <service id="eightlines.cart_links.context.setup.cart_link"
+                 class="Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Setup\CartLinkContext">
+            <argument type="service" id="sylius.behat.shared_storage" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="cart_links.factory.cart_link" />
+            <argument type="service" id="cart_links.factory.cart_link_action" />
+            <argument type="service" id="cart_links.repository.cart_link" />
         </service>
 
-        <service id="acme_sylius_example.page.shop.static_welcome" class="Tests\Acme\SyliusExamplePlugin\Behat\Page\Shop\StaticWelcomePage" parent="sylius.behat.symfony_page" public="false" />
-        <service id="acme_sylius_example.page.shop.dynamic_welcome" class="Tests\Acme\SyliusExamplePlugin\Behat\Page\Shop\DynamicWelcomePage" parent="sylius.behat.symfony_page" public="false" />
+        <!-- UI context -->
+        <service id="eightlines.cart_links.context.ui.cart"
+                 class="Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Ui\Shop\CartContext">
+            <argument type="service" id="sylius.behat.shared_storage" />
+            <argument type="service" id="eightlines.cart_links.context.page.shop.cart_summary" />
+            <argument type="service" id="EightLines\SyliusCartLinksPlugin\Processor\CartLinkProcessorInterface" />
+            <argument type="service" id="sylius.repository.order" />
+        </service>
+
+        <!-- Transform context -->
+        <service id="eightlines.cart_links.context.transform.cart_link"
+                 class="Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Transform\CartLinkContext">
+            <argument type="service" id="sylius.behat.shared_storage" />
+            <argument type="service" id="EightLines\SyliusCartLinksPlugin\Resolver\CartLinkResolverInterface" />
+            <argument type="service" id="cart_links.repository.cart_link" />
+        </service>
+
+        <!-- Page context -->
+        <service id="eightlines.cart_links.context.page.shop.cart_summary"
+                 class="Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Page\Shop\Cart\SummaryPage"
+                 parent="sylius.behat.page.shop.cart_summary" />
     </services>
 </container>

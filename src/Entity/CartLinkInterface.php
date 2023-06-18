@@ -43,4 +43,8 @@ interface CartLinkInterface extends
     public function getEndsAt(): ?\DateTimeInterface;
 
     public function setEndsAt(?\DateTimeInterface $endsAt): void;
+
+    public function setSlug(string $slug): void;
+
+    public function setName(string $name): void;
 }
