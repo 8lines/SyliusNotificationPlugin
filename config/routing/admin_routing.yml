@@ -11,12 +11,12 @@ eightlines_cart_links_cart_link:
             all:
                 subheader: cart_links.ui.manage_your_cart_links
                 templates:
-                    form: "@EightLinesSyliusCartLinksPlugin/Admin/CartLink/_form.html.twig"
+                    form: "@EightLinesSyliusNotificationPlugin/Admin/CartLink/_form.html.twig"
             index:
                 icon: linkify
             update:
                 templates:
-                    form: "@EightLinesSyliusCartLinksPlugin/Admin/CartLink/_form.html.twig"
+                    form: "@EightLinesSyliusNotificationPlugin/Admin/CartLink/_form.html.twig"
     type: sylius.resource
 
 eightlines_admin_ajax_promotions_by_phrase:

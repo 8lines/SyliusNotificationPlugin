@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Menu;
+namespace EightLines\SyliusNotificationPlugin\Menu;
 
+use JetBrains\PhpStorm\NoReturn;
 use Knp\Menu\ItemInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
@@ -13,14 +14,24 @@ final class AdminMenuListener
     {
         $menu = $menuBuilderEvent->getMenu();
 
-        /** @var ItemInterface $marketing */
-        $marketing = $menu->getChild('marketing');
-        $marketing
-            ->addChild('cart_links', [
-                'route' => 'cart_links_admin_cart_link_index',
+        /** @var ItemInterface $notifications */
+        $notifications = $menu
+            ->addChild('notifications')
+            ->setLabel('Notifications')
+        ;
+        $notifications
+            ->addChild('notification_messages', [
+                'route' => 'notification_admin_message_index',
             ])
-            ->setLabel('cart_links.ui.cart_links')
-            ->setLabelAttribute('icon', 'linkify')
+            ->setLabel('Messages')
+            ->setLabelAttribute('icon', 'paper plane')
+        ;
+        $notifications
+            ->addChild('notification_rules', [
+                'route' => 'notification_admin_rule_index',
+            ])
+            ->setLabel('Rules')
+            ->setLabelAttribute('icon', 'map signs')
         ;
     }
 }

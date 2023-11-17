@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="EightLines\SyliusCartLinksPlugin\Entity\CartLinkAction" table="8lines_cart_link_action">
+    <mapped-superclass name="EightLines\SyliusNotificationPlugin\Entity\CartLinkAction" table="8lines_cart_link_action">
         <id name="id" type="integer">
             <generator strategy="AUTO" />
         </id>

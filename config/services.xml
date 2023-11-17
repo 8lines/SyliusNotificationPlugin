@@ -19,29 +19,22 @@
     <services>
         <defaults public="true" autowire="true" autoconfigure="true" />
 
-        <!-- Controllers -->
-        <service id="EightLines\SyliusCartLinksPlugin\Controller\CartLinkController" />
-
-        <!-- Resolvers -->
-        <service id="EightLines\SyliusCartLinksPlugin\Resolver\CartLinkResolverInterface"
-                 class="EightLines\SyliusCartLinksPlugin\Resolver\CartLinkResolver" />
-
         <!-- Processors -->
-        <service id="EightLines\SyliusCartLinksPlugin\Processor\CartLinkProcessorInterface"
-                 class="EightLines\SyliusCartLinksPlugin\Processor\CartLinkProcessor" />
+        <service id="EightLines\SyliusNotificationPlugin\Processor\CartLinkProcessorInterface"
+                 class="EightLines\SyliusNotificationPlugin\Processor\CartLinkProcessor" />
 
-        <service id="EightLines\SyliusCartLinksPlugin\Applicator\CartLinkActionApplicatorInterface"
-                 class="EightLines\SyliusCartLinksPlugin\Applicator\CartLinkActionApplicator" />
+        <service id="EightLines\SyliusNotificationPlugin\Applicator\CartLinkActionApplicatorInterface"
+                 class="EightLines\SyliusNotificationPlugin\Applicator\CartLinkActionApplicator" />
 
         <!-- Menu -->
-        <service id="EightLines\SyliusCartLinksPlugin\Menu\AdminMenuListener">
+        <service id="EightLines\SyliusNotificationPlugin\Menu\AdminMenuListener">
             <tag name="kernel.event_listener" method="buildMenu" event="sylius.menu.admin.main" />
         </service>
 
         <!-- Service Registry -->
         <service id="eightlines_cart_links.registry.cart_link_action"
                  class="Sylius\Component\Registry\ServiceRegistry">
-            <argument>EightLines\SyliusCartLinksPlugin\Action\CartLinkActionCommandInterface</argument>
+            <argument>EightLines\SyliusNotificationPlugin\Action\CartLinkActionCommandInterface</argument>
             <argument>cart link action</argument>
         </service>
 
@@ -49,69 +42,69 @@
                  class="Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry" />
 
         <!-- Form -->
-        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\CartLinkType">
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\CartLinkType">
             <argument>%cart_links.model.cart_link.class%</argument>
             <argument>%cart_links.form.type.cart_link.validation_groups%</argument>
             <tag name="form.type" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\CartLinkTranslationType">
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\CartLinkTranslationType">
             <argument>%cart_links.model.cart_link_translation.class%</argument>
             <argument>%cart_links.form.type.cart_link_translation.validation_groups%</argument>
             <tag name="form.type" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\CartLinkActionType">
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\CartLinkActionType">
             <argument>%cart_links.model.cart_link_action.class%</argument>
             <argument>%cart_links.form.type.cart_link_action.validation_groups%</argument>
             <argument type="service" id="eightlines_cart_links.form_registry.cart_link_action" />
             <tag name="form.type" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\CartLinkActionCollectionType">
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\CartLinkActionCollectionType">
             <argument type="service" id="eightlines_cart_links.registry.cart_link_action" />
             <tag name="form.type" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\CartLinkActionChoiceType">
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\CartLinkActionChoiceType">
             <argument>%eightlines_cart_links.cart_link_actions%</argument>
             <tag name="form.type" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\Action\AddProductVariantActionType">
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\Action\AddProductVariantActionType">
             <argument type="service" id="sylius.form.type.data_transformer.product_variants_to_codes" />
             <tag name="form.type" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\Action\ApplyRandomPromotionCouponActionType">
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\Action\ApplyRandomPromotionCouponActionType">
             <tag name="form.type" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Form\Type\Action\ApplySpecifiedPromotionCouponActionType">
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\Action\ApplySpecifiedPromotionCouponActionType">
             <tag name="form.type" />
         </service>
 
         <!-- Actions -->
-        <service id="EightLines\SyliusCartLinksPlugin\Action\AddProductVariantActionCartLinkCommand">
+        <service id="EightLines\SyliusNotificationPlugin\Action\AddProductVariantActionCartLinkCommand">
             <tag name="eightlines_cart_links.cart_link_action"
                  type="add_product_variant"
                  label="cart_links.form.add_product_variant"
-                 form-type="EightLines\SyliusCartLinksPlugin\Form\Type\Action\AddProductVariantActionType" />
+                 form-type="EightLines\SyliusNotificationPlugin\Form\Type\Action\AddProductVariantActionType" />
             <argument type="service" key="$cartItemFactory" id="sylius.custom_factory.order_item" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Action\ApplyRandomPromotionCouponActionCartLinkCommand">
+        <service id="EightLines\SyliusNotificationPlugin\Action\ApplyRandomPromotionCouponActionCartLinkCommand">
             <tag name="eightlines_cart_links.cart_link_action"
                  type="apply_random_promotion_coupon"
                  label="cart_links.form.apply_random_promotion_coupon"
-                 form-type="EightLines\SyliusCartLinksPlugin\Form\Type\Action\ApplyRandomPromotionCouponActionType" />
+                 form-type="EightLines\SyliusNotificationPlugin\Form\Type\Action\ApplyRandomPromotionCouponActionType" />
         </service>
 
-        <service id="EightLines\SyliusCartLinksPlugin\Action\ApplySpecifiedPromotionCouponActionCartLinkCommand">
+        <service id="EightLines\SyliusNotificationPlugin\Action\ApplySpecifiedPromotionCouponActionCartLinkCommand">
             <tag name="eightlines_cart_links.cart_link_action"
                  type="apply_specified_promotion_coupon"
                  label="cart_links.form.apply_specified_promotion_coupon"
-                 form-type="EightLines\SyliusCartLinksPlugin\Form\Type\Action\ApplySpecifiedPromotionCouponActionType" />
+                 form-type="EightLines\SyliusNotificationPlugin\Form\Type\Action\ApplySpecifiedPromotionCouponActionType" />
         </service>
     </services>
 </container>

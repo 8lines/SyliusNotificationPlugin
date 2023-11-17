@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Setup;
+namespace Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
 use Doctrine\ORM\EntityManagerInterface;
-use EightLines\SyliusCartLinksPlugin\Entity\CartLinkActionInterface;
-use EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface;
-use EightLines\SyliusCartLinksPlugin\Repository\CartLinkRepositoryInterface;
+use EightLines\SyliusNotificationPlugin\Entity\CartLinkActionInterface;
+use EightLines\SyliusNotificationPlugin\Entity\CartLinkInterface;
+use EightLines\SyliusNotificationPlugin\Repository\CartLinkRepositoryInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Model\PromotionCouponInterface;

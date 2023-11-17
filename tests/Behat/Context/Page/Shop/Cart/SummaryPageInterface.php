@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Page\Shop\Cart;
+namespace Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Page\Shop\Cart;
 
 use Sylius\Behat\Page\Shop\Cart\SummaryPageInterface as BaseSummaryPageInterface;
 

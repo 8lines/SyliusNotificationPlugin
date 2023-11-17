@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Transform;
+namespace Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
-use EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface;
-use EightLines\SyliusCartLinksPlugin\Repository\CartLinkRepositoryInterface;
-use EightLines\SyliusCartLinksPlugin\Resolver\CartLinkResolverInterface;
+use EightLines\SyliusNotificationPlugin\Entity\CartLinkInterface;
+use EightLines\SyliusNotificationPlugin\Repository\CartLinkRepositoryInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Webmozart\Assert\Assert;
 
@@ -15,7 +14,6 @@ final class CartLinkContext implements Context
 {
     public function __construct(
         private SharedStorageInterface $sharedStorage,
-        private CartLinkResolverInterface $cartLinkResolver,
         private CartLinkRepositoryInterface $cartLinkRepository,
     ) { }
 

@@ -7,7 +7,7 @@ imports:
 
     - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
         
-    - { resource: "@EightLinesSyliusCartLinksPlugin/config/app/config.yaml" }
+    - { resource: "@EightLinesSyliusNotificationPlugin/config/app/config.yaml" }
 
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'

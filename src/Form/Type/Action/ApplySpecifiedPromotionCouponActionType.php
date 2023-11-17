@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Form\Type\Action;
+namespace EightLines\SyliusNotificationPlugin\Form\Type\Action;
 
-use EightLines\SyliusCartLinksPlugin\Form\Type\Autocomplete\PromotionCouponAutocompleteChoiceType;
+use EightLines\SyliusNotificationPlugin\Form\Type\Autocomplete\PromotionCouponAutocompleteChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\DataTransformer\ResourceToIdentifierTransformer;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;

@@ -2,23 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Ui\Shop;
+namespace Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
-use EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface;
-use EightLines\SyliusCartLinksPlugin\Processor\CartLinkProcessorInterface;
+use EightLines\SyliusNotificationPlugin\Entity\CartLinkInterface;
+use EightLines\SyliusNotificationPlugin\Processor\CartLinkProcessorInterface;
 use FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Page\Shop\Cart\SummaryPageInterface;
+use Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Page\Shop\Cart\SummaryPageInterface;
 use Webmozart\Assert\Assert;
 final class CartContext implements Context
 {
     public function __construct(
         private SharedStorageInterface $sharedStorage,
         private SummaryPageInterface $summaryPage,
-        private CartLinkProcessorInterface $cartLinkProcessor,
         private OrderRepositoryInterface $orderRepository,
     ) { }
 
@@ -43,8 +42,6 @@ final class CartContext implements Context
 
         /* @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['state' => OrderInterface::STATE_CART]);
-
-        $this->cartLinkProcessor->process($order, $cartLink);
 
         $this->summaryPage->open(['tokenValue' => $order->getTokenValue()]);
         $this->summaryPage->updateCart();

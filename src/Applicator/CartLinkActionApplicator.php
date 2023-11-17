@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Applicator;
+namespace EightLines\SyliusNotificationPlugin\Applicator;
 
 use Doctrine\ORM\EntityManagerInterface;
-use EightLines\SyliusCartLinksPlugin\Action\AddProductVariantActionCartLinkCommand;
-use EightLines\SyliusCartLinksPlugin\Action\ApplyRandomPromotionCouponActionCartLinkCommand;
-use EightLines\SyliusCartLinksPlugin\Action\ApplySpecifiedPromotionCouponActionCartLinkCommand;
-use EightLines\SyliusCartLinksPlugin\Entity\CartLinkActionInterface;
-use EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface;
+use EightLines\SyliusNotificationPlugin\Action\AddProductVariantActionCartLinkCommand;
+use EightLines\SyliusNotificationPlugin\Action\ApplyRandomPromotionCouponActionCartLinkCommand;
+use EightLines\SyliusNotificationPlugin\Action\ApplySpecifiedPromotionCouponActionCartLinkCommand;
+use EightLines\SyliusNotificationPlugin\Entity\CartLinkActionInterface;
+use EightLines\SyliusNotificationPlugin\Entity\CartLinkInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 
@@ -29,7 +29,7 @@ final class CartLinkActionApplicator implements CartLinkActionApplicatorInterfac
             $this->processEmptyCart($order);
         }
 
-        foreach ($cartLink->getActions() as $action) {
+        foreach ($cartLink->getRules() as $action) {
             $this->handleAction($action, $order);
         }
 

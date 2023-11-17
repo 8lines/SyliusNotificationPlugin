@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Action;
+namespace EightLines\SyliusNotificationPlugin\Action;
 
-use EightLines\SyliusCartLinksPlugin\Repository\Sylius\PromotionRepository;
+use EightLines\SyliusNotificationPlugin\Repository\Sylius\PromotionRepository;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PromotionInterface;
 

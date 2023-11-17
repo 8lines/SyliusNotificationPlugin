@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Form\Type\Autocomplete;
+namespace EightLines\SyliusNotificationPlugin\Form\Type\Autocomplete;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceAutocompleteChoiceType;
 use Symfony\Component\Form\AbstractType;

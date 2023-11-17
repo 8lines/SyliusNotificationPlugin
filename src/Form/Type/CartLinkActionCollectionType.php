@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Form\Type;
+namespace EightLines\SyliusNotificationPlugin\Form\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Form\Type\Action;
+namespace EightLines\SyliusNotificationPlugin\Form\Type\Action;
 
-use EightLines\SyliusCartLinksPlugin\Form\Type\Autocomplete\ProductVariantAutocompleteChoiceType;
+use EightLines\SyliusNotificationPlugin\Form\Type\Autocomplete\ProductVariantAutocompleteChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\FormBuilderInterface;

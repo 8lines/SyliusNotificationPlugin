@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Form\Type;
+namespace EightLines\SyliusNotificationPlugin\Form\Type;
 
-use EightLines\SyliusCartLinksPlugin\Entity\CartLinkActionInterface;
+use EightLines\SyliusNotificationPlugin\Entity\CartLinkActionInterface;
 use Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistryInterface;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\FormBuilderInterface;

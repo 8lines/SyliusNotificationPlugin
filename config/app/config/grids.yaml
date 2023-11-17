@@ -1,10 +1,10 @@
 sylius_grid:
     grids:
-        cart_links_cart_link:
+        notification_rule:
             driver:
                 name: doctrine/orm
                 options:
-                    class: "%cart_links.model.cart_link.class%"
+                    class: "%notification.model.rule.class%"
                     repository:
                         method: createListQueryBuilder
                         arguments: ["%locale%"]

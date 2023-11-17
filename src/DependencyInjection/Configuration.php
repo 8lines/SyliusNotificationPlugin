@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\DependencyInjection;
+namespace EightLines\SyliusNotificationPlugin\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -14,7 +14,7 @@ final class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('eightlines_cart_links');
+        $treeBuilder = new TreeBuilder('eightlines_notification');
         $rootNode = $treeBuilder->getRootNode();
 
         return $treeBuilder;

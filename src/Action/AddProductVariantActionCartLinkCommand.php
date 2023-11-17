@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Action;
+namespace EightLines\SyliusNotificationPlugin\Action;
 
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;

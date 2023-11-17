@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Entity;
+namespace EightLines\SyliusNotificationPlugin\Entity;
 
 use Sylius\Component\Resource\Model\AbstractTranslation;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-final class CartLinkTranslation extends AbstractTranslation implements ResourceInterface, CartLinkTranslationInterface
+class NotificationMessageTranslation extends AbstractTranslation implements NotificationMessageTranslationInterface
 {
     private int $id;
 
     private ?string $name;
 
-    private ?string $slug;
+    private ?string $content;
 
     public function getId(): int
     {
@@ -30,13 +30,13 @@ final class CartLinkTranslation extends AbstractTranslation implements ResourceI
         $this->name = $name;
     }
 
-    public function getSlug(): ?string
+    public function getContent(): ?string
     {
-        return $this->slug;
+        return $this->content;
     }
 
-    public function setSlug(?string $slug): void
+    public function setContent(?string $content): void
     {
-        $this->slug = $slug;
+        $this->content = $content;
     }
 }

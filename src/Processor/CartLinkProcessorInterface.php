@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusCartLinksPlugin\Processor;
+namespace EightLines\SyliusNotificationPlugin\Processor;
 
-use EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface;
+use EightLines\SyliusNotificationPlugin\Entity\CartLinkInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 
 interface CartLinkProcessorInterface

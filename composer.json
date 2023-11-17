@@ -1,7 +1,7 @@
 {
-    "name": "8lines/sylius-cart-links-plugin",
+    "name": "8lines/sylius-notification-plugin",
     "type": "sylius-plugin",
-    "description": "Cart links plugin for Sylius.",
+    "description": "Notification plugin for Sylius.",
     "keywords": [
         "sylius",
         "sylius-plugin"
@@ -58,8 +58,8 @@
     },
     "autoload": {
         "psr-4": {
-            "EightLines\\SyliusCartLinksPlugin\\": "src/",
-            "Tests\\EightLines\\SyliusCartLinksPlugin\\": "tests/"
+            "EightLines\\SyliusNotificationPlugin\\": "src/",
+            "Tests\\EightLines\\SyliusNotificationPlugin\\": "tests/"
         }
     },
     "autoload-dev": {

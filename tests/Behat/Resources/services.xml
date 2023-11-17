@@ -6,7 +6,7 @@
 
         <!-- Setup context -->
         <service id="eightlines.cart_links.context.setup.cart_link"
-                 class="Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Setup\CartLinkContext">
+                 class="Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Setup\CartLinkContext">
             <argument type="service" id="sylius.behat.shared_storage" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="cart_links.factory.cart_link" />
@@ -16,24 +16,22 @@
 
         <!-- UI context -->
         <service id="eightlines.cart_links.context.ui.cart"
-                 class="Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Ui\Shop\CartContext">
+                 class="Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Ui\Shop\CartContext">
             <argument type="service" id="sylius.behat.shared_storage" />
             <argument type="service" id="eightlines.cart_links.context.page.shop.cart_summary" />
-            <argument type="service" id="EightLines\SyliusCartLinksPlugin\Processor\CartLinkProcessorInterface" />
             <argument type="service" id="sylius.repository.order" />
         </service>
 
         <!-- Transform context -->
         <service id="eightlines.cart_links.context.transform.cart_link"
-                 class="Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Transform\CartLinkContext">
+                 class="Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Transform\CartLinkContext">
             <argument type="service" id="sylius.behat.shared_storage" />
-            <argument type="service" id="EightLines\SyliusCartLinksPlugin\Resolver\CartLinkResolverInterface" />
             <argument type="service" id="cart_links.repository.cart_link" />
         </service>
 
         <!-- Page context -->
         <service id="eightlines.cart_links.context.page.shop.cart_summary"
-                 class="Tests\EightLines\SyliusCartLinksPlugin\Behat\Context\Page\Shop\Cart\SummaryPage"
+                 class="Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Page\Shop\Cart\SummaryPage"
                  parent="sylius.behat.page.shop.cart_summary" />
     </services>
 </container>

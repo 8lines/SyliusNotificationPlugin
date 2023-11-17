@@ -1,15 +1,17 @@
 sylius_resource:
     resources:
-        cart_links.cart_link:
+        notification.condition:
             classes:
-                model: EightLines\SyliusCartLinksPlugin\Entity\CartLink
-                interface: EightLines\SyliusCartLinksPlugin\Entity\CartLinkInterface
-                form: EightLines\SyliusCartLinksPlugin\Form\Type\CartLinkType
-                repository: EightLines\SyliusCartLinksPlugin\Repository\CartLinkRepository
+                model: EightLines\SyliusNotificationPlugin\Entity\NotificationRule
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationRuleInterface
+        notification.message:
+            classes:
+                model: EightLines\SyliusNotificationPlugin\Entity\NotificationRule
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationRuleInterface
             translation:
                 classes:
-                    model: EightLines\SyliusCartLinksPlugin\Entity\CartLinkTranslation
-        cart_links.cart_link_action:
+                    model: EightLines\SyliusNotificationPlugin\Entity\NotificationMessageTranslation
+        notification.rule:
             classes:
-                model: EightLines\SyliusCartLinksPlugin\Entity\CartLinkAction
-                interface: EightLines\SyliusCartLinksPlugin\Entity\CartLinkActionInterface
+                model: EightLines\SyliusNotificationPlugin\Entity\NotificationRule
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationRuleInterface
