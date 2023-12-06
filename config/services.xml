@@ -63,5 +63,16 @@
             <argument>%eightlines_sylius_notification_plugin.example_notification_events%</argument>
             <tag name="form.type" />
         </service>
+
+        <!-- Service Registry -->
+        <service id="eightlines_sylius_notifications_plugin.registry.notification_events"
+                 class="Sylius\Component\Registry\ServiceRegistry">
+            <argument>EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface</argument>
+            <argument>notification event</argument>
+        </service>
+
+        <instanceof id="EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface" autowire="true">
+            <tag name="eightlines_sylius_notifications_plugin.notification_event" />
+        </instanceof>
     </services>
 </container>
