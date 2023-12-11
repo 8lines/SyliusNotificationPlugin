@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace EightLines\SyliusNotificationPlugin\NotificationEvent;
 
 final class NotificationEventVariableValue
@@ -12,10 +14,5 @@ final class NotificationEventVariableValue
     public function value(): mixed
     {
         return $this->value;
-    }
-
-    public function __toString(): string
-    {
-        return (string) $this->value;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace EightLines\SyliusNotificationPlugin\NotificationEvent;
 
 final class NotificationEventVariableName
@@ -22,20 +24,5 @@ final class NotificationEventVariableName
     public function __toString(): string
     {
         return $this->value;
-    }
-
-    public function __equals(NotificationEventVariableName $other): bool
-    {
-        return $this->value === $other->value;
-    }
-
-    public function __compareTo(NotificationEventVariableName $other): int
-    {
-
-    }
-
-    public function __another(NotificationEventVariableName $other): int
-    {
-
     }
 }

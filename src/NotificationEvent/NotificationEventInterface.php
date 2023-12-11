@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace EightLines\SyliusNotificationPlugin\NotificationEvent;
 
 interface NotificationEventInterface
 {
-    public function getEventName(): string;
+    public static function getEventName(): string;
 
-    public function getVariables(mixed $context): NotificationEventVariables;
+    public function getVariables(object $subject): NotificationEventVariables;
 
     public function getVariableNames(): NotificationEventVariableNames;
 }

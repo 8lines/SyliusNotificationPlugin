@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius;
 
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface;
@@ -12,18 +14,22 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 class OrderPaidNotificationEvent implements NotificationEventInterface
 {
-    public function getEventName(): string
+    public static function getEventName(): string
     {
-        return 'sylius.order.paid';
+        return 'sylius.payment.post_complete';
     }
 
-    public function getVariables(mixed $context): NotificationEventVariables
+    public function getVariables(object $subject): NotificationEventVariables
     {
-        if (!$context instanceof PaymentInterface) {
-            throw new \InvalidArgumentException('Context should be instance of PaymentInterface');
+        if (!$subject instanceof PaymentInterface) {
+            throw new \InvalidArgumentException('Subject should be instance of PaymentInterface');
         }
 
-        $order = $context->getOrder();
+        $order = $subject->getOrder();
+
+        if (null === $order) {
+            throw new \InvalidArgumentException('Order should not be null');
+        }
 
         return NotificationEventVariables::create(
             new NotificationEventVariable(

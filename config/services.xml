@@ -74,5 +74,17 @@
         <instanceof id="EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface" autowire="true">
             <tag name="eightlines_sylius_notifications_plugin.notification_event" />
         </instanceof>
+
+        <!-- Event Listeners -->
+        <service id="eightlines_sylius_notifications_plugin.event_listener.notification_event"
+                 class="EightLines\SyliusNotificationPlugin\EventListener\NotificationEventListener">
+            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_events" />
+        </service>
+
+        <!-- Notification Events -->
+        <service id="eightlines_sylius_notifications_plugin.notification_event.sylius.order_paid"
+                 class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\OrderPaidNotificationEvent">
+            <tag name="eightlines_sylius_notifications_plugin.notification_event" />
+        </service>
     </services>
 </container>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace EightLines\SyliusNotificationPlugin\NotificationEvent;
 
 final class NotificationEventVariable
