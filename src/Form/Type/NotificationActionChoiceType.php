@@ -8,11 +8,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class CartLinkActionChoiceType extends AbstractType
+final class NotificationActionChoiceType extends AbstractType
 {
     public function __construct(
-        private array $actions
-    ) { }
+        private array $actions,
+    ) {
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
