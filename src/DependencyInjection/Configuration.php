@@ -14,7 +14,7 @@ final class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('eightlines_notification');
+        $treeBuilder = new TreeBuilder('eightlines_sylius_notification_plugin');
         $rootNode = $treeBuilder->getRootNode();
 
         return $treeBuilder;
