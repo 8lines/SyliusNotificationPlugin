@@ -10,12 +10,15 @@ use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TimestampableInterface;
 use Sylius\Component\Resource\Model\ToggleableInterface;
 
-interface NotificationRuleInterface extends
+interface NotificationInterface extends
     ResourceInterface,
     CodeAwareInterface,
     ToggleableInterface,
     TimestampableInterface,
-    ChannelsAwareInterface
+    ChannelsAwareInterface,
+    NotificationActionsAwareInterface
 {
+    public function getEvent(): ?string;
 
+    public function setEvent(?string $event): void;
 }
