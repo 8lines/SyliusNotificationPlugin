@@ -17,10 +17,6 @@
         <parameter key="eightlines_sylius_notification_plugin.example_notification_channels" type="collection">
             <parameter>sylius</parameter>
         </parameter>
-
-        <parameter key="eightlines_sylius_notification_plugin.example_notification_events" type="collection">
-            <parameter>sylius</parameter>
-        </parameter>
     </parameters>
 
     <services>
@@ -60,7 +56,7 @@
         </service>
 
         <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationEventChoiceType">
-            <argument>%eightlines_sylius_notification_plugin.example_notification_events%</argument>
+            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_events" />
             <tag name="form.type" />
         </service>
 
