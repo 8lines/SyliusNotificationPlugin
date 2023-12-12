@@ -1,16 +1,7 @@
-cart_links:
+eightlines_sylius_notification_plugin:
     ui:
-        cart_links: Cart links
-        manage_your_cart_links: Manage your Cart links
-        new_cart_link: New cart link
-        edit_cart_link: Edit cart link
-    form:
-        add_product_variant: Add product variant
-        apply_specified_promotion_coupon: Apply specified promotion coupon
-        apply_random_promotion_coupon: Apply random promotion coupon
-        whether_empty_cart: Whether empty the cart?
-        cart_link_action:
-            apply_specified_promotion_coupon:
-                promotion_coupon: Promotion Coupon
-            apply_random_promotion_coupon:
-                promotion: Promotion
+        notifications: Notifications
+        new_notification: Add new notification
+        event: Event
+        message: Message
+        notification_channel: Notification channel
