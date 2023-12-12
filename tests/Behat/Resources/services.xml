@@ -3,35 +3,5 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-
-        <!-- Setup context -->
-        <service id="eightlines.cart_links.context.setup.cart_link"
-                 class="Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Setup\CartLinkContext">
-            <argument type="service" id="sylius.behat.shared_storage" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="cart_links.factory.cart_link" />
-            <argument type="service" id="cart_links.factory.cart_link_action" />
-            <argument type="service" id="cart_links.repository.cart_link" />
-        </service>
-
-        <!-- UI context -->
-        <service id="eightlines.cart_links.context.ui.cart"
-                 class="Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Ui\Shop\CartContext">
-            <argument type="service" id="sylius.behat.shared_storage" />
-            <argument type="service" id="eightlines.cart_links.context.page.shop.cart_summary" />
-            <argument type="service" id="sylius.repository.order" />
-        </service>
-
-        <!-- Transform context -->
-        <service id="eightlines.cart_links.context.transform.cart_link"
-                 class="Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Transform\CartLinkContext">
-            <argument type="service" id="sylius.behat.shared_storage" />
-            <argument type="service" id="cart_links.repository.cart_link" />
-        </service>
-
-        <!-- Page context -->
-        <service id="eightlines.cart_links.context.page.shop.cart_summary"
-                 class="Tests\EightLines\SyliusNotificationPlugin\Behat\Context\Page\Shop\Cart\SummaryPage"
-                 parent="sylius.behat.page.shop.cart_summary" />
     </services>
 </container>
