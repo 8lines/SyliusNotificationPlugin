@@ -1,17 +1,22 @@
 sylius_resource:
     resources:
-        notification.condition:
+        eightlines_sylius_notification_plugin.notification:
             classes:
-                model: EightLines\SyliusNotificationPlugin\Entity\NotificationRule
-                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationRuleInterface
-        notification.message:
+                model: EightLines\SyliusNotificationPlugin\Entity\Notification
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationInterface
+                form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationType
+                repository: EightLines\SyliusNotificationPlugin\Repository\NotificationRepository
+        eightlines_sylius_notification_plugin.notification_action:
             classes:
-                model: EightLines\SyliusNotificationPlugin\Entity\NotificationRule
-                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationRuleInterface
+                model: EightLines\SyliusNotificationPlugin\Entity\NotificationAction
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationActionInterface
+                form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationActionType
+        eightlines_sylius_notification_plugin.notification_message:
+            classes:
+                model: EightLines\SyliusNotificationPlugin\Entity\NotificationMessage
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationMessageInterface
+                form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationMessageType
             translation:
                 classes:
                     model: EightLines\SyliusNotificationPlugin\Entity\NotificationMessageTranslation
-        notification.rule:
-            classes:
-                model: EightLines\SyliusNotificationPlugin\Entity\NotificationRule
-                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationRuleInterface
+                    form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationMessageTranslationType
