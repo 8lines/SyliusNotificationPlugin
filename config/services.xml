@@ -88,5 +88,10 @@
                  class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\OrderPaidNotificationEvent">
             <tag name="eightlines_sylius_notifications_plugin.notification_event" />
         </service>
+
+        <!-- Controllers -->
+        <service id="EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController" autowire="true" autoconfigure="true">
+            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_events" />
+        </service>
     </services>
 </container>
