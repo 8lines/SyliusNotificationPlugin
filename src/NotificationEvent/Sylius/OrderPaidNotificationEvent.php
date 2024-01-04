@@ -13,6 +13,7 @@ use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVaria
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariableDefinitions;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariables;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariableValue;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 
 class OrderPaidNotificationEvent implements NotificationEventInterface
@@ -27,7 +28,7 @@ class OrderPaidNotificationEvent implements NotificationEventInterface
         return OrderPaidNotificationEventActionType::class;
     }
 
-    public function getVariables(object $subject): NotificationEventVariables
+    public function getVariables(mixed $subject): NotificationEventVariables
     {
         if (!$subject instanceof PaymentInterface) {
             throw new \InvalidArgumentException('Subject should be instance of PaymentInterface');
@@ -65,5 +66,26 @@ class OrderPaidNotificationEvent implements NotificationEventInterface
                 description: new NotificationEventVariableDescription('Order total'),
             )
         );
+    }
+
+    public function getEventChannel(mixed $subject): ?ChannelInterface
+    {
+        if (!$subject instanceof PaymentInterface) {
+            return null;
+        }
+
+        $order = $subject->getOrder();
+        return $order?->getChannel();
+    }
+
+
+    public function getEventLocaleCode(mixed $subject): ?string
+    {
+        if (!$subject instanceof PaymentInterface) {
+            return null;
+        }
+
+        $order = $subject->getOrder();
+        return $order?->getLocaleCode();
     }
 }

@@ -21,7 +21,7 @@ final class NotificationActionType extends AbstractConfigurableNotificationActio
                     'data-form-collection' => 'update',
                 ],
             ])
-            ->add('type', NotificationActionChoiceType::class, [
+            ->add('type', NotificationChannelChoiceType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.notification_channel',
             ])
             ->add('configuration', null, [
