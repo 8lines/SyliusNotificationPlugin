@@ -71,6 +71,10 @@
             <tag name="eightlines_sylius_notifications_plugin.notification_event" />
         </instanceof>
 
+        <!-- Form Type Registry -->
+        <service id="eightlines_sylius_notifications_plugin.registry.notification_event.configuration_form_types"
+                 class="Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry" />
+
         <!-- Event Listeners -->
         <service id="eightlines_sylius_notifications_plugin.event_listener.notification_event"
                  class="EightLines\SyliusNotificationPlugin\EventListener\NotificationEventListener">
