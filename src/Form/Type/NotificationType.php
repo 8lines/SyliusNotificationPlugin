@@ -18,6 +18,9 @@ final class NotificationType extends AbstractResourceType
             ->addEventSubscriber(new AddCodeFormSubscriber())
             ->add('event', NotificationEventChoiceType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.event',
+                'attr' => [
+                    'data-type' => 'notification-event-name',
+                ]
             ])
             ->add('enabled', CheckboxType::class, [
                 'label' => 'sylius.ui.enabled',
@@ -30,6 +33,9 @@ final class NotificationType extends AbstractResourceType
             ])
             ->add('actions', NotificationActionCollectionType::class, [
                 'label' => false,
+                'attr' => [
+                    'data-type' => 'notification-actions',
+                ],
             ])
         ;
     }

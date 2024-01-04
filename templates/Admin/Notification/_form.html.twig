@@ -35,7 +35,19 @@
                 {{ 'sylius.ui.actions'|trans }}
             </h4>
 
-            <div class="column">
+            <div data-type="notification-variables" class="ui segment">
+                <h5 class="ui header">
+                    Available notification variables:
+                </h5>
+
+                <div data-type="loader" class="ui inverted dimmer">
+                    <div class="ui loader"></div>
+                </div>
+
+                <div data-type="notification-variables-list"></div>
+            </div>
+
+            <div class="column" id="actions">
                 {{ form_row(form.actions) }}
             </div>
         </div>

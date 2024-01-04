@@ -37,6 +37,7 @@
         <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationActionType">
             <argument>%eightlines_sylius_notification_plugin.model.notification_action.class%</argument>
             <argument>%eightlines_sylius_notification_plugin.form.notification_action.validation_groups%</argument>
+            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_event.configuration_form_types" />
             <tag name="form.type" />
         </service>
 
@@ -47,6 +48,7 @@
         </service>
 
         <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationActionCollectionType">
+            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_events" />
             <tag name="form.type" />
         </service>
 

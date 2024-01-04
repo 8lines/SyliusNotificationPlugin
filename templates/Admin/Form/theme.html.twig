@@ -4,3 +4,11 @@
     {% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
     {{ translationForm(form.translations) }}
 {% endblock %}
+
+{% block notification_action_widget %}
+    <div class="ui segment">
+         {% for field in form.children %}
+            {{ form_row(field) }}
+         {% endfor %}
+    </div>
+{% endblock %}
