@@ -6,13 +6,13 @@ namespace EightLines\SyliusNotificationPlugin\NotificationEvent;
 
 use Traversable;
 
-final class NotificationEventVariableNames implements \IteratorAggregate
+final class NotificationEventVariableDefinitions implements \IteratorAggregate
 {
     public function __construct(
         private array $items,
     ) { }
 
-    public static function create(NotificationEventVariableName ...$items): self
+    public static function create(NotificationEventVariableDefinition ...$items): self
     {
         return new self($items);
     }

@@ -12,9 +12,9 @@ final class NotificationEventVariables implements \IteratorAggregate
         private array $items,
     ) { }
 
-    public static function create(NotificationEventVariable ...$variables): self
+    public static function create(NotificationEventVariable ...$items): self
     {
-        return new self($variables);
+        return new self($items);
     }
 
     public function getIterator(): Traversable {

@@ -10,5 +10,5 @@ interface NotificationEventInterface
 
     public function getVariables(object $subject): NotificationEventVariables;
 
-    public function getVariableNames(): NotificationEventVariableNames;
+    public function getVariableDefinitions(): NotificationEventVariableDefinitions;
 }
