@@ -5,3 +5,4 @@ eightlines_sylius_notification_plugin:
         event: Event
         message: Message
         notification_channel: Notification channel
+        recipient: Recipient
