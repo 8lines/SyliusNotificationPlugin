@@ -26,7 +26,7 @@ final class NotificationType extends AbstractResourceType
                 'required' => true,
                 'disabled' => $codeDisabled,
                 'attr' => [
-                    'data-type' => 'notification-event-name',
+                    'data-type' => 'notification-event-code',
                 ]
             ])
             ->add('enabled', CheckboxType::class, [
