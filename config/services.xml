@@ -105,8 +105,35 @@
         </service>
 
         <!-- Controllers -->
-        <service id="EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController" autowire="true" autoconfigure="true">
-            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_events" />
+        <service id="EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController"
+                 autowire="true"
+                 autoconfigure="true">
+            <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_event" />
         </service>
+
+        <!-- Resolvers -->
+        <service id="EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolverInterface"
+                 class="EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolver">
+            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_channels" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.resolver.notification_channel"
+                 alias="EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolverInterface" />
+
+        <service id="EightLines\SyliusNotificationPlugin\Resolver\NotificationEventResolverInterface"
+                 class="EightLines\SyliusNotificationPlugin\Resolver\NotificationEventResolver">
+            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_events" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.resolver.notification_event"
+                 alias="EightLines\SyliusNotificationPlugin\Resolver\NotificationEventResolverInterface" />
+
+        <service id="EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface"
+                 class="EightLines\SyliusNotificationPlugin\Resolver\NotificationResolver">
+            <argument type="service" id="eightlines_sylius_notification_plugin.repository.notification" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.resolver.notification"
+                 alias="EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface" />
     </services>
 </container>
