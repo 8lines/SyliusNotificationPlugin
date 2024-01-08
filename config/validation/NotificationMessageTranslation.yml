@@ -1,0 +1,10 @@
+EightLines\SyliusNotificationPlugin\Entity\NotificationMessageTranslation:
+    properties:
+        content:
+            - NotBlank:
+                  message: 'eightlines_sylius_notification_plugin.notification.action.content.not_blank'
+                  groups: ['sylius']
+            - Length:
+                  min: 2
+                  minMessage: 'eightlines_sylius_notification_plugin.notification.action.content.min_length'
+                  groups: ['sylius']
