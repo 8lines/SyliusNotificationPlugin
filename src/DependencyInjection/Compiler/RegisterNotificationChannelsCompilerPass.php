@@ -38,6 +38,7 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
                 }
 
                 if (!isset($attribute['supports']) || false === $attribute['supports']) {
+                    $container->removeDefinition($id);
                     return;
                 }
 
@@ -87,8 +88,8 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
     private function getIsSupportedFromTypeDeclaration(
         ContainerBuilder $container,
         string $id,
-    ): ?string {
-        return (string) $this->getNotificationChannelClassReflection($container, $id)
+    ): ?bool {
+        return (bool) $this->getNotificationChannelClassReflection($container, $id)
             ->getMethod(self::IS_CHANNEL_SUPPORTED_METHOD)
             ->invoke(null);
     }
