@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\Repository;
 
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use EightLines\SyliusNotificationPlugin\Entity\NotificationInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
@@ -20,33 +18,33 @@ final class NotificationRepository extends EntityRepository implements Notificat
     /**
      * @return NotificationInterface[]
      */
-    public function findNotificationsByEvent(string $event): array
+    public function findNotificationsByEventCode(string $eventCode): array
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.event = :event')
-            ->setParameter('event', $event)
+            ->andWhere('o.eventCode = :eventCode')
+            ->andWhere('o.enabled = true')
+            ->setParameter('eventCode', $eventCode)
             ->getQuery()
             ->getResult()
         ;
     }
 
     /**
-     * @throws NonUniqueResultException
-     * @throws NoResultException
+     * @return NotificationInterface[]
      */
-    public function countNotificationsByEventAndChannel(
-        string $event,
-        string $channel,
-    ): int {
-        return (int) $this->createQueryBuilder('o')
-            ->select('COUNT(o.id)')
+    public function findNotificationsByEventCodeAndSyliusChannelCode(
+        string $eventCode,
+        string $channelCode,
+    ): array {
+        return $this->createQueryBuilder('o')
             ->innerJoin('o.channels', 'c')
-            ->andWhere('o.event = :event')
-            ->andWhere('c.code = :channel')
-            ->setParameter('event', $event)
-            ->setParameter('channel', $channel)
+            ->andWhere('o.eventCode = :eventCode')
+            ->andWhere('c.code = :channelCode')
+            ->andWhere('o.enabled = true')
+            ->setParameter('eventCode', $eventCode)
+            ->setParameter('channelCode', $channelCode)
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getResult()
         ;
     }
 }

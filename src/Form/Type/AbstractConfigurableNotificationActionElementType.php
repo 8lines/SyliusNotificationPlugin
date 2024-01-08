@@ -15,6 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractConfigurableNotificationActionElementType extends AbstractResourceType
 {
+    private const EVENT_CODE_FIELD_NAME = 'eventCode';
+
     public function __construct(
         string $dataClass,
         array $validationGroups,
@@ -35,7 +37,10 @@ abstract class AbstractConfigurableNotificationActionElementType extends Abstrac
                     return;
                 }
 
-                $this->addConfigurationFields($event->getForm(), $this->formTypeRegistry->get($notificationEvent, 'default'));
+                $this->addConfigurationFields(
+                    form: $event->getForm(),
+                    configurationType: $this->formTypeRegistry->get($notificationEvent, 'default')
+                );
             })
             ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
                 $notificationEvent = $this->getRegistryIdentifier($event->getForm(), $event->getData());
@@ -44,24 +49,27 @@ abstract class AbstractConfigurableNotificationActionElementType extends Abstrac
                     return;
                 }
 
-                $event->getForm()->get('event')->setData($notificationEvent);
+                $event->getForm()->get(self::EVENT_CODE_FIELD_NAME)->setData($notificationEvent);
             })
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
                 $data = $event->getData();
 
-                if (null === $data['event']) {
+                if (null === $data[self::EVENT_CODE_FIELD_NAME]) {
                     return;
                 }
 
-                $this->addConfigurationFields($event->getForm(), $this->formTypeRegistry->get($data['event'], 'default'));
+                $this->addConfigurationFields(
+                    form: $event->getForm(),
+                    configurationType: $this->formTypeRegistry->get($data[self::EVENT_CODE_FIELD_NAME], 'default')
+                );
             })
         ;
     }
 
     protected function getRegistryIdentifier(FormInterface $form, mixed $data = null): ?string
     {
-        if ($data instanceof NotificationActionInterface && null !== $data->getEvent()) {
-            return $data->getEvent();
+        if ($data instanceof NotificationActionInterface && null !== $data->getEventCode()) {
+            return $data->getEventCode();
         }
 
         /** @var string|null $configurationType */
@@ -75,7 +83,8 @@ abstract class AbstractConfigurableNotificationActionElementType extends Abstrac
             return;
         }
 
-        $form->add('configuration', $configurationType, [
+        $configuration = $form->get('configuration');
+        $configuration->add('data', $configurationType, [
             'label' => false,
         ]);
     }

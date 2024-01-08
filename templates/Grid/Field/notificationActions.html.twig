@@ -1,0 +1,3 @@
+{% for channelCode in data.actions|reduce((unique, item) => item.channelCode in unique ? unique : unique|merge([item.channelCode]), []) %}
+    <span class="ui label">{{ channelCode }}</span>
+{% endfor %}

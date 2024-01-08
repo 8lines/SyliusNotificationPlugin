@@ -15,10 +15,6 @@ sylius_grid:
                     type: string
                     label: sylius.ui.code
                     sortable: ~
-                event:
-                    type: string
-                    label: eightlines_sylius_notification_plugin.ui.event
-                    sortable: ~
                 enabled:
                     type: twig
                     label: sylius.ui.enabled
@@ -26,12 +22,22 @@ sylius_grid:
                     sortable: ~
                     options:
                         template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                eventCode:
+                    type: string
+                    label: eightlines_sylius_notification_plugin.ui.event
+                    sortable: ~
+                actions:
+                    type: twig
+                    label: eightlines_sylius_notification_plugin.ui.notification_channels
+                    path: .
+                    options:
+                        template: "@EightLinesSyliusNotificationPlugin/Grid/Field/notificationActions.html.twig"
             filters:
                 search:
                     type: string
                     label: sylius.ui.search
                     options:
-                        fields: [ code, event ]
+                        fields: [ code, eventCode, actions.type ]
                 enabled:
                     type: boolean
                     label: sylius.ui.enabled

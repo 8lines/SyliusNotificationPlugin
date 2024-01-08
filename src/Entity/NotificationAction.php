@@ -12,17 +12,18 @@ class NotificationAction implements NotificationActionInterface
 
     private int $id;
 
-    private ?string $event = null;
+    private ?string $eventCode = null;
 
-    private ?string $type = null;
+    private ?string $channelCode = null;
 
-    private array $configuration = [];
+    private NotificationMessageInterface $message;
 
-    private ?NotificationMessageInterface $message;
+    private NotificationConfigurationInterface $configuration;
 
     public function __construct()
     {
         $this->message = new NotificationMessage();
+        $this->configuration = new NotificationConfiguration();
     }
 
     public function getId(): int
@@ -30,43 +31,43 @@ class NotificationAction implements NotificationActionInterface
         return $this->id;
     }
 
-    public function getEvent(): ?string
+    public function getEventCode(): ?string
     {
-        return $this->event;
+        return $this->eventCode;
     }
 
-    public function setEvent(?string $event): void
+    public function setEventCode(?string $eventCode): void
     {
-        $this->event = $event;
+        $this->eventCode = $eventCode;
     }
 
-    public function getType(): ?string
+    public function getChannelCode(): ?string
     {
-        return $this->type;
+        return $this->channelCode;
     }
 
-    public function setType(?string $type): void
+    public function setChannelCode(?string $channelCode): void
     {
-        $this->type = $type;
+        $this->channelCode = $channelCode;
     }
 
-    public function getConfiguration(): array
-    {
-        return $this->configuration;
-    }
-
-    public function setConfiguration(array $configuration): void
-    {
-        $this->configuration = $configuration;
-    }
-
-    public function getMessage(): ?NotificationMessageInterface
+    public function getMessage(): NotificationMessageInterface
     {
         return $this->message;
     }
 
-    public function setMessage(?NotificationMessageInterface $message): void
+    public function setMessage(NotificationMessageInterface $message): void
     {
         $this->message = $message;
+    }
+
+    public function getConfiguration(): NotificationConfigurationInterface
+    {
+        return $this->configuration;
+    }
+
+    public function setConfiguration(NotificationConfigurationInterface $configuration): void
+    {
+        $this->configuration = $configuration;
     }
 }

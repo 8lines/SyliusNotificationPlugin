@@ -16,7 +16,7 @@ final class NotificationType extends AbstractResourceType
     {
         $builder
             ->addEventSubscriber(new AddCodeFormSubscriber())
-            ->add('event', NotificationEventChoiceType::class, [
+            ->add('eventCode', NotificationEventChoiceType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.event',
                 'attr' => [
                     'data-type' => 'notification-event-name',

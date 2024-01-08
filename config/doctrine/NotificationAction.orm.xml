@@ -7,9 +7,10 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="event" type="string" />
-        <field name="type" type="string" />
-        <field name="configuration" type="array" />
+        <field name="eventCode" column="event_code" type="string" />
+        <field name="channelCode" column="channel_code" type="string" />
+
+        <embedded name="configuration" use-column-prefix="false" class="EightLines\SyliusNotificationPlugin\Entity\NotificationConfiguration" />
 
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create" />
@@ -21,6 +22,7 @@
 
         <one-to-one field="message" target-entity="EightLines\SyliusNotificationPlugin\Entity\NotificationMessage" >
             <join-column name="message_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"  />
+
             <cascade>
                 <cascade-persist />
                 <cascade-remove />
