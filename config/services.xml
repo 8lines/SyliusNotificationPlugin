@@ -111,6 +111,14 @@
             <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_event" />
         </service>
 
+        <!-- Applicators -->
+        <service id="EightLines\SyliusNotificationPlugin\Applicator\NotificationVariablesApplicatorInterface"
+                 class="EightLines\SyliusNotificationPlugin\Applicator\NotificationVariablesApplicator">
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.applicator.notification_variables"
+                 alias="EightLines\SyliusNotificationPlugin\Applicator\NotificationVariablesApplicatorInterface" />
+
         <!-- Resolvers -->
         <service id="EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolverInterface"
                  class="EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolver">
