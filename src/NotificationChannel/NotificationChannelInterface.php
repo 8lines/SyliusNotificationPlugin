@@ -8,6 +8,7 @@ interface NotificationChannelInterface
 {
     public function send(
         string $message,
+        NotificationContext $context,
     ): void;
 
     public static function getIdentifier(): string;
