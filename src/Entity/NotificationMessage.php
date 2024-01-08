@@ -13,7 +13,7 @@ class NotificationMessage implements NotificationMessageInterface
     use TimestampableTrait;
 
     use TranslatableTrait {
-        __construct as private initializeTranslationsCollection;
+        __construct as public initializeTranslationsCollection;
     }
 
     private int $id;
@@ -33,10 +33,28 @@ class NotificationMessage implements NotificationMessageInterface
         $this->getCurrentTranslation()->setContent($content);
     }
 
+    public function getContentByLocaleCode(string $localeCode): ?string
+    {
+        return $this->getTranslationByLocaleCode($localeCode)->getContent();
+    }
+
     private function getCurrentTranslation(): NotificationMessageTranslation
     {
         /** @var NotificationMessageTranslation $translation */
         $translation = $this->getTranslation();
+
+        return $translation;
+    }
+
+    private function getTranslationByLocaleCode(string $localeCode): NotificationMessageTranslation
+    {
+        $translation = $this->getCurrentTranslation();
+
+        try {
+            /** @var NotificationMessageTranslation $translation */
+            $translation = $this->getTranslation($localeCode);
+        } catch (\Exception $ignored) {
+        }
 
         return $translation;
     }
