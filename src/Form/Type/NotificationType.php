@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\Form\Type;
 
+use EightLines\SyliusNotificationPlugin\Entity\Notification;
 use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
