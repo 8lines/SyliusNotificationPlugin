@@ -11,9 +11,9 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class RegisterNotificationChannelsCompilerPass implements CompilerPassInterface
 {
-    private const NOTIFICATION_CHANNELS_REGISTRY = 'eightlines_sylius_notifications_plugin.registry.notification_channels';
+    private const NOTIFICATION_CHANNELS_REGISTRY = 'eightlines_sylius_notification_plugin.registry.notification_channels';
 
-    private const NOTIFICATION_CHANNEL_TAG = 'eightlines_sylius_notifications_plugin.notification_channel';
+    private const NOTIFICATION_CHANNEL_TAG = 'eightlines_sylius_notification_plugin.notification_channel';
 
     private const CHANNEL_IDENTIFIER_METHOD = 'getIdentifier';
     private const IS_CHANNEL_SUPPORTED_METHOD = 'supports';
