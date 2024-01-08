@@ -19,6 +19,11 @@ eightlines_sylius_notification_plugin_notification:
     type: sylius.resource
     
 eightlines_sylius_notification_plugin.controller.notification_event_variables:
-    path: /ajax/notification-event-variables
+    path: /ajax/notification-event-variables/search-all
+    methods: [GET]
     defaults:
-        _controller: EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController
+        _controller: EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController::findAll
+        _format: json
+        _sylius:
+            serialization_groups: [Default]
+            permission: true
