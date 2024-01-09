@@ -4,33 +4,24 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\Menu;
 
-use JetBrains\PhpStorm\NoReturn;
-use Knp\Menu\ItemInterface;
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
 final class AdminMenuListener
 {
-    public function buildMenu(MenuBuilderEvent $menuBuilderEvent): void
+    public function buildMenu(MenuBuilderEvent $event): void
     {
-        $menu = $menuBuilderEvent->getMenu();
+        $menu = $event->getMenu();
 
-        /** @var ItemInterface $notifications */
         $notifications = $menu
             ->addChild('notifications')
             ->setLabel('Notifications')
         ;
+
         $notifications
-            ->addChild('notification_messages', [
-                'route' => 'notification_admin_message_index',
+            ->addChild('notifications', [
+                'route' => 'eightlines_sylius_notification_plugin_admin_notification_index',
             ])
-            ->setLabel('Messages')
-            ->setLabelAttribute('icon', 'paper plane')
-        ;
-        $notifications
-            ->addChild('notification_rules', [
-                'route' => 'notification_admin_rule_index',
-            ])
-            ->setLabel('Rules')
+            ->setLabel('eightlines_sylius_notification_plugin.ui.notifications')
             ->setLabelAttribute('icon', 'map signs')
         ;
     }

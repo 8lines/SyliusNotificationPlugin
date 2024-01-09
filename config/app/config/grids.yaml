@@ -1,13 +1,12 @@
 sylius_grid:
     grids:
-        notification_rule:
+        eightlines_sylius_notification_plugin.notification:
             driver:
                 name: doctrine/orm
                 options:
-                    class: "%notification.model.rule.class%"
+                    class: "%eightlines_sylius_notification_plugin.model.notification.class%"
                     repository:
                         method: createListQueryBuilder
-                        arguments: ["%locale%"]
             sorting:
                 code: asc
             limits: [10, 25, 50]
@@ -15,30 +14,31 @@ sylius_grid:
                 code:
                     type: string
                     label: sylius.ui.code
-                    sortable: code
-                translation.name:
+                    sortable: ~
+                event:
                     type: string
-                    label: sylius.ui.name
-                    sortable: translation.name
-                translation.slug:
-                    type: string
-                    label: sylius.ui.slug
-                    sortable: translation.slug
-                used:
-                    type: string
-                    label: sylius.ui.used
-                    sortable: used
+                    label: eightlines_sylius_notification_plugin.ui.event
+                    sortable: ~
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    path: enabled
+                    sortable: ~
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
             filters:
                 search:
                     type: string
                     label: sylius.ui.search
                     options:
-                        fields: [code, translation.name, translation.slug]
+                        fields: [ code, event ]
+                enabled:
+                    type: boolean
+                    label: sylius.ui.enabled
             actions:
                 main:
                     create:
                         type: create
-                        label: cart_links.ui.new_cart_link
                 item:
                     update:
                         type: update

@@ -11,23 +11,11 @@ class NotificationMessageTranslation extends AbstractTranslation implements Noti
 {
     private int $id;
 
-    private ?string $name;
-
-    private ?string $content;
+    private ?string $content = null;
 
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
     }
 
     public function getContent(): ?string

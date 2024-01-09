@@ -5,23 +5,25 @@ declare(strict_types=1);
 namespace EightLines\SyliusNotificationPlugin\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class AbstractConfigurationCollectionType extends AbstractType
+final class NotificationEventChoiceType extends AbstractType
 {
+    public function __construct(
+        private array $events,
+    ) {
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'allow_add' => true,
-            'allow_delete' => true,
-            'by_reference' => false,
-            'error_bubbling' => false,
+            'choices' => array_flip($this->events),
         ]);
     }
 
     public function getParent(): string
     {
-        return CollectionType::class;
+        return ChoiceType::class;
     }
 }

@@ -1,22 +1,3 @@
 default:
     suites:
-        applying_cart_link:
-            contexts:
-                - sylius.behat.context.hook.doctrine_orm
-    
-                - sylius.behat.context.transform.lexical
-                - sylius.behat.context.transform.promotion
-                - sylius.behat.context.transform.product_variant
-                - sylius.behat.context.transform.shared_storage
-                - eightlines.cart_links.context.transform.cart_link
-    
-                - sylius.behat.context.setup.channel
-                - sylius.behat.context.setup.product
-                - sylius.behat.context.setup.promotion
-                - eightlines.cart_links.context.setup.cart_link
-
-                - sylius.behat.context.ui.shop.cart
-                - eightlines.cart_links.context.ui.cart
-
-            filters:
-                tags: "@applying_cart_link && @ui"
+       
