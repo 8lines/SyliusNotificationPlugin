@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractConfigurableNotificationActionElementType extends AbstractResourceType
 {
-    private const EVENT_CODE_FIELD_NAME = 'eventCode';
+    private const CHANNEL_CODE_FIELD_NAME = 'channelCode';
 
     public function __construct(
         string $dataClass,
@@ -31,36 +31,40 @@ abstract class AbstractConfigurableNotificationActionElementType extends Abstrac
 
         $builder
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
-                $notificationEvent = $this->getRegistryIdentifier($event->getForm(), $event->getData());
+                $notificationChannel = $this->getRegistryIdentifier($event->getForm(), $event->getData());
 
-                if (null === $notificationEvent) {
+                if (null === $notificationChannel) {
                     return;
                 }
 
                 $this->addConfigurationFields(
                     form: $event->getForm(),
-                    configurationType: $this->formTypeRegistry->get($notificationEvent, 'default')
+                    configurationType: $this->formTypeRegistry->get($notificationChannel, 'default')
                 );
             })
             ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
-                $notificationEvent = $this->getRegistryIdentifier($event->getForm(), $event->getData());
+                $notificationChannel = $this->getRegistryIdentifier($event->getForm(), $event->getData());
 
-                if (null === $notificationEvent) {
+                if (null === $notificationChannel) {
                     return;
                 }
 
-                $event->getForm()->get(self::EVENT_CODE_FIELD_NAME)->setData($notificationEvent);
+                $event->getForm()->get(self::CHANNEL_CODE_FIELD_NAME)->setData($notificationChannel);
             })
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+                /** @var array $data */
                 $data = $event->getData();
 
-                if (null === $data[self::EVENT_CODE_FIELD_NAME]) {
+                if (false === isset($data[self::CHANNEL_CODE_FIELD_NAME])) {
                     return;
                 }
+
+                /** @var string $notificationChannel */
+                $notificationChannel = $data[self::CHANNEL_CODE_FIELD_NAME];
 
                 $this->addConfigurationFields(
                     form: $event->getForm(),
-                    configurationType: $this->formTypeRegistry->get($data[self::EVENT_CODE_FIELD_NAME], 'default')
+                    configurationType: $this->formTypeRegistry->get($notificationChannel, 'default')
                 );
             })
         ;
@@ -68,8 +72,8 @@ abstract class AbstractConfigurableNotificationActionElementType extends Abstrac
 
     protected function getRegistryIdentifier(FormInterface $form, mixed $data = null): ?string
     {
-        if ($data instanceof NotificationActionInterface && null !== $data->getEventCode()) {
-            return $data->getEventCode();
+        if ($data instanceof NotificationActionInterface && null !== $data->getChannelCode()) {
+            return $data->getChannelCode();
         }
 
         /** @var string|null $configurationType */

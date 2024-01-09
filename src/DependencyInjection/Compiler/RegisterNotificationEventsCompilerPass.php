@@ -12,15 +12,12 @@ use Symfony\Component\DependencyInjection\Reference;
 final class RegisterNotificationEventsCompilerPass implements CompilerPassInterface
 {
     private const NOTIFICATION_EVENTS_REGISTRY = 'eightlines_sylius_notification_plugin.registry.notification_events';
-    private const NOTIFICATION_EVENT_FORM_TYPES_REGISTRY = 'eightlines_sylius_notification_plugin.registry.notification_event.configuration_form_types';
-
     private const NOTIFICATION_EVENT_LISTENER = 'eightlines_sylius_notification_plugin.event_listener.notification_event';
 
     private const NOTIFICATION_EVENT_TAG = 'eightlines_sylius_notification_plugin.notification_event';
-    private const NOTIFICATION_EVENT_CONFIGURATION_FORM_TYPE_TAG = 'eightlines_sylius_notification_plugin.notification_event.configuration_form_type';
 
     private const EVENT_NAME_METHOD = 'getEventName';
-    private const CONFIGURATION_FORM_TYPE_METHOD = 'getConfigurationFormType';
+
 
     public function process(ContainerBuilder $container): void
     {
@@ -31,8 +28,6 @@ final class RegisterNotificationEventsCompilerPass implements CompilerPassInterf
         }
 
         $registry = $container->getDefinition(self::NOTIFICATION_EVENTS_REGISTRY);
-        $formRegistry = $container->getDefinition(self::NOTIFICATION_EVENT_FORM_TYPES_REGISTRY);
-
         $notificationEvent = $container->getDefinition(self::NOTIFICATION_EVENT_LISTENER);
 
         foreach ($container->findTaggedServiceIds(self::NOTIFICATION_EVENT_TAG, true) as $id => $attributes) {
@@ -42,25 +37,12 @@ final class RegisterNotificationEventsCompilerPass implements CompilerPassInterf
                     $attribute['event'] = $this->getEventNameFromTypeDeclaration($container, $id);
                 }
 
-                if (!isset($attribute['form-type'])) {
-                    $attribute['form-type'] = $this->getConfigurationFormTypeFromTypeDeclaration($container, $id);
-                }
-
                 $registry->addMethodCall('register', [$attribute['event'], new Reference($id)]);
 
                 $notificationEvent->addTag('kernel.event_listener', [
                     'event' => $attribute['event'],
                     'method' => 'onNotificationEvent',
                 ]);
-
-                if (isset($attribute['form-type'])) {
-                    $formRegistry->addMethodCall('add', [$attribute['event'], 'default', $attribute['form-type']]);
-
-                    $notificationEvent->addTag(self::NOTIFICATION_EVENT_CONFIGURATION_FORM_TYPE_TAG, [
-                        'event' => $attribute['event'],
-                        'form-type' => $attribute['form-type'],
-                    ]);
-                }
             }
         }
     }
@@ -100,15 +82,6 @@ final class RegisterNotificationEventsCompilerPass implements CompilerPassInterf
     ): string {
         return (string) $this->getNotificationEventClassReflection($container, $id)
             ->getMethod(self::EVENT_NAME_METHOD)
-            ->invoke(null);
-    }
-
-    private function getConfigurationFormTypeFromTypeDeclaration(
-        ContainerBuilder $container,
-        string $id,
-    ): ?string {
-        return (string)$this->getNotificationEventClassReflection($container, $id)
-            ->getMethod(self::CONFIGURATION_FORM_TYPE_METHOD)
             ->invoke(null);
     }
 }
