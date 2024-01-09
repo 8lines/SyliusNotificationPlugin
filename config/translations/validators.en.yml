@@ -7,6 +7,8 @@ eightlines_sylius_notification_plugin:
             max_length: Code can not be longer than {{ limit }} characters.
             regex: Block code can only be comprised of letters, numbers, dashes and underscores.
         action:
+            channel_code:
+                not_blank: Channel code cannot be blank.
             content:
                 not_blank: Content cannot be blank.
                 min_length: Content must be at least {{ limit }} characters long.
