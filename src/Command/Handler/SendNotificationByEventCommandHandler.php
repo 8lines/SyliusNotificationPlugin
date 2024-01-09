@@ -12,6 +12,7 @@ use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationContext;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariables;
 use EightLines\SyliusNotificationPlugin\Resolver\NotificationEventResolverInterface;
 use EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class SendNotificationByEventCommandHandler
@@ -43,15 +44,16 @@ final class SendNotificationByEventCommandHandler
             event: $notificationEvent,
         );
 
-        $channelCode = $notificationEvent->getSyliusChannelCode($notificationContext);
+        $syliusChannel = $notificationEvent->getSyliusChannel($notificationContext);
+        $syliusChannelCode = $syliusChannel?->getCode();
 
-        if (null === $channelCode) {
+        if (null === $syliusChannel || null === $syliusChannelCode) {
             return;
         }
 
         $notifications = $this->notificationResolver->resolveByEventCodeAndSyliusChannelCode(
             eventCode: $eventCode,
-            channelCode: $channelCode,
+            channelCode: $syliusChannelCode,
         );
 
         if (0 === \count($notifications)) {
@@ -69,6 +71,7 @@ final class SendNotificationByEventCommandHandler
         $this->handleNotificationActions(
             context: $notificationContext,
             variables: $notificationVariables,
+            syliusChannel: $syliusChannel,
             actions: array_merge(...$notificationActions),
         );
     }
@@ -79,6 +82,7 @@ final class SendNotificationByEventCommandHandler
     private function handleNotificationActions(
         NotificationContext $context,
         NotificationEventVariables $variables,
+        ChannelInterface $syliusChannel,
         array $actions,
     ): void {
         foreach ($actions as $action) {
@@ -86,6 +90,7 @@ final class SendNotificationByEventCommandHandler
                 context: $context,
                 action: $action,
                 variables: $variables,
+                syliusChannel: $syliusChannel,
             ));
         }
     }

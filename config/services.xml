@@ -156,10 +156,17 @@
 
         <service id="EightLines\SyliusNotificationPlugin\Command\Handler\RunNotificationActionCommandHandler">
             <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_channel" />
-            <argument type="service" id="eightlines_sylius_notification_plugin.applicator.notification_variables" />
+            <argument type="service" id="messenger.default_bus" />
 
             <tag name="messenger.message_handler"
                  handles="EightLines\SyliusNotificationPlugin\Command\RunNotificationActionCommand" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Command\Handler\SendNotificationToRecipientCommandHandler">
+            <argument type="service" id="eightlines_sylius_notification_plugin.applicator.notification_variables" />
+
+            <tag name="messenger.message_handler"
+                 handles="EightLines\SyliusNotificationPlugin\Command\SendNotificationToRecipientCommand" />
         </service>
     </services>
 </container>
