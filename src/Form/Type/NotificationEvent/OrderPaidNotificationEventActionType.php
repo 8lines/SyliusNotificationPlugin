@@ -12,13 +12,5 @@ final class OrderPaidNotificationEventActionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('recipient', ChoiceType::class, [
-                'label' => 'eightlines_sylius_notification_plugin.ui.recipient',
-                'choices' => [
-                    'sylius.ui.customer' => 'customer',
-                ],
-            ])
-        ;
     }
 }
