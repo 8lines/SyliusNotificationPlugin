@@ -7,9 +7,7 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="eventCode" column="event_code" type="string" />
         <field name="channelCode" column="channel_code" type="string" />
-
         <field name="notifyPrimaryRecipient" column="notify_primary_recipient" type="boolean" />
 
         <embedded name="configuration" use-column-prefix="false" class="EightLines\SyliusNotificationPlugin\Entity\NotificationConfiguration" />
