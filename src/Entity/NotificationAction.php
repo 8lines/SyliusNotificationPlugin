@@ -12,9 +12,7 @@ class NotificationAction implements NotificationActionInterface
 {
     use TimestampableTrait;
 
-    private int $id;
-
-    private ?string $eventCode = null;
+    private ?int $id;
 
     private ?string $channelCode = null;
 
@@ -33,7 +31,7 @@ class NotificationAction implements NotificationActionInterface
         $this->configuration = new NotificationConfiguration();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

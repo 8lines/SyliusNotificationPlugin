@@ -17,7 +17,7 @@ class Notification implements NotificationInterface
 
     use NotificationActionsAwareTrait;
 
-    private int $id;
+    private ?int $id;
 
     private ?string $code = null;
 
@@ -29,7 +29,7 @@ class Notification implements NotificationInterface
         $this->initializeActionsCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

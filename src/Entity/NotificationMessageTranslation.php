@@ -9,11 +9,11 @@ use Sylius\Component\Resource\Model\ResourceInterface;
 
 class NotificationMessageTranslation extends AbstractTranslation implements NotificationMessageTranslationInterface
 {
-    private int $id;
+    private ?int $id;
 
     private ?string $content = null;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
