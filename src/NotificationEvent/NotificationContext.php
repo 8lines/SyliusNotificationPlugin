@@ -15,8 +15,7 @@ final class NotificationContext
     public static function create(
         mixed $subject,
         NotificationEventInterface $event,
-    ): self
-    {
+    ): self {
         return new self($subject, $event);
     }
 

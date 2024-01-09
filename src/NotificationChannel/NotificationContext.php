@@ -4,27 +4,49 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\NotificationChannel;
 
+use EightLines\SyliusNotificationPlugin\Entity\NotificationActionInterface;
 use EightLines\SyliusNotificationPlugin\Entity\NotificationConfigurationInterface;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariables;
+use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationContext as EventLevelNotificationContext;
+use Sylius\Component\Core\Model\ChannelInterface;
 
 final class NotificationContext
 {
     public function __construct(
+        private NotificationActionInterface $action,
         private NotificationEventInterface $event,
         private NotificationChannelInterface $channel,
         private NotificationEventVariables $variables,
         private NotificationConfigurationInterface $configuration,
+        private ChannelInterface $syliusChannel,
+        private EventLevelNotificationContext $eventLevelContext,
     ) {
     }
 
     public static function create(
+        NotificationActionInterface $action,
         NotificationEventInterface $event,
         NotificationChannelInterface $channel,
         NotificationEventVariables $variables,
         NotificationConfigurationInterface $configuration,
+        ChannelInterface $syliusChannel,
+        EventLevelNotificationContext $eventLevelContext,
     ): self {
-        return new self($event, $channel, $variables, $configuration);
+        return new self(
+            action: $action,
+            event: $event,
+            channel: $channel,
+            variables: $variables,
+            configuration: $configuration,
+            syliusChannel: $syliusChannel,
+            eventLevelContext: $eventLevelContext,
+        );
+    }
+
+    public function getAction(): NotificationActionInterface
+    {
+        return $this->action;
     }
 
     public function getEvent(): NotificationEventInterface
@@ -45,6 +67,16 @@ final class NotificationContext
     public function getConfiguration(): NotificationConfigurationInterface
     {
         return $this->configuration;
+    }
+
+    public function getSyliusChannel(): ChannelInterface
+    {
+        return $this->syliusChannel;
+    }
+
+    public function getEventLevelContext(): EventLevelNotificationContext
+    {
+        return $this->eventLevelContext;
     }
 
     public function getEventName(): string
