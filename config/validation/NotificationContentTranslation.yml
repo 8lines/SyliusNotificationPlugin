@@ -1,0 +1,6 @@
+EightLines\SyliusNotificationPlugin\Entity\NotificationContentTranslation:
+    properties:
+        subject:
+            - Valid: ~
+        message:
+            - Valid: ~
