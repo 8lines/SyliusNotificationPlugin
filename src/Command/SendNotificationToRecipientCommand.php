@@ -10,13 +10,13 @@ use Sylius\Component\Core\Model\CustomerInterface;
 final class SendNotificationToRecipientCommand
 {
     public function __construct(
-        private CustomerInterface $recipient,
+        private ?CustomerInterface $recipient,
         private bool $primaryRecipient,
         private NotificationContext $context,
     ) {
     }
 
-    public function getRecipient(): CustomerInterface
+    public function getRecipient(): ?CustomerInterface
     {
         return $this->recipient;
     }

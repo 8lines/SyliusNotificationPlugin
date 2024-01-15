@@ -21,11 +21,6 @@ final class RunNotificationActionCommandHandler
 
     public function __invoke(RunNotificationActionCommand $command): void {
         $notificationAction = $command->getAction();
-
-        if (false === $notificationAction->hasAnyRecipients()) {
-            return;
-        }
-
         $notificationChannelCode = $notificationAction->getChannelCode();
 
         if (null === $notificationChannelCode) {
@@ -40,6 +35,14 @@ final class RunNotificationActionCommandHandler
             return;
         }
 
+        $notificationConfiguration = $notificationAction->getConfiguration();
+
+        if (false === $notificationConfiguration->hasAnyRecipients()
+            && false === $notificationChannel::supportsUnknownRecipient()
+        ) {
+            return;
+        }
+
         $notificationEvent = $command->getContext()->getEvent();
         $notificationVariables = $command->getVariables();
 
@@ -48,29 +51,36 @@ final class RunNotificationActionCommandHandler
             event: $command->getContext()->getEvent(),
             channel: $notificationChannel,
             variables: $notificationVariables,
-            configuration: $notificationAction->getConfiguration(),
+            configuration: $notificationConfiguration,
             syliusChannel: $command->getSyliusChannel(),
             eventLevelContext: $command->getContext(),
         );
 
-        if ($notificationAction->isNotifyPrimaryRecipient()) {
+        if (true === $notificationConfiguration->isNotifyPrimaryRecipient()) {
             $this->sendNotificationToPrimaryRecipient(
                 context: $notificationContext,
                 recipient: $notificationEvent->getPrimaryRecipient($command->getContext()),
             );
         }
 
-        $this->sendNotificationToAdditionalRecipients(
-            context: $notificationContext,
-            recipients: $notificationAction->getAdditionalRecipients()->toArray(),
-        );
+        if (true === $notificationConfiguration->hasAdditionalRecipients()) {
+            $this->sendNotificationToAdditionalRecipients(
+                context: $notificationContext,
+                recipients: $notificationConfiguration->getAdditionalRecipients()->toArray(),
+            );
+        }
+
+        if (true === $notificationChannel::supportsUnknownRecipient()) {
+            $this->sendNotificationToUnknownRecipient(
+                context: $notificationContext,
+            );
+        }
     }
 
     private function sendNotificationToPrimaryRecipient(
         NotificationContext $context,
         CustomerInterface $recipient,
-    ): void
-    {
+    ): void {
         $this->commandBus->dispatch(new SendNotificationToRecipientCommand(
             recipient: $recipient,
             primaryRecipient: true,
@@ -92,5 +102,15 @@ final class RunNotificationActionCommandHandler
                 context: $context,
             ));
         }
+    }
+
+    private function sendNotificationToUnknownRecipient(
+        NotificationContext $context,
+    ): void {
+        $this->commandBus->dispatch(new SendNotificationToRecipientCommand(
+            recipient: null,
+            primaryRecipient: false,
+            context: $context,
+        ));
     }
 }

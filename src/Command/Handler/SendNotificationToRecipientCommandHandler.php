@@ -6,6 +6,7 @@ namespace EightLines\SyliusNotificationPlugin\Command\Handler;
 
 use EightLines\SyliusNotificationPlugin\Applicator\NotificationVariablesApplicatorInterface;
 use EightLines\SyliusNotificationPlugin\Command\SendNotificationToRecipientCommand;
+use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationBody;
 
 final class SendNotificationToRecipientCommandHandler
 {
@@ -17,32 +18,48 @@ final class SendNotificationToRecipientCommandHandler
     public function __invoke(SendNotificationToRecipientCommand $command): void
     {
         $notificationEvent = $command->getContext()->getEvent();
-        $notificationAction = $command->getContext()->getAction();
+        $notificationConfiguration = $command->getContext()->getConfiguration();
+        $notificationContent = $notificationConfiguration->getContent();
 
         $localeCode = $command->isPrimaryRecipient()
             ? $notificationEvent->getPrimaryRecipientLocaleCode($command->getContext()->getEventLevelContext())
             : $command->getContext()->getSyliusChannel()->getDefaultLocale()?->getCode();
 
+        $notificationSubject = null === $localeCode
+            ? $notificationContent->getSubject()
+            : $notificationContent->getSubjectByLocaleCode($localeCode);
+
         $notificationMessage = null === $localeCode
-            ? $notificationAction->getMessage()->getContent()
-            : $notificationAction->getMessage()->getContentByLocaleCode($localeCode);
+            ? $notificationContent->getMessage()
+            : $notificationContent->getMessageByLocaleCode($localeCode);
 
-        if (null === $notificationMessage) {
-            return;
-        }
-
-        $notificationChannel = $command->getContext()->getChannel();
         $notificationVariables = $command->getContext()->getVariables();
 
-        $notificationMessage = $this->notificationVariablesApplicator->apply(
-            content: $notificationMessage,
-            variables: $notificationVariables,
-            definitions: $command->getContext()->getEvent()->getVariableDefinitions(),
+        if (null !== $notificationSubject) {
+            $notificationSubject = $this->notificationVariablesApplicator->apply(
+                content: $notificationSubject,
+                variables: $notificationVariables,
+                definitions: $command->getContext()->getEvent()->getVariableDefinitions(),
+            );
+        }
+
+        if (null !== $notificationMessage) {
+            $notificationMessage = $this->notificationVariablesApplicator->apply(
+                content: $notificationMessage,
+                variables: $notificationVariables,
+                definitions: $command->getContext()->getEvent()->getVariableDefinitions(),
+            );
+        }
+
+        $notificationBody = NotificationBody::create(
+            recipient: $command->getRecipient(),
+            subject: $notificationSubject,
+            message: $notificationMessage,
         );
 
+        $notificationChannel = $command->getContext()->getChannel();
         $notificationChannel->send(
-            recipient: $command->getRecipient(),
-            message: $notificationMessage,
+            body: $notificationBody,
             context: $command->getContext(),
         );
     }
