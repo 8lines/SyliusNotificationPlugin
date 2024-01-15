@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\NotificationChannel;
 
-use Sylius\Component\Core\Model\CustomerInterface;
-
 interface NotificationChannelInterface
 {
     public function send(
-        CustomerInterface $recipient,
-        string $message,
+        NotificationBody $body,
         NotificationContext $context,
     ): void;
 
-
     public static function getIdentifier(): string;
+
+    public static function supportsUnknownRecipient(): bool;
 
     public static function getConfigurationFormType(): ?string;
 
