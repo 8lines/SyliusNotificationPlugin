@@ -16,7 +16,7 @@ final class NotificationEventVariableName
         return $this->value;
     }
 
-    public function same(NotificationEventVariableName $other): bool
+    public function isEqual(NotificationEventVariableName $other): bool
     {
         return $this->value === $other->value;
     }

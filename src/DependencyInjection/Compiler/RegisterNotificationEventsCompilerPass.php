@@ -33,7 +33,7 @@ final class RegisterNotificationEventsCompilerPass implements CompilerPassInterf
         foreach ($container->findTaggedServiceIds(self::NOTIFICATION_EVENT_TAG, true) as $id => $attributes) {
             /** @var array $attribute */
             foreach ($attributes as $attribute) {
-                if (!isset($attribute['event'])) {
+                if (false === isset($attribute['event'])) {
                     $attribute['event'] = $this->getEventNameFromTypeDeclaration($container, $id);
                 }
 
