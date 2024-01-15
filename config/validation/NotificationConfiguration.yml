@@ -1,0 +1,4 @@
+EightLines\SyliusNotificationPlugin\Entity\NotificationConfiguration:
+    properties:
+        content:
+            - Valid: ~

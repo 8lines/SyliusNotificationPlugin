@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 
 class NotificationAction implements NotificationActionInterface
@@ -16,18 +14,10 @@ class NotificationAction implements NotificationActionInterface
 
     private ?string $channelCode = null;
 
-    private bool $notifyPrimaryRecipient = true;
-
-    private Collection $additionalRecipients;
-
-    private NotificationMessageInterface $message;
-
     private NotificationConfigurationInterface $configuration;
 
     public function __construct()
     {
-        $this->additionalRecipients = new ArrayCollection();
-        $this->message = new NotificationMessage();
         $this->configuration = new NotificationConfiguration();
     }
 
@@ -46,36 +36,6 @@ class NotificationAction implements NotificationActionInterface
         $this->channelCode = $channelCode;
     }
 
-    public function isNotifyPrimaryRecipient(): bool
-    {
-        return $this->notifyPrimaryRecipient;
-    }
-
-    public function setNotifyPrimaryRecipient(bool $notifyPrimaryRecipient): void
-    {
-        $this->notifyPrimaryRecipient = $notifyPrimaryRecipient;
-    }
-
-    public function getAdditionalRecipients(): Collection
-    {
-        return $this->additionalRecipients;
-    }
-
-    public function setAdditionalRecipients(Collection $additionalRecipients): void
-    {
-        $this->additionalRecipients = $additionalRecipients;
-    }
-
-    public function getMessage(): NotificationMessageInterface
-    {
-        return $this->message;
-    }
-
-    public function setMessage(NotificationMessageInterface $message): void
-    {
-        $this->message = $message;
-    }
-
     public function getConfiguration(): NotificationConfigurationInterface
     {
         return $this->configuration;
@@ -84,11 +44,5 @@ class NotificationAction implements NotificationActionInterface
     public function setConfiguration(NotificationConfigurationInterface $configuration): void
     {
         $this->configuration = $configuration;
-    }
-
-    public function hasAnyRecipients(): bool
-    {
-        return true === $this->isNotifyPrimaryRecipient()
-            || 0 !== $this->getAdditionalRecipients()->count();
     }
 }
