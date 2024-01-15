@@ -10,7 +10,11 @@
             <parameter>sylius</parameter>
         </parameter>
 
-        <parameter key="eightlines_sylius_notification_plugin.form.type.notification_message_translation.validation_groups" type="collection">
+        <parameter key="eightlines_sylius_notification_plugin.form.type.notification_content.validation_groups" type="collection">
+            <parameter>sylius</parameter>
+        </parameter>
+
+        <parameter key="eightlines_sylius_notification_plugin.form.type.notification_content_translation.validation_groups" type="collection">
             <parameter>sylius</parameter>
         </parameter>
     </parameters>
@@ -37,9 +41,16 @@
             <tag name="form.type" />
         </service>
 
-        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationMessageTranslationType">
-            <argument>%eightlines_sylius_notification_plugin.model.notification_message_translation.class%</argument>
-            <argument>%eightlines_sylius_notification_plugin.form.type.notification_message_translation.validation_groups%</argument>
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationContentType">
+            <argument>%eightlines_sylius_notification_plugin.model.notification_content.class%</argument>
+            <argument>%eightlines_sylius_notification_plugin.form.type.notification_content.validation_groups%</argument>
+            <argument type="service" id="sylius.translation_locale_provider.immutable" />
+            <tag name="form.type" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationContentTranslationType">
+            <argument>%eightlines_sylius_notification_plugin.model.notification_content_translation.class%</argument>
+            <argument>%eightlines_sylius_notification_plugin.form.type.notification_content_translation.validation_groups%</argument>
             <tag name="form.type" />
         </service>
 
