@@ -11,9 +11,7 @@ use Sylius\Component\Channel\Model\ChannelInterface;
 trait ChannelsAwareTrait
 {
     /**
-     * @var Collection|ChannelInterface[]
-     *
-     * @psalm-var Collection<array-key, ChannelInterface>
+     * @var ArrayCollection<int, ChannelInterface>
      */
     private Collection $channels;
 
