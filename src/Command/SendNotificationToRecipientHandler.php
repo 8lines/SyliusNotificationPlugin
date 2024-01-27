@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusNotificationPlugin\Command\Handler;
+namespace EightLines\SyliusNotificationPlugin\Command;
 
 use EightLines\SyliusNotificationPlugin\Applicator\NotificationVariablesApplicatorInterface;
-use EightLines\SyliusNotificationPlugin\Command\SendNotificationToRecipientCommand;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationBody;
 
-final class SendNotificationToRecipientCommandHandler
+final class SendNotificationToRecipientHandler
 {
     public function __construct(
         private NotificationVariablesApplicatorInterface $notificationVariablesApplicator,
     ) {
     }
 
-    public function __invoke(SendNotificationToRecipientCommand $command): void
+    public function __invoke(SendNotificationToRecipient $command): void
     {
         $notificationEvent = $command->getContext()->getEvent();
         $notificationConfiguration = $command->getContext()->getConfiguration();

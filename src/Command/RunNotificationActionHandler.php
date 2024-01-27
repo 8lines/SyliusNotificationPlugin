@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusNotificationPlugin\Command\Handler;
+namespace EightLines\SyliusNotificationPlugin\Command;
 
-use EightLines\SyliusNotificationPlugin\Command\RunNotificationActionCommand;
-use EightLines\SyliusNotificationPlugin\Command\SendNotificationToRecipientCommand;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationContext;
 use EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolverInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-final class RunNotificationActionCommandHandler
+final class RunNotificationActionHandler
 {
     public function __construct(
         private NotificationChannelResolverInterface $notificationChannelResolver,
@@ -19,7 +17,7 @@ final class RunNotificationActionCommandHandler
     ) {
     }
 
-    public function __invoke(RunNotificationActionCommand $command): void {
+    public function __invoke(RunNotificationAction $command): void {
         $notificationAction = $command->getAction();
         $notificationChannelCode = $notificationAction->getChannelCode();
 
@@ -81,7 +79,7 @@ final class RunNotificationActionCommandHandler
         NotificationContext $context,
         CustomerInterface $recipient,
     ): void {
-        $this->commandBus->dispatch(new SendNotificationToRecipientCommand(
+        $this->commandBus->dispatch(new SendNotificationToRecipient(
             recipient: $recipient,
             primaryRecipient: true,
             context: $context,
@@ -96,7 +94,7 @@ final class RunNotificationActionCommandHandler
         array $recipients,
     ): void {
         foreach ($recipients as $recipient) {
-            $this->commandBus->dispatch(new SendNotificationToRecipientCommand(
+            $this->commandBus->dispatch(new SendNotificationToRecipient(
                 recipient: $recipient,
                 primaryRecipient: false,
                 context: $context,
@@ -107,7 +105,7 @@ final class RunNotificationActionCommandHandler
     private function sendNotificationToUnknownRecipient(
         NotificationContext $context,
     ): void {
-        $this->commandBus->dispatch(new SendNotificationToRecipientCommand(
+        $this->commandBus->dispatch(new SendNotificationToRecipient(
             recipient: null,
             primaryRecipient: false,
             context: $context,

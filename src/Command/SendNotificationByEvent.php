@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\Command;
 
-final class SendNotificationByEventCommand
+final class SendNotificationByEvent
 {
     public function __construct(
         private string $eventName,

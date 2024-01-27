@@ -1,6 +1,10 @@
 /vendor/
 /node_modules/
-/composer.lock
+composer.lock
+
+/bin/*
+!/bin/console
+!/bin/create_node_symlink.php
 
 /etc/build/*
 !/etc/build/.gitignore
@@ -8,7 +12,7 @@
 /tests/Application/yarn.lock
 
 /.phpunit.result.cache
-/behat.yml
+behat.yml
 /phpspec.yml
 /phpunit.xml
 
@@ -24,7 +28,6 @@
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
-/vendor/
 ###< symfony/framework-bundle ###
 
 ###> squizlabs/php_codesniffer ###
@@ -33,12 +36,10 @@
 ###< squizlabs/php_codesniffer ###
 
 ###> phpunit/phpunit ###
-/phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
 ###> symfony/webpack-encore-bundle ###
-/node_modules/
 /public/build/
 npm-debug.log
 yarn-error.log

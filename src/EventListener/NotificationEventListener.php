@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\EventListener;
 
-use EightLines\SyliusNotificationPlugin\Command\SendNotificationByEventCommand;
+use EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -19,7 +19,7 @@ final class NotificationEventListener
         GenericEvent $event,
         string $eventName,
     ): void {
-        $sendNotificationCommand = new SendNotificationByEventCommand(
+        $sendNotificationCommand = new SendNotificationByEvent(
             eventName: $eventName,
             subject: $event->getSubject(),
         );

@@ -9,7 +9,7 @@ use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationContext;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariables;
 use Sylius\Component\Core\Model\ChannelInterface;
 
-final class RunNotificationActionCommand
+final class RunNotificationAction
 {
     public function __construct(
         private NotificationContext $context,

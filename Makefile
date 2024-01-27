@@ -34,3 +34,21 @@ ci: init phpstan psalm phpunit phpspec behat
 integration: init phpunit behat
 
 static: install phpspec phpstan psalm
+
+bash: ## login into container
+	docker-compose exec app bash
+test: ## Run tests
+	docker-compose exec app bin/phpunit --colors=always --coverage-text --coverage-html=build/coverage
+
+build: ## Builds the Docker images
+	docker-compose build --pull --no-cache
+
+up: ## Start containers in detached mode (no logs)
+	docker-compose up --detach
+
+stop: ## Stop containers
+	docker-compose app
+
+remove: ## Remove containers
+	docker-compose stop
+	docker-compose rm -fv app

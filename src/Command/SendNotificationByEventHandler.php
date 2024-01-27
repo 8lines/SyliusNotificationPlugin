@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusNotificationPlugin\Command\Handler;
+namespace EightLines\SyliusNotificationPlugin\Command;
 
-use EightLines\SyliusNotificationPlugin\Command\SendNotificationByEventCommand;
-use EightLines\SyliusNotificationPlugin\Command\RunNotificationActionCommand;
 use EightLines\SyliusNotificationPlugin\Entity\NotificationActionInterface;
 use EightLines\SyliusNotificationPlugin\Entity\NotificationInterface;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationContext;
@@ -15,7 +13,7 @@ use EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-final class SendNotificationByEventCommandHandler
+final class SendNotificationByEventHandler
 {
     public function __construct(
         private NotificationResolverInterface $notificationResolver,
@@ -24,7 +22,7 @@ final class SendNotificationByEventCommandHandler
     ) {
     }
 
-    public function __invoke(SendNotificationByEventCommand $command): void
+    public function __invoke(SendNotificationByEvent $command): void
     {
         $eventCode = $command->getEventName();
 
@@ -86,7 +84,7 @@ final class SendNotificationByEventCommandHandler
         array $actions,
     ): void {
         foreach ($actions as $action) {
-            $this->messageBus->dispatch(new RunNotificationActionCommand(
+            $this->messageBus->dispatch(new RunNotificationAction(
                 context: $context,
                 action: $action,
                 variables: $variables,

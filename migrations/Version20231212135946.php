@@ -7,9 +7,6 @@ namespace EightLines\SyliusNotificationPlugin\Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20231212135946 extends AbstractMigration
 {
     public function getDescription(): string
@@ -19,7 +16,6 @@ final class Version20231212135946 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE 8lines_notification (id INT AUTO_INCREMENT NOT NULL, code LONGTEXT NOT NULL, event_code LONGTEXT NOT NULL, enabled TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE 8lines_notification_actions (notification_id INT NOT NULL, notification_action_id INT NOT NULL, INDEX IDX_94A39187EF1A9D84 (notification_id), UNIQUE INDEX UNIQ_94A391873BDBB76A (notification_action_id), PRIMARY KEY(notification_id, notification_action_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE 8lines_notification_channels (notification_id INT NOT NULL, channel_id INT NOT NULL, INDEX IDX_B0ECE0BCEF1A9D84 (notification_id), INDEX IDX_B0ECE0BC72F5A1AA (channel_id), PRIMARY KEY(notification_id, channel_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -41,7 +37,6 @@ final class Version20231212135946 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE 8lines_notification_actions DROP FOREIGN KEY FK_94A39187EF1A9D84');
         $this->addSql('ALTER TABLE 8lines_notification_actions DROP FOREIGN KEY FK_94A391873BDBB76A');
         $this->addSql('ALTER TABLE 8lines_notification_channels DROP FOREIGN KEY FK_B0ECE0BCEF1A9D84');

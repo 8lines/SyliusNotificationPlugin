@@ -7,7 +7,7 @@ namespace EightLines\SyliusNotificationPlugin\Command;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationContext;
 use Sylius\Component\Core\Model\CustomerInterface;
 
-final class SendNotificationToRecipientCommand
+final class SendNotificationToRecipient
 {
     public function __construct(
         private ?CustomerInterface $recipient,
