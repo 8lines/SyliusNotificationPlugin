@@ -1,5 +1,6 @@
-sylius_customer:
+sylius_user:
     resources:
-        customer:
-            classes:
-                repository: EightLines\SyliusNotificationPlugin\Repository\Sylius\CustomerRepository
+        admin:
+            user: 
+                classes:
+                    repository: EightLines\SyliusNotificationPlugin\Repository\Sylius\AdminUserRepository
