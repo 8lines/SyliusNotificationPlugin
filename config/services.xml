@@ -115,6 +115,14 @@
             <tag name="eightlines_sylius_notification_plugin.notification_channel" />
         </service>
 
+        <service id="eightlines_sylius_notification_plugin.notification_channel.audit_log"
+                 class="EightLines\SyliusNotificationPlugin\NotificationChannel\Sylius\AuditLogNotificationChannel">
+            <argument type="service" id="eightlines_sylius_notification_plugin.factory.audit_log" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+
+            <tag name="eightlines_sylius_notification_plugin.notification_channel" />
+        </service>
+
         <!-- Controllers -->
         <service id="EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController"
                  autowire="true"
@@ -179,5 +187,14 @@
             <tag name="messenger.message_handler"
                  handles="EightLines\SyliusNotificationPlugin\Command\SendNotificationToRecipientCommand" />
         </service>
+
+        <!-- Factories -->
+        <service id="EightLines\SyliusNotificationPlugin\Factory\AuditLogFactoryInterface"
+                 class="EightLines\SyliusNotificationPlugin\Factory\AuditLogFactory">
+            <argument type="service" id="serializer" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.factory.audit_log"
+                 alias="EightLines\SyliusNotificationPlugin\Factory\AuditLogFactoryInterface" />
     </services>
 </container>
