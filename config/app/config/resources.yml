@@ -1,5 +1,11 @@
 sylius_resource:
     resources:
+        eightlines_sylius_notification_plugin.audit_log:
+            classes:
+                model: EightLines\SyliusNotificationPlugin\Entity\AuditLog
+                interface: EightLines\SyliusNotificationPlugin\Entity\AuditLogInterface
+                repository: EightLines\SyliusNotificationPlugin\Repository\AuditLogRepository
+                factory: EightLines\SyliusNotificationPlugin\Factory\AuditLogFactory
         eightlines_sylius_notification_plugin.notification:
             classes:
                 model: EightLines\SyliusNotificationPlugin\Entity\Notification
