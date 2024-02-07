@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <embeddable name="EightLines\SyliusNotificationPlugin\Entity\AuditLogChannel">
+        <field name="id" column="id" type="integer" nullable="true" />
+        <field name="name" column="name" type="string" nullable="true" />
+    </embeddable>
+</doctrine-mapping>
