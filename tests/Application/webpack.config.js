@@ -31,6 +31,7 @@ Encore
     .setOutputPath('public/build/admin/')
     .setPublicPath('/build/admin')
     .addEntry('admin-entry', './assets/admin/entry.js')
+    .addEntry('eightlines-sylius-notification-plugin', '../../assets/admin/entry.js')
     .disableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())

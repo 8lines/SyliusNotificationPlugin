@@ -12,6 +12,8 @@ class NotificationAction implements NotificationActionInterface
 
     private int $id;
 
+    private ?string $event = null;
+
     private ?string $type = null;
 
     private array $configuration = [];
@@ -26,6 +28,16 @@ class NotificationAction implements NotificationActionInterface
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getEvent(): ?string
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?string $event): void
+    {
+        $this->event = $event;
     }
 
     public function getType(): ?string

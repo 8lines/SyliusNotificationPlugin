@@ -11,6 +11,10 @@ interface NotificationActionInterface extends
     ResourceInterface,
     TimestampableInterface
 {
+    public function getEvent(): ?string;
+
+    public function setEvent(?string $event): void;
+
     public function getType(): ?string;
 
     public function setType(?string $type): void;

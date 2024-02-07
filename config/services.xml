@@ -17,10 +17,6 @@
         <parameter key="eightlines_sylius_notification_plugin.example_notification_channels" type="collection">
             <parameter>sylius</parameter>
         </parameter>
-
-        <parameter key="eightlines_sylius_notification_plugin.example_notification_events" type="collection">
-            <parameter>sylius</parameter>
-        </parameter>
     </parameters>
 
     <services>
@@ -41,6 +37,7 @@
         <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationActionType">
             <argument>%eightlines_sylius_notification_plugin.model.notification_action.class%</argument>
             <argument>%eightlines_sylius_notification_plugin.form.notification_action.validation_groups%</argument>
+            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_event.configuration_form_types" />
             <tag name="form.type" />
         </service>
 
@@ -51,6 +48,7 @@
         </service>
 
         <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationActionCollectionType">
+            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_events" />
             <tag name="form.type" />
         </service>
 
@@ -60,8 +58,40 @@
         </service>
 
         <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationEventChoiceType">
-            <argument>%eightlines_sylius_notification_plugin.example_notification_events%</argument>
+            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_events" />
             <tag name="form.type" />
+        </service>
+
+        <!-- Service Registry -->
+        <service id="eightlines_sylius_notifications_plugin.registry.notification_events"
+                 class="Sylius\Component\Registry\ServiceRegistry">
+            <argument>EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface</argument>
+            <argument>notification event</argument>
+        </service>
+
+        <instanceof id="EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface" autowire="true">
+            <tag name="eightlines_sylius_notifications_plugin.notification_event" />
+        </instanceof>
+
+        <!-- Form Type Registry -->
+        <service id="eightlines_sylius_notifications_plugin.registry.notification_event.configuration_form_types"
+                 class="Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry" />
+
+        <!-- Event Listeners -->
+        <service id="eightlines_sylius_notifications_plugin.event_listener.notification_event"
+                 class="EightLines\SyliusNotificationPlugin\EventListener\NotificationEventListener">
+            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_events" />
+        </service>
+
+        <!-- Notification Events -->
+        <service id="eightlines_sylius_notifications_plugin.notification_event.sylius.order_paid"
+                 class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\OrderPaidNotificationEvent">
+            <tag name="eightlines_sylius_notifications_plugin.notification_event" />
+        </service>
+
+        <!-- Controllers -->
+        <service id="EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController" autowire="true" autoconfigure="true">
+            <argument type="service" id="eightlines_sylius_notifications_plugin.registry.notification_events" />
         </service>
     </services>
 </container>

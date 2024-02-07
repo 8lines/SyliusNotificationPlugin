@@ -7,6 +7,7 @@
             <generator strategy="AUTO" />
         </id>
 
+        <field name="event" type="string" />
         <field name="type" type="string" />
         <field name="configuration" type="array" />
 

@@ -17,3 +17,8 @@ eightlines_sylius_notification_plugin_notification:
                 templates:
                     form: "@EightLinesSyliusNotificationPlugin/Admin/Notification/_form.html.twig"
     type: sylius.resource
+    
+eightlines_sylius_notification_plugin.controller.notification_event_variables:
+    path: /ajax/notification-event-variables
+    defaults:
+        _controller: EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController
