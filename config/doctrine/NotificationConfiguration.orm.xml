@@ -9,14 +9,14 @@
 
         <field name="notifyPrimaryRecipient" column="notify_primary_recipient" type="boolean" />
 
-        <many-to-many field="additionalRecipients" target-entity="Sylius\Component\Customer\Model\CustomerInterface">
+        <many-to-many field="additionalRecipients" target-entity="Sylius\Component\Core\Model\AdminUserInterface">
             <join-table name="8lines_notification_additional_recipients">
                 <join-columns>
                     <join-column name="notification_action_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
                 </join-columns>
 
                 <inverse-join-columns>
-                    <join-column name="customer_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
+                    <join-column name="admin_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
                 </inverse-join-columns>
             </join-table>
         </many-to-many>

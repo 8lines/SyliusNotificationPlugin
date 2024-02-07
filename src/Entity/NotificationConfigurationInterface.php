@@ -6,7 +6,7 @@ namespace EightLines\SyliusNotificationPlugin\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TimestampableInterface;
 
@@ -19,12 +19,12 @@ interface NotificationConfigurationInterface extends
     public function setNotifyPrimaryRecipient(bool $notifyPrimaryRecipient): void;
 
     /**
-     * @return ArrayCollection<int, CustomerInterface>
+     * @return ArrayCollection<int, AdminUserInterface>
      */
     public function getAdditionalRecipients(): Collection;
 
     /**
-     * @param ArrayCollection<int, CustomerInterface> $additionalRecipients
+     * @param ArrayCollection<int, AdminUserInterface> $additionalRecipients
      */
     public function setAdditionalRecipients(Collection $additionalRecipients): void;
 

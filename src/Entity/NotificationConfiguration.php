@@ -6,7 +6,7 @@ namespace EightLines\SyliusNotificationPlugin\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 
 class NotificationConfiguration implements NotificationConfigurationInterface
@@ -18,7 +18,7 @@ class NotificationConfiguration implements NotificationConfigurationInterface
     private bool $notifyPrimaryRecipient = false;
 
     /**
-     * @var ArrayCollection<int, CustomerInterface>
+     * @var ArrayCollection<int, AdminUserInterface>
      */
     private Collection $additionalRecipients;
 
