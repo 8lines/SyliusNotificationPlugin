@@ -13,6 +13,7 @@ use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVaria
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariableDefinitions;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariables;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariableValue;
+use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationRecipient;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -61,7 +62,7 @@ final class OrderPaidNotificationEvent implements NotificationEventInterface
         );
     }
 
-    public function getPrimaryRecipient(NotificationContext $context): CustomerInterface
+    public function getPrimaryRecipient(NotificationContext $context): NotificationRecipient
     {
         $order = $this->getOrderFromContext($context);
 
@@ -75,7 +76,7 @@ final class OrderPaidNotificationEvent implements NotificationEventInterface
             throw new \InvalidArgumentException('Customer should be instance of CustomerInterface');
         }
 
-        return $customer;
+        return NotificationRecipient::create($customer);
     }
 
     public function getPrimaryRecipientLocaleCode(NotificationContext $context): ?string

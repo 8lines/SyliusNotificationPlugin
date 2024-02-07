@@ -8,6 +8,7 @@ use EightLines\SyliusNotificationPlugin\Form\Type\NotificationChannel\MessageWit
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationChannelInterface;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationBody;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationContext;
+use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationRecipient;
 use Symfony\Component\Notifier\ChatterInterface;
 use Symfony\Component\Notifier\Exception\TransportExceptionInterface;
 use Symfony\Component\Notifier\Message\ChatMessage;
@@ -23,6 +24,7 @@ final class SlackNotificationChannel implements NotificationChannelInterface
      * @throws TransportExceptionInterface
      */
     public function send(
+        ?NotificationRecipient $recipient,
         NotificationBody $body,
         NotificationContext $context,
     ): void {
