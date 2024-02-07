@@ -11,8 +11,6 @@ interface NotificationEventInterface
 {
     public static function getEventName(): string;
 
-    public static function getConfigurationFormType(): ?string;
-
     public function getVariables(NotificationContext $context): NotificationEventVariables;
 
     public function getVariableDefinitions(): NotificationEventVariableDefinitions;

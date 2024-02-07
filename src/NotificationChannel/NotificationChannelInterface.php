@@ -14,7 +14,10 @@ interface NotificationChannelInterface
         NotificationContext $context,
     ): void;
 
+
     public static function getIdentifier(): string;
+
+    public static function getConfigurationFormType(): ?string;
 
     public static function supports(): bool;
 }

@@ -12,19 +12,28 @@ use Symfony\Component\DependencyInjection\Reference;
 final class RegisterNotificationChannelsCompilerPass implements CompilerPassInterface
 {
     private const NOTIFICATION_CHANNELS_REGISTRY = 'eightlines_sylius_notification_plugin.registry.notification_channels';
+    private const NOTIFICATION_CHANNEL_FORM_TYPES_REGISTRY = 'eightlines_sylius_notification_plugin.registry.notification_channel.configuration_form_types';
 
     private const NOTIFICATION_CHANNEL_TAG = 'eightlines_sylius_notification_plugin.notification_channel';
+    private const NOTIFICATION_CHANNEL_CONFIGURATION_FORM_TYPE_TAG = 'eightlines_sylius_notification_plugin.notification_channel.configuration_form_type';
 
     private const CHANNEL_IDENTIFIER_METHOD = 'getIdentifier';
     private const IS_CHANNEL_SUPPORTED_METHOD = 'supports';
+    private const CONFIGURATION_FORM_TYPE_METHOD = 'getConfigurationFormType';
 
+    /**
+     * @throws \Exception
+     */
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::NOTIFICATION_CHANNELS_REGISTRY)) {
+        if (!$container->has(self::NOTIFICATION_CHANNELS_REGISTRY)
+            || !$container->has(self::NOTIFICATION_CHANNEL_FORM_TYPES_REGISTRY)
+        ) {
             return;
         }
 
         $registry = $container->getDefinition(self::NOTIFICATION_CHANNELS_REGISTRY);
+        $formRegistry = $container->getDefinition(self::NOTIFICATION_CHANNEL_FORM_TYPES_REGISTRY);
 
         foreach ($container->findTaggedServiceIds(self::NOTIFICATION_CHANNEL_TAG, true) as $id => $attributes) {
             /** @var array $attribute */
@@ -37,12 +46,25 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
                     $attribute['supports'] = $this->getIsSupportedFromTypeDeclaration($container, $id);
                 }
 
+                if (!isset($attribute['form-type'])) {
+                    $attribute['form-type'] = $this->getConfigurationFormTypeFromTypeDeclaration($container, $id);
+                }
+
                 if (!isset($attribute['supports']) || false === $attribute['supports']) {
                     $container->removeDefinition($id);
                     return;
                 }
 
                 $registry->addMethodCall('register', [$attribute['identifier'], new Reference($id)]);
+
+                if (isset($attribute['form-type'])) {
+                    $formRegistry->addMethodCall('add', [$attribute['identifier'], 'default', $attribute['form-type']]);
+
+                    $container->getDefinition($id)->addTag(self::NOTIFICATION_CHANNEL_CONFIGURATION_FORM_TYPE_TAG, [
+                        'channel' => $attribute['identifier'],
+                        'form-type' => $attribute['form-type'],
+                    ]);
+                }
             }
         }
     }
@@ -91,6 +113,15 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
     ): ?bool {
         return (bool) $this->getNotificationChannelClassReflection($container, $id)
             ->getMethod(self::IS_CHANNEL_SUPPORTED_METHOD)
+            ->invoke(null);
+    }
+
+    private function getConfigurationFormTypeFromTypeDeclaration(
+        ContainerBuilder $container,
+        string $id,
+    ): ?string {
+        return (string) $this->getNotificationChannelClassReflection($container, $id)
+            ->getMethod(self::CONFIGURATION_FORM_TYPE_METHOD)
             ->invoke(null);
     }
 }

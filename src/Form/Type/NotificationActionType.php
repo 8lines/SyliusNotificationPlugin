@@ -6,7 +6,6 @@ namespace EightLines\SyliusNotificationPlugin\Form\Type;
 
 use EightLines\SyliusNotificationPlugin\Entity\NotificationMessage;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class NotificationActionType extends AbstractConfigurableNotificationActionElementType
@@ -16,14 +15,11 @@ final class NotificationActionType extends AbstractConfigurableNotificationActio
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('eventCode', HiddenType::class, [
-                'attr' => [
-                    'data-type' => 'notification-action-event',
-                    'data-form-collection' => 'update',
-                ],
-            ])
             ->add('channelCode', NotificationChannelChoiceType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.notification_channel',
+                'attr' => [
+                    'data-form-collection' => 'update',
+                ],
             ])
             ->add('notifyPrimaryRecipient', CheckboxType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.notify_primary_recipient',

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius;
 
-use EightLines\SyliusNotificationPlugin\Form\Type\NotificationEvent\OrderPaidNotificationEventActionType;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationContext;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariable;
@@ -24,11 +23,6 @@ final class OrderPaidNotificationEvent implements NotificationEventInterface
     public static function getEventName(): string
     {
         return 'sylius.payment.post_complete';
-    }
-
-    public static function getConfigurationFormType(): ?string
-    {
-        return OrderPaidNotificationEventActionType::class;
     }
 
     public function getVariables(NotificationContext $context): NotificationEventVariables

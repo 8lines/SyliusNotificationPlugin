@@ -6,17 +6,13 @@ namespace EightLines\SyliusNotificationPlugin\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Channel\Model\ChannelInterface;
-use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 
 class NotificationAction implements NotificationActionInterface
 {
     use TimestampableTrait;
 
-    private int $id;
-
-    private ?string $eventCode = null;
+    private ?int $id;
 
     private ?string $channelCode = null;
 
@@ -35,19 +31,9 @@ class NotificationAction implements NotificationActionInterface
         $this->configuration = new NotificationConfiguration();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEventCode(): ?string
-    {
-        return $this->eventCode;
-    }
-
-    public function setEventCode(?string $eventCode): void
-    {
-        $this->eventCode = $eventCode;
     }
 
     public function getChannelCode(): ?string

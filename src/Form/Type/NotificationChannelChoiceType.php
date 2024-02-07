@@ -19,8 +19,10 @@ final class NotificationChannelChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'choices' => array_keys($this->notificationChannelsRegistry->all()),
+            'choices' => array_merge([''], array_keys($this->notificationChannelsRegistry->all())),
             'choice_label' => fn (string $choice) => $choice,
+            'choice_attr' => fn (string $choice) => '' === $choice ? ['disabled' => 'disabled'] : [],
+            'empty_data' => '',
         ]);
     }
 

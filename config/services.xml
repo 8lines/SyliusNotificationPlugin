@@ -33,7 +33,7 @@
         <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationActionType">
             <argument>%eightlines_sylius_notification_plugin.model.notification_action.class%</argument>
             <argument>%eightlines_sylius_notification_plugin.form.type.notification_action.validation_groups%</argument>
-            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_event.configuration_form_types" />
+            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_channel.configuration_form_types" />
             <tag name="form.type" />
         </service>
 
@@ -44,7 +44,7 @@
         </service>
 
         <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationActionCollectionType">
-            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_events" />
+            <argument type="service" id="eightlines_sylius_notification_plugin.registry.notification_channels" />
             <tag name="form.type" />
         </service>
 
@@ -82,7 +82,7 @@
         </instanceof>
 
         <!-- Form Type Registry -->
-        <service id="eightlines_sylius_notification_plugin.registry.notification_event.configuration_form_types"
+        <service id="eightlines_sylius_notification_plugin.registry.notification_channel.configuration_form_types"
                  class="Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistry" />
 
         <!-- Event Listeners -->

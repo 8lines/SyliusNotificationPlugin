@@ -16,9 +16,9 @@ class NotificationMessage implements NotificationMessageInterface
         __construct as public initializeTranslationsCollection;
     }
 
-    private int $id;
+    private ?int $id;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
