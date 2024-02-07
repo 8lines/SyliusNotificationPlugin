@@ -7,6 +7,7 @@ namespace EightLines\SyliusNotificationPlugin\Command;
 use EightLines\SyliusNotificationPlugin\Entity\NotificationActionInterface;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationContext;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariables;
+use Sylius\Component\Core\Model\ChannelInterface;
 
 final class RunNotificationActionCommand
 {
@@ -14,6 +15,7 @@ final class RunNotificationActionCommand
         private NotificationContext $context,
         private NotificationActionInterface $action,
         private NotificationEventVariables $variables,
+        private ChannelInterface $syliusChannel,
     ) {
     }
 
@@ -30,5 +32,10 @@ final class RunNotificationActionCommand
     public function getVariables(): NotificationEventVariables
     {
         return $this->variables;
+    }
+
+    public function getSyliusChannel(): ChannelInterface
+    {
+        return $this->syliusChannel;
     }
 }

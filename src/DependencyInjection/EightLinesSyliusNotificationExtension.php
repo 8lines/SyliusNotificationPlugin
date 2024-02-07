@@ -35,6 +35,7 @@ final class EightLinesSyliusNotificationExtension extends Extension implements P
     public function prepend(ContainerBuilder $container): void
     {
         $this->prependDoctrineMigrations($container);
+        $this->prependJmsSerializer($container);
     }
 
     protected function getMigrationsNamespace(): string
@@ -50,5 +51,26 @@ final class EightLinesSyliusNotificationExtension extends Extension implements P
     protected function getNamespacesOfMigrationsExecutedBefore(): array
     {
         return ['Sylius\Bundle\CoreBundle\Migrations'];
+    }
+
+    private function prependJmsSerializer(ContainerBuilder $container): void
+    {
+        foreach ($container->getExtensionConfig('jms_serializer') as $config) {
+            if (false === isset($config['metadata'])) {
+                continue;
+            }
+
+            if (false === isset($config['metadata']['directories'])) {
+                continue;
+            }
+
+            foreach ($config['metadata']['directories'] as $directoryKey => $directoryConfig) {
+                if (strpos($directoryKey, 'custom-sylius') !== 0) {
+                    continue;
+                }
+
+                $container->prependExtensionConfig('jms_serializer', $config);
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace EightLines\SyliusNotificationPlugin\NotificationChannel\Symfony;
 
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationChannelInterface;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationContext;
+use Sylius\Component\Core\Model\CustomerInterface;
 use Symfony\Component\Notifier\ChatterInterface;
 use Symfony\Component\Notifier\Exception\TransportExceptionInterface;
 use Symfony\Component\Notifier\Message\ChatMessage;
@@ -21,6 +22,7 @@ final class SlackNotificationChannel implements NotificationChannelInterface
      * @throws TransportExceptionInterface
      */
     public function send(
+        CustomerInterface $recipient,
         string $message,
         NotificationContext $context,
     ): void {

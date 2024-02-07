@@ -14,6 +14,7 @@ use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVaria
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariableDefinitions;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariables;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariableValue;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
@@ -66,7 +67,7 @@ final class OrderPaidNotificationEvent implements NotificationEventInterface
         );
     }
 
-    public function getSyliusRecipient(NotificationContext $context): CustomerInterface
+    public function getPrimaryRecipient(NotificationContext $context): CustomerInterface
     {
         $order = $this->getOrderFromContext($context);
 
@@ -83,14 +84,14 @@ final class OrderPaidNotificationEvent implements NotificationEventInterface
         return $customer;
     }
 
-    public function getSyliusChannelCode(NotificationContext $context): ?string
-    {
-        return $this->getOrderFromContext($context)?->getChannel()?->getCode();
-    }
-
-    public function getSyliusLocaleCode(NotificationContext $context): ?string
+    public function getPrimaryRecipientLocaleCode(NotificationContext $context): ?string
     {
         return $this->getOrderFromContext($context)?->getLocaleCode();
+    }
+
+    public function getSyliusChannel(NotificationContext $context): ?ChannelInterface
+    {
+        return $this->getOrderFromContext($context)?->getChannel();
     }
 
     private function getOrderFromContext(NotificationContext $context): ?OrderInterface

@@ -18,12 +18,41 @@ eightlines_sylius_notification_plugin_notification:
                     form: "@EightLinesSyliusNotificationPlugin/Admin/Notification/_form.html.twig"
     type: sylius.resource
     
-eightlines_sylius_notification_plugin.controller.notification_event_variables:
+eightlines_sylius_notification_plugin_admin_ajax_notification_event_variables_by_event:
     path: /ajax/notification-event-variables/search-all
     methods: [GET]
     defaults:
         _controller: EightLines\SyliusNotificationPlugin\Controller\Ajax\NotificationEventVariablesController::findAll
         _format: json
         _sylius:
-            serialization_groups: [Default]
+            serialization_groups: [Autocomplete]
             permission: true
+
+eightlines_sylius_notification_plugin_admin_ajax_customers_by_phrase:
+    path: /ajax/customers/search-all
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.customer::indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findByPhrase
+                arguments:
+                    phrase: $phrase
+                    limit: "!!int %sylius.ajax.product.variant_autocomplete_limit%"
+
+eightlines_sylius_notification_plugin_admin_ajax_customer_by_id:
+    path: /ajax/customers/search
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.customer::indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findById
+                arguments:
+                    id: $id

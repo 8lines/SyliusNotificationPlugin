@@ -1,5 +1,12 @@
 {% extends '@SyliusUi/Form/theme.html.twig' %}
 
+{% block eightlines_sylius_notification_plugin_customer_autocomplete_choice_row %}
+    {{ form_row(form, {
+        'remote_url': path('eightlines_sylius_notification_plugin_admin_ajax_customers_by_phrase'),
+        'load_edit_url': path('eightlines_sylius_notification_plugin_admin_ajax_customer_by_id')
+    }) }}
+{% endblock %}
+
 {% block notification_message_row %}
     {% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
     {{ translationForm(form.translations) }}
@@ -7,8 +14,31 @@
 
 {% block notification_action_widget %}
     <div class="ui segment">
-         {% for field in form.children %}
-            {{ form_row(field) }}
-         {% endfor %}
+
+        <h4 class="ui dividing header">
+            {{ 'eightlines_sylius_notification_plugin.ui.recipients'|trans }}
+        </h4>
+
+        <div class="ui info message">
+            <i class="close icon"></i>
+            {{ 'eightlines_sylius_notification_plugin.ui.recipients_details'|trans }}
+        </div>
+
+        {{ form_row(form.notifyPrimaryRecipient) }}
+        {{ form_row(form.additionalRecipients) }}
+
+        <h4 class="ui dividing header">
+            {{ 'eightlines_sylius_notification_plugin.ui.channel_configuration'|trans }}
+        </h4>
+
+        {{ form_row(form.eventCode) }}
+        {{ form_row(form.channelCode) }}
+        {{ form_row(form.configuration) }}
+
+        <h4 class="ui dividing header">
+            {{ 'eightlines_sylius_notification_plugin.ui.notification_messages'|trans }}
+        </h4>
+
+        {{ form_row(form.message) }}
     </div>
 {% endblock %}

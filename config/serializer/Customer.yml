@@ -1,0 +1,44 @@
+Sylius\Component\Customer\Model\Customer:
+    exclusion_policy: ALL
+    xml_root_name: sylius_customer
+    properties:
+        id:
+            expose: true
+            type: integer
+            groups: [Default, Detailed, DetailedCart, Autocomplete]
+        email:
+            expose: true
+            type: string
+            groups: [Default, Detailed, DetailedCart, Autocomplete]
+        emailCanonical:
+            expose: true
+            type: string
+            groups: [Detailed]
+        firstName:
+            expose: true
+            type: string
+            groups: [Detailed, DetailedCart, Autocomplete]
+        lastName:
+            expose: true
+            type: string
+            groups: [Default, Detailed, DetailedCart, Autocomplete]
+        gender:
+            expose: true
+            type: string
+            groups: [Detailed]
+        birthday:
+            expose: true
+            type: DateTime
+            groups: [Detailed]
+        group:
+            expose: true
+            groups: [Detailed]
+    virtual_properties:
+        getFullName:
+            serialized_name: fullName
+            groups: [Autocomplete]
+        descriptor:
+            serialized_name: descriptor
+            type: string
+            groups: [Autocomplete]
+            exp: "object.getFullName() ~ ' (' ~ object.getEmail() ~ ')'"

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\NotificationChannel;
 
+use Sylius\Component\Core\Model\CustomerInterface;
+
 interface NotificationChannelInterface
 {
     public function send(
+        CustomerInterface $recipient,
         string $message,
         NotificationContext $context,
     ): void;

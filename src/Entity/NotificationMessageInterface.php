@@ -17,6 +17,6 @@ interface NotificationMessageInterface extends
 
     public function setContent(?string $content): void;
 
-    public function getContentByLocaleCode(string $locale): ?string;
+    public function getContentByLocaleCode(string $localeCode): ?string;
 }
 
