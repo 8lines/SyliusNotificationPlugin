@@ -1,5 +1,5 @@
 sylius_grid:
-    grids:
+    grids:  
         eightlines_sylius_notification_plugin.notification:
             driver:
                 name: doctrine/orm
@@ -53,3 +53,43 @@ sylius_grid:
                 bulk:
                     delete:
                         type: delete
+        eightlines_sylius_notification_plugin.audit_log:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%eightlines_sylius_notification_plugin.model.audit_log.class%"
+                    repository:
+                        method: createListQueryBuilder
+            sorting:
+                createdAt: desc
+            limits: [ 10, 25, 50 ]
+            fields:
+                content:
+                    type: string
+                    label: sylius.ui.content
+                invoker:
+                    type: twig
+                    label: eightlines_sylius_notification_plugin.ui.invoker
+                    path: .
+                    options:
+                        template: "@EightLinesSyliusNotificationPlugin/Grid/Field/auditLogInvoker.html.twig"
+                    sortable: invoker.firstName
+                createdAt:
+                    type: datetime
+                    label: sylius.ui.created_at
+                    sortable: ~
+            actions:
+                item:
+                    show:
+                        type: show
+            filters:
+                search:
+                    type: string
+                    label: sylius.ui.search
+                    options:
+                        fields: [ content, invoker.fullName ]
+                createdAt:
+                    type: date
+                    label: sylius.ui.created_at
+                    options:
+                        fields: [ createdAt ]
