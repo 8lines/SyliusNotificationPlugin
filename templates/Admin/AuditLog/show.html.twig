@@ -1,0 +1,31 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% block title %}
+    {{ 'eightlines_sylius_notification_plugin.ui.audit_log'|trans }} | {{ parent() }}
+{% endblock %}
+
+{% set resource = audit_log %}
+
+{% block content %}
+    <div class="ui stackable two column grid">
+        <div class="column">
+            {% include '@EightLinesSyliusNotificationPlugin/Admin/AuditLog/Show/_header.html.twig' %}
+            {% include '@EightLinesSyliusNotificationPlugin/Admin/AuditLog/Show/_breadcrumb.html.twig' with { resource: resource } %}
+        </div>
+        <div class="middle aligned column"></div>
+    </div>
+
+    <div class="ui segment">
+        <div class="ui one column stackable grid">
+            <div class="column">
+                {% include '@EightLinesSyliusNotificationPlugin/Admin/AuditLog/Show/_details.html.twig' with { resource: resource } %}
+
+                <div class="ui hidden divider"></div>
+
+                <div class="ui buttons">
+                    {% include '@EightLinesSyliusNotificationPlugin/Admin/AuditLog/Show/_buttons.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
