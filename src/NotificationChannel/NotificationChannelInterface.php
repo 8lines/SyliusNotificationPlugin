@@ -7,6 +7,7 @@ namespace EightLines\SyliusNotificationPlugin\NotificationChannel;
 interface NotificationChannelInterface
 {
     public function send(
+        ?NotificationRecipient $recipient,
         NotificationBody $body,
         NotificationContext $context,
     ): void;
