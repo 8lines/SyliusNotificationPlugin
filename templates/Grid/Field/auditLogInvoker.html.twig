@@ -1,0 +1,11 @@
+{% if data.invoker.id and data.invoker.isCustomer %}
+    <a href="{{ path('sylius_admin_customer_show', { id: data.invoker.id }) }}">
+        {{ data.invoker.fullName|default('sylius.ui.show'|trans) }}
+    </a>
+{% else %}
+    {{ data.invoker.fullName|default('-') }}
+
+    {% if data.invoker.id and data.invoker.isAdminUser %}
+        <span class="label label-primary">#{{ data.invoker.id }}</span>
+    {% endif %}
+{% endif %}
