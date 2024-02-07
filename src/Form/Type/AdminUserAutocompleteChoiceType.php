@@ -10,12 +10,12 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class CustomerAutocompleteChoiceType extends AbstractType
+final class AdminUserAutocompleteChoiceType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'resource' => 'sylius.customer',
+            'resource' => 'sylius.admin_user',
             'choice_name' => 'descriptor',
             'choice_value' => 'id',
             'multiple' => true,
@@ -33,7 +33,7 @@ final class CustomerAutocompleteChoiceType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'eightlines_sylius_notification_plugin_customer_autocomplete_choice';
+        return 'eightlines_sylius_notification_plugin_admin_user_autocomplete_choice';
     }
 
     public function getParent(): string

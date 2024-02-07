@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\Form\EventSubscriber;
 
-use EightLines\SyliusNotificationPlugin\Form\Type\CustomerAutocompleteChoiceType;
+use EightLines\SyliusNotificationPlugin\Form\Type\AdminUserAutocompleteChoiceType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormEvent;
@@ -28,7 +28,7 @@ final class AddRecipientsFormSubscriber implements EventSubscriberInterface
                 'label' => 'eightlines_sylius_notification_plugin.ui.notify_primary_recipient',
                 'required' => false,
             ])
-            ->add('additionalRecipients', CustomerAutocompleteChoiceType::class, [
+            ->add('additionalRecipients', AdminUserAutocompleteChoiceType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.additional_recipients',
                 'required' => false,
             ])
