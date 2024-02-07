@@ -18,7 +18,7 @@ interface NotificationInterface extends
     ChannelsAwareInterface,
     NotificationActionsAwareInterface
 {
-    public function getEvent(): ?string;
+    public function getEventCode(): ?string;
 
-    public function setEvent(?string $event): void;
+    public function setEventCode(?string $eventCode): void;
 }

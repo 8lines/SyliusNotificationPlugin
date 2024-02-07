@@ -11,19 +11,19 @@ interface NotificationActionInterface extends
     ResourceInterface,
     TimestampableInterface
 {
-    public function getEvent(): ?string;
+    public function getEventCode(): ?string;
 
-    public function setEvent(?string $event): void;
+    public function setEventCode(?string $eventCode): void;
 
-    public function getType(): ?string;
+    public function getChannelCode(): ?string;
 
-    public function setType(?string $type): void;
+    public function setChannelCode(?string $channelCode): void;
 
-    public function getConfiguration(): array;
+    public function getMessage(): NotificationMessageInterface;
 
-    public function setConfiguration(array $configuration): void;
+    public function setMessage(NotificationMessageInterface $message): void;
 
-    public function getMessage(): ?NotificationMessageInterface;
+    public function getConfiguration(): NotificationConfigurationInterface;
 
-    public function setMessage(?NotificationMessageInterface $message): void;
+    public function setConfiguration(NotificationConfigurationInterface $configuration): void;
 }

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\EventListener;
 
-use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface;
-use Sylius\Component\Registry\ServiceRegistry;
+use EightLines\SyliusNotificationPlugin\Command\SendNotificationByEventCommand;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\Messenger\MessageBusInterface;
 
-class NotificationEventListener
+final class NotificationEventListener
 {
     public function __construct(
-        private ServiceRegistry $notificationEventRegistry,
+        private MessageBusInterface $messageBus,
     ) {
     }
 
@@ -19,13 +19,11 @@ class NotificationEventListener
         GenericEvent $event,
         string $eventName,
     ): void {
-        if (false === $this->notificationEventRegistry->has($eventName)) {
-            return;
-        }
+        $sendNotificationCommand = new SendNotificationByEventCommand(
+            eventName: $eventName,
+            subject: $event->getSubject(),
+        );
 
-        /** @var NotificationEventInterface $notificationEvent */
-        $notificationEvent = $this->notificationEventRegistry->get($eventName);
-
-        // TODO: handle event
+        $this->messageBus->dispatch($sendNotificationCommand);
     }
 }

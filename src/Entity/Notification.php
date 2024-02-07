@@ -21,7 +21,7 @@ class Notification implements NotificationInterface
 
     private ?string $code = null;
 
-    private ?string $event = null;
+    private ?string $eventCode = null;
 
     public function __construct()
     {
@@ -44,13 +44,13 @@ class Notification implements NotificationInterface
         $this->code = $code;
     }
 
-    public function getEvent(): ?string
+    public function getEventCode(): ?string
     {
-        return $this->event;
+        return $this->eventCode;
     }
 
-    public function setEvent(?string $event): void
+    public function setEventCode(?string $eventCode): void
     {
-        $this->event = $event;
+        $this->eventCode = $eventCode;
     }
 }

@@ -15,16 +15,16 @@ final class NotificationActionType extends AbstractConfigurableNotificationActio
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('event', HiddenType::class, [
+            ->add('eventCode', HiddenType::class, [
                 'attr' => [
                     'data-type' => 'notification-action-event',
                     'data-form-collection' => 'update',
                 ],
             ])
-            ->add('type', NotificationActionChoiceType::class, [
+            ->add('channelCode', NotificationChannelChoiceType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.notification_channel',
             ])
-            ->add('configuration', null, [
+            ->add('configuration', NotificationConfigurationType::class, [
                 'label' => false,
             ])
             ->add('message', NotificationMessageType::class, [

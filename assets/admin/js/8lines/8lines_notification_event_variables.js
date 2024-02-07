@@ -3,21 +3,21 @@ export class NotificationEventVariables {
     this.notificationVariablesElement = $('[data-type="notification-variables"]')
     this.notificationVariablesListElement = $('[data-type="notification-variables-list"]')
     this.notificationVariablesLoaderElement = this.notificationVariablesElement.find('[data-type="loader"]')
-    this.notificationEventNameElement = $('#notification_event')
-    this.lastNotificationEventName = ''
+    this.notificationEventCodeElement = $('[data-type="notification-event-code"]')
+    this.lastNotificationEventCode = ''
   }
 
   init() {
     this.updateNotificationEventVariables()
 
-    this.notificationEventNameElement
+    this.notificationEventCodeElement
       .on('change', (event) => this.updateNotificationEventVariables(event))
   }
 
   updateNotificationEventVariables() {
-    const eventName = this.notificationEventNameElement.val()
+    const eventCode = this.notificationEventCodeElement.val()
 
-    if (this.lastNotificationEventName === eventName) {
+    if (this.lastNotificationEventCode === eventCode) {
       return;
     }
 
@@ -25,7 +25,7 @@ export class NotificationEventVariables {
     this.notificationVariablesListElement.html('')
 
     $.ajax({
-      url: `/admin/ajax/notification-event-variables?event=${eventName}`,
+      url: `/admin/ajax/notification-event-variables/search-all?event=${eventCode}`,
     }).done(data => {
       $.each(data['variables'], (index, item) => {
         this.notificationVariablesListElement.append(
@@ -33,7 +33,7 @@ export class NotificationEventVariables {
         )
 
         this.notificationVariablesLoaderElement.removeClass('active')
-        this.lastNotificationEventName = eventName
+        this.lastNotificationEventCode = eventCode
       })
     })
   }

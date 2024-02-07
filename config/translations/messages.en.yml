@@ -2,7 +2,9 @@ eightlines_sylius_notification_plugin:
     ui:
         notifications: Notifications
         new_notification: Add new notification
+        edit_notification: Edit notification
         event: Event
         message: Message
         notification_channel: Notification channel
+        notification_channels: Notification channels
         recipient: Recipient

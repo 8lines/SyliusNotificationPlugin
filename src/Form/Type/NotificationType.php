@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\Form\Type;
 
+use EightLines\SyliusNotificationPlugin\Entity\Notification;
 use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
@@ -14,12 +15,18 @@ final class NotificationType extends AbstractResourceType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var Notification|null $notification */
+        $notification = $builder->getData();
+        $codeDisabled = null !== $notification?->getCode();
+
         $builder
             ->addEventSubscriber(new AddCodeFormSubscriber())
-            ->add('event', NotificationEventChoiceType::class, [
+            ->add('eventCode', NotificationEventChoiceType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.event',
+                'required' => true,
+                'disabled' => $codeDisabled,
                 'attr' => [
-                    'data-type' => 'notification-event-name',
+                    'data-type' => 'notification-event-code',
                 ]
             ])
             ->add('enabled', CheckboxType::class, [

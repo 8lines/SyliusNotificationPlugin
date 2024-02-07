@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius;
 
 use EightLines\SyliusNotificationPlugin\Form\Type\NotificationEvent\OrderPaidNotificationEventActionType;
+use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationContext;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariable;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariableDefinition;
@@ -13,9 +14,11 @@ use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVaria
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariableDefinitions;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariables;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariableValue;
+use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 
-class OrderPaidNotificationEvent implements NotificationEventInterface
+final class OrderPaidNotificationEvent implements NotificationEventInterface
 {
     public static function getEventName(): string
     {
@@ -27,13 +30,9 @@ class OrderPaidNotificationEvent implements NotificationEventInterface
         return OrderPaidNotificationEventActionType::class;
     }
 
-    public function getVariables(object $subject): NotificationEventVariables
+    public function getVariables(NotificationContext $context): NotificationEventVariables
     {
-        if (!$subject instanceof PaymentInterface) {
-            throw new \InvalidArgumentException('Subject should be instance of PaymentInterface');
-        }
-
-        $order = $subject->getOrder();
+        $order = $this->getOrderFromContext($context);
 
         if (null === $order) {
             throw new \InvalidArgumentException('Order should not be null');
@@ -65,5 +64,43 @@ class OrderPaidNotificationEvent implements NotificationEventInterface
                 description: new NotificationEventVariableDescription('Order total'),
             )
         );
+    }
+
+    public function getSyliusRecipient(NotificationContext $context): CustomerInterface
+    {
+        $order = $this->getOrderFromContext($context);
+
+        if (null === $order) {
+            throw new \InvalidArgumentException('Order should not be null');
+        }
+
+        $customer = $order->getCustomer();
+
+        if (!$customer instanceof CustomerInterface) {
+            throw new \InvalidArgumentException('Customer should be instance of CustomerInterface');
+        }
+
+        return $customer;
+    }
+
+    public function getSyliusChannelCode(NotificationContext $context): ?string
+    {
+        return $this->getOrderFromContext($context)?->getChannel()?->getCode();
+    }
+
+    public function getSyliusLocaleCode(NotificationContext $context): ?string
+    {
+        return $this->getOrderFromContext($context)?->getLocaleCode();
+    }
+
+    private function getOrderFromContext(NotificationContext $context): ?OrderInterface
+    {
+        $subject = $context->getSubject();
+
+        if (!$subject instanceof PaymentInterface) {
+            return null;
+        }
+
+        return $subject->getOrder();
     }
 }

@@ -18,10 +18,15 @@ final class NotificationEventVariableValue
 
     public function valueAsString(): string
     {
-        if (!is_scalar($this->value)) {
+        if (false === is_scalar($this->value)) {
             throw new \InvalidArgumentException('Value is not scalar');
         }
 
         return (string) $this->value;
+    }
+
+    public function isNull(): bool
+    {
+        return null === $this->value;
     }
 }

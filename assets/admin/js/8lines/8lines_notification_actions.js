@@ -1,6 +1,6 @@
 export class NotificationActions {
   constructor() {
-    this.notificationEventNameElement = $('[data-type="notification-event-name"]')
+    this.notificationEventCodeElement = $('[data-type="notification-event-code"]')
     this.notificationActionsElement = $('[data-type="notification-actions"]')
     this.notificationActionAddElement = this.notificationActionsElement.find('[data-form-collection="add"]')
   }
@@ -8,7 +8,7 @@ export class NotificationActions {
   init() {
     this.updateNotificationActionEvents()
 
-    this.notificationEventNameElement
+    this.notificationEventCodeElement
       .on('change', () => this.updateNotificationActionEvents())
 
     this.notificationActionAddElement
@@ -21,15 +21,15 @@ export class NotificationActions {
   }
 
   updateNotificationActionEvents() {
-    const notificationEventName = this.notificationEventNameElement.val()
+    const notificationEventCode = this.notificationEventCodeElement.val()
 
     $.each(this.findAllNotificationActionEventElements(),
       (index, notificationActionEventElement) => {
-        if (notificationActionEventElement.value === notificationEventName) {
+        if (notificationActionEventElement.value === notificationEventCode) {
           return
         }
 
-        notificationActionEventElement.value = notificationEventName;
+        notificationActionEventElement.value = notificationEventCode;
         notificationActionEventElement.dispatchEvent(new Event('change', { bubbles: true }))
       })
   }

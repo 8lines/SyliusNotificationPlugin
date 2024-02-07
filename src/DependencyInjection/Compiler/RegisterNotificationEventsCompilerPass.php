@@ -11,13 +11,13 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class RegisterNotificationEventsCompilerPass implements CompilerPassInterface
 {
-    private const NOTIFICATION_EVENTS_REGISTRY = 'eightlines_sylius_notifications_plugin.registry.notification_events';
-    private const NOTIFICATION_EVENT_FORM_TYPES_REGISTRY = 'eightlines_sylius_notifications_plugin.registry.notification_event.configuration_form_types';
+    private const NOTIFICATION_EVENTS_REGISTRY = 'eightlines_sylius_notification_plugin.registry.notification_events';
+    private const NOTIFICATION_EVENT_FORM_TYPES_REGISTRY = 'eightlines_sylius_notification_plugin.registry.notification_event.configuration_form_types';
 
-    private const NOTIFICATION_EVENT_LISTENER = 'eightlines_sylius_notifications_plugin.event_listener.notification_event';
+    private const NOTIFICATION_EVENT_LISTENER = 'eightlines_sylius_notification_plugin.event_listener.notification_event';
 
-    private const NOTIFICATION_EVENT_TAG = 'eightlines_sylius_notifications_plugin.notification_event';
-    private const NOTIFICATION_EVENT_CONFIGURATION_FORM_TYPE_TAG = 'eightlines_sylius_notifications_plugin.notification_event.configuration_form_type';
+    private const NOTIFICATION_EVENT_TAG = 'eightlines_sylius_notification_plugin.notification_event';
+    private const NOTIFICATION_EVENT_CONFIGURATION_FORM_TYPE_TAG = 'eightlines_sylius_notification_plugin.notification_event.configuration_form_type';
 
     private const EVENT_NAME_METHOD = 'getEventName';
     private const CONFIGURATION_FORM_TYPE_METHOD = 'getConfigurationFormType';
