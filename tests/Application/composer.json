@@ -4,7 +4,6 @@
     "license": "MIT",
     "require": {
         "symfony/notifier": "^6.0",
-        "symfony/slack-notifier": "^6.0",
         "symfony/messenger": "^6.0"
     }
 }
