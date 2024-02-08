@@ -103,8 +103,29 @@
         </service>
 
         <!-- Notification Events -->
+        <service id="eightlines_sylius_notification_plugin.notification_event.sylius.customer_registered"
+                 class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\CustomerRegisteredNotificationEvent">
+            <argument type="service" id="sylius.context.channel.request_based"/>
+            <argument type="service" id="sylius.context.locale.request_based"/>
+
+            <tag name="eightlines_sylius_notification_plugin.notification_event" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.notification_event.sylius.order_placed"
+                 class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\OrderPlacedNotificationEvent">
+            <argument type="service" id="sylius.money_formatter"/>
+            <tag name="eightlines_sylius_notification_plugin.notification_event" />
+        </service>
+
         <service id="eightlines_sylius_notification_plugin.notification_event.sylius.order_paid"
                  class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\OrderPaidNotificationEvent">
+            <argument type="service" id="sylius.money_formatter"/>
+            <tag name="eightlines_sylius_notification_plugin.notification_event" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.notification_event.sylius.order_shipped"
+                 class="EightLines\SyliusNotificationPlugin\NotificationEvent\Sylius\OrderShippedNotificationEvent">
+            <argument type="service" id="sylius.money_formatter"/>
             <tag name="eightlines_sylius_notification_plugin.notification_event" />
         </service>
 
