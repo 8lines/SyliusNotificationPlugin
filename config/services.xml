@@ -164,28 +164,22 @@
                  alias="EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface" />
 
         <!-- Command Handlers -->
-        <service id="EightLines\SyliusNotificationPlugin\Command\Handler\SendNotificationByEventCommandHandler">
+        <service id="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventInterface"
+                 class="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEvent">
             <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification" />
             <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_event" />
-            <argument type="service" id="messenger.default_bus" />
-
-            <tag name="messenger.message_handler"
-                 handles="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEventCommand" />
-        </service>
-
-        <service id="EightLines\SyliusNotificationPlugin\Command\Handler\RunNotificationActionCommandHandler">
             <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_channel" />
-            <argument type="service" id="messenger.default_bus" />
-
-            <tag name="messenger.message_handler"
-                 handles="EightLines\SyliusNotificationPlugin\Command\RunNotificationActionCommand" />
+            <argument type="service" id="eightlines_sylius_notification_plugin.applicator.notification_variables" />
         </service>
 
-        <service id="EightLines\SyliusNotificationPlugin\Command\Handler\SendNotificationToRecipientCommandHandler">
-            <argument type="service" id="eightlines_sylius_notification_plugin.applicator.notification_variables" />
+        <service id="eightlines_sylius_notification_plugin.command.service.send_notification_by_event"
+                 alias="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventInterface" />
+
+        <service id="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventHandler">
+            <argument type="service" id="eightlines_sylius_notification_plugin.command.service.send_notification_by_event" />
 
             <tag name="messenger.message_handler"
-                 handles="EightLines\SyliusNotificationPlugin\Command\SendNotificationToRecipientCommand" />
+                 handles="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventCommand" />
         </service>
 
         <!-- Factories -->

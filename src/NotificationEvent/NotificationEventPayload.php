@@ -5,20 +5,27 @@ declare(strict_types=1);
 namespace EightLines\SyliusNotificationPlugin\NotificationEvent;
 
 use Sylius\Component\Core\Model\AdminUserInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 
-final class NotificationRecipient
+final class NotificationEventPayload
 {
     private function __construct(
         private CustomerInterface|AdminUserInterface $syliusInvoker,
+        private ?ChannelInterface $syliusChannel,
+        private ?string $localeCode,
     ) {
     }
 
     public static function create(
-        CustomerInterface|AdminUserInterface $syliusInvoker
+        CustomerInterface|AdminUserInterface $syliusInvoker,
+        ?ChannelInterface $syliusChannel,
+        ?string $localeCode,
     ): self {
         return new self(
             syliusInvoker: $syliusInvoker,
+            syliusChannel: $syliusChannel,
+            localeCode: $localeCode,
         );
     }
 
@@ -27,13 +34,13 @@ final class NotificationRecipient
         return $this->syliusInvoker;
     }
 
-    public function isCustomer(): bool
+    public function getSyliusChannel(): ?ChannelInterface
     {
-        return $this->syliusInvoker instanceof CustomerInterface;
+        return $this->syliusChannel;
     }
 
-    public function isAdminUser(): bool
+    public function getLocaleCode(): ?string
     {
-        return $this->syliusInvoker instanceof AdminUserInterface;
+        return $this->localeCode;
     }
 }

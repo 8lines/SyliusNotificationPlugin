@@ -15,34 +15,46 @@ final class NotificationRecipient
     private function __construct(
         private int $id,
         private string $type,
+        private bool $primary,
         private ?string $firstName,
         private ?string $lastName,
         private ?string $email,
         private ?string $phoneNumber,
+        private ?string $localeCode,
     ) {
     }
 
-    public static function createFromCustomer(CustomerInterface $customer): self
-    {
+    public static function createFromCustomer(
+        CustomerInterface $customer,
+        bool $primary = false,
+        ?string $localeCode = null,
+    ): self {
         return new self(
             id: (int) $customer->getId(),
             type: self::CUSTOMER,
+            primary: $primary,
             firstName: $customer->getFirstName(),
             lastName: $customer->getLastName(),
             email: $customer->getEmail(),
             phoneNumber: $customer->getPhoneNumber(),
+            localeCode: $localeCode,
         );
     }
 
-    public static function createFromAdminUser(AdminUserInterface $adminUser): self
-    {
+    public static function createFromAdminUser(
+        AdminUserInterface $adminUser,
+        bool $primary = false,
+        ?string $localeCode = null,
+    ): self {
         return new self(
             id: (int) $adminUser->getId(),
             type: self::ADMIN_USER,
+            primary: $primary,
             firstName: $adminUser->getFirstName(),
             lastName: $adminUser->getLastName(),
             email: $adminUser->getEmail(),
             phoneNumber: null,
+            localeCode: $localeCode ?? $adminUser->getLocaleCode(),
         );
     }
 
@@ -54,6 +66,11 @@ final class NotificationRecipient
     public function getType(): string
     {
         return $this->type;
+    }
+
+    public function isPrimary(): bool
+    {
+        return $this->primary;
     }
 
     public function getFirstName(): ?string
@@ -74,6 +91,11 @@ final class NotificationRecipient
     public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
+    }
+
+    public function getLocaleCode(): ?string
+    {
+        return $this->localeCode;
     }
 
     public function getFullName(): ?string

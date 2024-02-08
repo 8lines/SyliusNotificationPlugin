@@ -10,13 +10,9 @@ interface NotificationEventInterface
 {
     public static function getEventName(): string;
 
+    public function getEventPayload(NotificationContext $context): NotificationEventPayload;
+
     public function getVariables(NotificationContext $context): NotificationEventVariables;
 
     public function getVariableDefinitions(): NotificationEventVariableDefinitions;
-
-    public function getPrimaryRecipient(NotificationContext $context): NotificationRecipient;
-
-    public function getPrimaryRecipientLocaleCode(NotificationContext $context): ?string;
-
-    public function getSyliusChannel(NotificationContext $context): ?ChannelInterface;
 }
