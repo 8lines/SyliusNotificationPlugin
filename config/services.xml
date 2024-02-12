@@ -214,5 +214,11 @@
 
         <service id="eightlines_sylius_notification_plugin.factory.audit_log"
                  alias="EightLines\SyliusNotificationPlugin\Factory\AuditLogFactoryInterface" />
+
+        <!-- Validators -->
+        <service id="EightLines\SyliusNotificationPlugin\Validator\TemplateExistsValidator">
+            <argument type="service" id="twig" />
+            <tag name="validator.constraint_validator" />
+        </service>
     </services>
 </container>
