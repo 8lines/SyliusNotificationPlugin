@@ -49,17 +49,8 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
                     $attribute['identifier'] = $this->getIdentifierFromTypeDeclaration($container, $id);
                 }
 
-                if (false === isset($attribute['supports'])) {
-                    $attribute['supports'] = $this->getIsSupportedFromTypeDeclaration($container, $id);
-                }
-
                 if (false === isset($attribute['form-type'])) {
                     $attribute['form-type'] = $this->getConfigurationFormTypeFromTypeDeclaration($container, $id);
-                }
-
-                if (false === isset($attribute['supports']) || false === $attribute['supports']) {
-                    $container->removeDefinition($id);
-                    return;
                 }
 
                 $registry->addMethodCall('register', [$attribute['identifier'], new Reference($id)]);
