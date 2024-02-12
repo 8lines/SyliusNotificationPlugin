@@ -49,19 +49,25 @@ final class MailerNotificationChannel implements NotificationChannelInterface
         /** @var string|null $emailTemplate */
         $emailTemplate = $configuration->getCustomValue('template');
 
+        if (null === $emailSubject) {
+            throw new \InvalidArgumentException('The subject cannot be null.');
+        }
+
+        if (null === $emailMessage && null === $emailTemplate) {
+            throw new \InvalidArgumentException('The message or template cannot be null.');
+        }
+
         /** @var string|null $emailFrom */
         $emailFrom = $configuration->getCustomValue('from');
 
+        if (null === $emailFrom) {
+            throw new \InvalidArgumentException('The from cannot be null.');
+        }
+
         $email = new Email();
+        $email->from($emailFrom);
         $email->to($emailTo);
-
-        if (null !== $emailSubject) {
-            $email->subject($emailSubject);
-        }
-
-        if (null !== $emailFrom) {
-            $email->from($emailFrom);
-        }
+        $email->subject($emailSubject);
 
         if (null !== $emailTemplate) {
             $email->html($this->environment->render($emailTemplate, [

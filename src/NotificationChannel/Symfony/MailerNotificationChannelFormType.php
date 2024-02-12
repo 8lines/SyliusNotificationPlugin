@@ -24,6 +24,9 @@ final class MailerNotificationChannelFormType extends AbstractType
         $builder->addEventSubscriber(new AddContentFormSubscriber(
             subject: true,
             message: true,
+            options: [
+                'message_required' => false,
+            ]
         ));
     }
 }
