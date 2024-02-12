@@ -16,3 +16,5 @@ eightlines_sylius_notification_plugin:
         audit_log: Audit Log
         invoker: Invoker
         context: Context
+        email_from: Email from
+        template: Template
