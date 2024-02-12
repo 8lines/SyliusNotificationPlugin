@@ -28,7 +28,7 @@ final class AuditLogNotificationChannel implements NotificationChannelInterface
         $content = $body->getMessage();
 
         if (null === $content) {
-            return;
+            throw new \InvalidArgumentException('Content is required');
         }
 
         $auditLog = $this->auditLogFactory->create(
