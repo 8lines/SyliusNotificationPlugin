@@ -1,11 +1,11 @@
 eightlines_sylius_notification_plugin:
     notification:
         code:
-            unique: There is an existing block with this code.
+            unique: There is an existing notification with this code.
             not_blank: Code cannot be blank.
             min_length: Code must be at least {{ limit }} characters long.
             max_length: Code can not be longer than {{ limit }} characters.
-            regex: Block code can only be comprised of letters, numbers, dashes and underscores.
+            regex: Notification code can only be comprised of letters, numbers, dashes and underscores.
         action:
             channel_code:
                 not_blank: Channel code cannot be blank.

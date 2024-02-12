@@ -9,7 +9,6 @@ eightlines_sylius_notification_plugin:
         notification_channel: Notification channel
         notification_channels: Notification channels
         recipients: Recipients
-        recipients_details: Some notification channels may not use recipients during sending notification.
         notify_primary_recipient: Should primary recipient receive this notification?
         additional_recipients: Additional recipients
         notification_messages: Notification messages
