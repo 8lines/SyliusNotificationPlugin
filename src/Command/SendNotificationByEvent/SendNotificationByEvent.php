@@ -16,6 +16,7 @@ use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVaria
 use EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolverInterface;
 use EightLines\SyliusNotificationPlugin\Resolver\NotificationEventResolverInterface;
 use EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface;
+use Psr\Log\LoggerInterface;
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 
@@ -26,6 +27,7 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         private NotificationEventResolverInterface $notificationEventResolver,
         private NotificationChannelResolverInterface $notificationChannelResolver,
         private NotificationVariablesApplicatorInterface $notificationVariablesApplicator,
+        private LoggerInterface $logger,
     ) {
     }
 
@@ -38,6 +40,11 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         );
 
         if (null === $notificationEvent) {
+            $this->logger->debug(
+                message: 'No notification event found for event code',
+                context: ['eventCode' => $eventCode],
+            );
+
             return;
         }
 
@@ -53,6 +60,11 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         $syliusChannelCode = $notificationPayload->getSyliusChannel()?->getCode();
 
         if (null === $syliusChannelCode) {
+            $this->logger->debug(
+                message: 'No Sylius channel found in notification event payload',
+                context: ['eventCode' => $eventCode],
+            );
+
             return;
         }
 
@@ -62,6 +74,11 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         );
 
         if (0 === \count($notifications)) {
+            $this->logger->debug(
+                message: 'No notifications found for event code and Sylius channel code',
+                context: ['eventCode' => $eventCode, 'syliusChannelCode' => $syliusChannelCode],
+            );
+
             return;
         }
 
@@ -92,6 +109,11 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         $notificationChannelCode = $notificationAction->getChannelCode();
 
         if (null === $notificationChannelCode) {
+            $this->logger->debug(
+                message: 'No notification channel code found for notification action',
+                context: ['notificationAction' => $notificationAction->getId()],
+            );
+
             return;
         }
 
@@ -100,6 +122,11 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         );
 
         if (null === $notificationChannel) {
+            $this->logger->debug(
+                message: 'No notification channel found for notification action',
+                context: ['notificationAction' => $notificationAction->getId()],
+            );
+
             return;
         }
 
@@ -108,6 +135,11 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         if (false === $notificationConfiguration->hasAnyRecipients()
             && false === $notificationChannel::supportsUnknownRecipient()
         ) {
+            $this->logger->debug(
+                message: 'No recipients found for notification action',
+                context: ['notificationAction' => $notificationAction->getId()],
+            );
+
             return;
         }
 
@@ -117,6 +149,11 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         $syliusChannel = $notificationEventPayload->getSyliusChannel();
 
         if (null === $syliusChannel) {
+            $this->logger->debug(
+                message: 'No Sylius channel found in notification event payload',
+                context: ['notificationAction' => $notificationAction->getId()],
+            );
+
             return;
         }
 
@@ -205,11 +242,20 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         );
 
         $notificationChannel = $notificationContext->getChannel();
-        $notificationChannel->send(
-            recipient: $recipient,
-            body: $notificationBody,
-            context: $notificationContext,
-        );
+
+        try {
+            $notificationChannel->send(
+                recipient: $recipient,
+                body: $notificationBody,
+                context: $notificationContext,
+            );
+
+        } catch (\Exception $exception) {
+            $this->logger->error(
+                message: $exception->getMessage(),
+                context: ['recipient' => $recipient, 'context' => $notificationContext],
+            );
+        }
     }
 
     /**

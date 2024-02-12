@@ -11,6 +11,9 @@ final class SendNotificationByEventHandler
     ) {
     }
 
+    /**
+     * @throws \Exception
+     */
     public function __invoke(SendNotificationByEventCommand $command): void
     {
         $this->sendNotificationByEvent->sendNotificationByEvent(

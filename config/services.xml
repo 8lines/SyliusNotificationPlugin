@@ -185,6 +185,7 @@
             <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_event" />
             <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_channel" />
             <argument type="service" id="eightlines_sylius_notification_plugin.applicator.notification_variables" />
+            <argument type="service" id="logger" />
         </service>
 
         <service id="eightlines_sylius_notification_plugin.command.service.send_notification_by_event"
