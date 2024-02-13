@@ -39,35 +39,11 @@ final class AuditLogFactory implements AuditLogFactoryInterface
 
         $auditLog->setContext($eventContext ?? null);
 
-        $auditLogInvoker = new AuditLogInvoker();
-
-        if ($invoker instanceof CustomerInterface) {
-            $auditLogInvoker->setType(AuditLogInvoker::CUSTOMER);
-            $auditLogInvoker->setId((int) $invoker->getId());
-            $auditLogInvoker->setFullName($invoker->getFullName());
-
-        } else if ($invoker instanceof AdminUserInterface) {
-            $auditLogInvoker->setType(AuditLogInvoker::ADMIN_USER);
-            $auditLogInvoker->setId((int) $invoker->getId());
-
-            $firstName = $invoker->getFirstName();
-            $lastName = $invoker->getLastName();
-
-            if (null === $firstName || null === $lastName) {
-                $auditLogInvoker->setFullName(null);
-            } else {
-                $auditLogInvoker->setFullName(sprintf('%s %s',
-                    $firstName,
-                    $lastName,
-                ));
-            }
-        }
-
         $auditLogChannel = new AuditLogChannel();
         $auditLogChannel->setId((int) $channel?->getId());
         $auditLogChannel->setName($channel?->getName());
 
-        $auditLog->setInvoker($auditLogInvoker);
+        $auditLog->setInvoker($this->getAuditLogInvoker($invoker));
         $auditLog->setChannel($auditLogChannel);
 
         return $auditLog;
@@ -76,5 +52,37 @@ final class AuditLogFactory implements AuditLogFactoryInterface
     public function createNew(): AuditLog
     {
         return new AuditLog();
+    }
+
+    private function getAuditLogInvoker(AdminUserInterface|CustomerInterface|null $invoker): AuditLogInvoker
+    {
+        $auditLogInvoker = new AuditLogInvoker();
+
+        if (null === $invoker) {
+            return $auditLogInvoker;
+        }
+
+        $auditLogInvoker->setId((int)$invoker->getId());
+
+        if ($invoker instanceof CustomerInterface) {
+            $auditLogInvoker->setType(AuditLogInvoker::CUSTOMER);
+            $auditLogInvoker->setFullName($invoker->getFullName());
+
+            return $auditLogInvoker;
+        }
+
+        $auditLogInvoker->setType(AuditLogInvoker::ADMIN_USER);
+
+        $firstName = $invoker->getFirstName();
+        $lastName = $invoker->getLastName();
+
+        if (null !== $firstName || null !== $lastName) {
+            $auditLogInvoker->setFullName(sprintf('%s %s',
+                $firstName,
+                $lastName,
+            ));
+        }
+
+        return $auditLogInvoker;
     }
 }
