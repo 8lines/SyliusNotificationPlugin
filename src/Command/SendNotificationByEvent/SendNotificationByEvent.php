@@ -184,6 +184,9 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function sendNotificationToRecipient(
         ?NotificationRecipient $recipient,
         NotificationChannelContext $notificationContext,
