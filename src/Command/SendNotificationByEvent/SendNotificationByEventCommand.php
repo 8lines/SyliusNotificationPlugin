@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EightLines\SyliusNotificationPlugin\Command;
+namespace EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent;
 
 final class SendNotificationByEventCommand
 {

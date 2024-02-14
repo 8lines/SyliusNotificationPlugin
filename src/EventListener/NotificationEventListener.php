@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\EventListener;
 
-use EightLines\SyliusNotificationPlugin\Command\SendNotificationByEventCommand;
+use EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventCommand;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Messenger\MessageBusInterface;
 
