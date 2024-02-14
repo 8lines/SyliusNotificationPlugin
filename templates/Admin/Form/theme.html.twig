@@ -7,7 +7,7 @@
     }) }}
 {% endblock %}
 
-{% block notification_message_row %}
+{% block notification_content_row %}
     {% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
     {{ translationForm(form.translations) }}
 {% endblock %}
@@ -16,23 +16,5 @@
     <div class="ui segment">
         {{ form_row(form.channelCode) }}
         {{ form_row(form.configuration) }}
-
-        <h4 class="ui dividing header">
-            {{ 'eightlines_sylius_notification_plugin.ui.recipients'|trans }}
-        </h4>
-
-        <div class="ui info message">
-            <i class="close icon"></i>
-            {{ 'eightlines_sylius_notification_plugin.ui.recipients_details'|trans }}
-        </div>
-
-        {{ form_row(form.notifyPrimaryRecipient) }}
-        {{ form_row(form.additionalRecipients) }}
-
-        <h4 class="ui dividing header">
-            {{ 'eightlines_sylius_notification_plugin.ui.notification_messages'|trans }}
-        </h4>
-
-        {{ form_row(form.message) }}
     </div>
 {% endblock %}

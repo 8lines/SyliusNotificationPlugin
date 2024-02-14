@@ -4,5 +4,5 @@ EightLines\SyliusNotificationPlugin\Entity\NotificationAction:
             - NotBlank:
                   message: 'eightlines_sylius_notification_plugin.notification.action.channel_code.not_blank'
                   groups: ['sylius']
-        message:
+        configuration:
             - Valid: ~

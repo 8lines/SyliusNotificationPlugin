@@ -10,5 +10,7 @@ eightlines_sylius_notification_plugin:
             channel_code:
                 not_blank: Channel code cannot be blank.
             content:
-                not_blank: Content cannot be blank.
-                min_length: Content must be at least {{ limit }} characters long.
+                subject:
+                    not_blank: Subject cannot be blank.
+                message:
+                    not_blank: Message cannot be blank.

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\Form\Type\NotificationChannel;
 
+use EightLines\SyliusNotificationPlugin\Form\EventSubscriber\AddContentFormSubscriber;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-final class SlackNotificationChannelActionType extends AbstractType
+final class TitledMessageWithoutRecipientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('channel', TextType::class, [
-            'required' => false,
-            'label' => 'Slack channel'
-        ]);
+        $builder->addEventSubscriber(new AddContentFormSubscriber(
+            subject: true,
+            message: true,
+        ));
     }
 }

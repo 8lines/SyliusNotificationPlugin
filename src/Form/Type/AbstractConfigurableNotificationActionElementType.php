@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EightLines\SyliusNotificationPlugin\Form\Type;
 
 use EightLines\SyliusNotificationPlugin\Entity\NotificationActionInterface;
+use EightLines\SyliusNotificationPlugin\Entity\NotificationConfiguration;
 use Sylius\Bundle\ResourceBundle\Form\Registry\FormTypeRegistryInterface;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -87,9 +88,9 @@ abstract class AbstractConfigurableNotificationActionElementType extends Abstrac
             return;
         }
 
-        $configuration = $form->get('configuration');
-        $configuration->add('data', $configurationType, [
+        $form->add('configuration', $configurationType, [
             'label' => false,
+            'data_class' => NotificationConfiguration::class,
         ]);
     }
 

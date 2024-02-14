@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\NotificationChannel\Symfony;
 
-use EightLines\SyliusNotificationPlugin\Form\Type\NotificationChannel\SlackNotificationChannelActionType;
+use EightLines\SyliusNotificationPlugin\Form\Type\NotificationChannel\MessageWithoutRecipientType;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationChannelInterface;
+use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationBody;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationContext;
-use Sylius\Component\Core\Model\CustomerInterface;
 use Symfony\Component\Notifier\ChatterInterface;
 use Symfony\Component\Notifier\Exception\TransportExceptionInterface;
 use Symfony\Component\Notifier\Message\ChatMessage;
@@ -23,11 +23,15 @@ final class SlackNotificationChannel implements NotificationChannelInterface
      * @throws TransportExceptionInterface
      */
     public function send(
-        CustomerInterface $recipient,
-        string $message,
+        NotificationBody $body,
         NotificationContext $context,
     ): void {
-        $message = $message . ' Sent to channel: ' . $context->getAction()->getConfiguration()->get('channel');
+        if (false === $body->hasMessage()) {
+            return;
+        }
+
+        /** @var string $message */
+        $message = $body->getMessage();
 
         $message = new ChatMessage($message);
         $message->transport('slack');
@@ -40,9 +44,14 @@ final class SlackNotificationChannel implements NotificationChannelInterface
         return 'slack';
     }
 
+    public static function supportsUnknownRecipient(): bool
+    {
+        return true;
+    }
+
     public static function getConfigurationFormType(): ?string
     {
-        return SlackNotificationChannelActionType::class;
+        return MessageWithoutRecipientType::class;
     }
 
     public static function supports(): bool
