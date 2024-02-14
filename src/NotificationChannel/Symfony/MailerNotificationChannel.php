@@ -58,10 +58,10 @@ final class MailerNotificationChannel implements NotificationChannelInterface
         }
 
         /** @var string|null $emailFrom */
-        $emailFrom = $configuration->getCustomValue('from');
+        $emailFrom = $configuration->getCustomValue('email_from');
 
         if (null === $emailFrom) {
-            throw new \InvalidArgumentException('The from cannot be null.');
+            throw new \InvalidArgumentException('The email from cannot be null.');
         }
 
         $email = new Email();
@@ -75,7 +75,7 @@ final class MailerNotificationChannel implements NotificationChannelInterface
                 'body' => $body,
                 'context' => $context,
             ]));
-        } else if (null !== $emailMessage) {
+        } else {
             $email->text($emailMessage);
         }
 

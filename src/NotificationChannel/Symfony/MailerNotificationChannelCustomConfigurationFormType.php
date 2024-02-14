@@ -16,7 +16,7 @@ final class MailerNotificationChannelCustomConfigurationFormType extends Abstrac
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('from', TextType::class, [
+            ->add('email_from', TextType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.email_from',
                 'required' => true,
                 'constraints' => [
