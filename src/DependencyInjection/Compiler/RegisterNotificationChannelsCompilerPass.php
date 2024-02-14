@@ -142,6 +142,8 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
     {
         $adapters = [
             'slack' => 'EightLines\SyliusNotificationPlugin\NotificationChannel\Symfony\SlackNotificationChannel',
+            'twilio' => 'EightLines\SyliusNotificationPlugin\NotificationChannel\Symfony\TwilioNotificationChannel',
+            'ovh_cloud' => 'EightLines\SyliusNotificationPlugin\NotificationChannel\Symfony\OvhCloudNotificationChannel',
         ];
 
         foreach ($adapters as $identifier => $adapter) {
