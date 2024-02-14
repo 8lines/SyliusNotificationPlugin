@@ -239,6 +239,8 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
                 message: $exception->getMessage(),
                 context: ['recipient' => $recipient, 'context' => $notificationContext],
             );
+
+            throw $exception;
         }
     }
 
