@@ -13,10 +13,18 @@ eightlines_sylius_notification_plugin:
                 email_from:
                     not_blank: Email cannot be blank.
                     not_valid: Email is not valid.
+                    max_length: Email can not be longer than {{ limit }} characters.
+                phone_number_from:
+                    not_blank: Phone number cannot be blank.
+                    max_length: Phone number can not be longer than {{ limit }} characters.
                 template:
                     not_exist: Template does not exist.
+                    max_length: Template can not be longer than {{ limit }} characters.
+                recipient:
+                    max_length: Recipient can not be longer than {{ limit }} characters.
             content:
                 subject:
                     not_blank: Subject cannot be blank.
+                    max_length: Subject can not be longer than {{ limit }} characters.
                 message:
                     not_blank: Message cannot be blank.

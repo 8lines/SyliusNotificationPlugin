@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class NotificationContentTranslationType extends AbstractResourceType
@@ -18,14 +19,23 @@ final class NotificationContentTranslationType extends AbstractResourceType
         parent::buildForm($builder, $options);
 
         if (true === $options['subject']) {
+            $constraints = [new Length([
+                'max' => 250,
+                'maxMessage' => 'eightlines_sylius_notification_plugin.notification.action.content.subject.max_length',
+                'groups' => ['sylius'],
+            ])];
+
+            if (true === $options['subject_required']) {
+                $constraints[] = new NotBlank([
+                    'message' => 'eightlines_sylius_notification_plugin.notification.action.content.subject.not_blank',
+                    'groups' => ['sylius'],
+                ]);
+            }
+
             $builder->add('subject', TextType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.subject',
                 'required' => true === $options['subject_required'],
-                'constraints' => true === $options['subject_required']
-                    ? [new NotBlank([
-                        'message' => 'eightlines_sylius_notification_plugin.notification.action.content.subject.not_blank',
-                        'groups' => ['sylius'],
-                    ])] : [],
+                'constraints' => $constraints,
             ]);
         }
 
