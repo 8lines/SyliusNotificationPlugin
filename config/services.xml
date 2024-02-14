@@ -130,12 +130,6 @@
         </service>
 
         <!-- Notification Channels -->
-        <service id="eightlines_sylius_notification_plugin.notification_channel.slack"
-                 class="EightLines\SyliusNotificationPlugin\NotificationChannel\Symfony\SlackNotificationChannel">
-            <argument type="service" id="chatter" />
-            <tag name="eightlines_sylius_notification_plugin.notification_channel" />
-        </service>
-
         <service id="eightlines_sylius_notification_plugin.notification_channel.audit_log"
                  class="EightLines\SyliusNotificationPlugin\NotificationChannel\Sylius\AuditLogNotificationChannel">
             <argument type="service" id="eightlines_sylius_notification_plugin.factory.audit_log" />
