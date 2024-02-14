@@ -7,6 +7,7 @@ namespace EightLines\SyliusNotificationPlugin\DependencyInjection\Compiler;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationChannelInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 final class RegisterNotificationChannelsCompilerPass implements CompilerPassInterface
@@ -38,32 +39,32 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
         foreach ($container->findTaggedServiceIds(self::NOTIFICATION_CHANNEL_TAG, true) as $id => $attributes) {
             /** @var array $attribute */
             foreach ($attributes as $attribute) {
-                if (!isset($attribute['identifier'])) {
+                if (false === isset($attribute['identifier'])) {
                     $attribute['identifier'] = $this->getIdentifierFromTypeDeclaration($container, $id);
                 }
 
-                if (!isset($attribute['supports'])) {
+                if (false === isset($attribute['supports'])) {
                     $attribute['supports'] = $this->getIsSupportedFromTypeDeclaration($container, $id);
                 }
 
-                if (!isset($attribute['form-type'])) {
+                if (false === isset($attribute['form-type'])) {
                     $attribute['form-type'] = $this->getConfigurationFormTypeFromTypeDeclaration($container, $id);
                 }
 
-                if (!isset($attribute['supports']) || false === $attribute['supports']) {
+                if (false === isset($attribute['supports']) || false === $attribute['supports']) {
                     $container->removeDefinition($id);
                     return;
                 }
 
                 $registry->addMethodCall('register', [$attribute['identifier'], new Reference($id)]);
 
-                if (isset($attribute['form-type'])) {
-                    $formRegistry->addMethodCall('add', [$attribute['identifier'], 'default', $attribute['form-type']]);
-
-                    $container->getDefinition($id)->addTag(self::NOTIFICATION_CHANNEL_CONFIGURATION_FORM_TYPE_TAG, [
-                        'channel' => $attribute['identifier'],
-                        'form-type' => $attribute['form-type'],
-                    ]);
+                if (true === isset($attribute['form-type'])) {
+                    $this->registerNotificationChannelConfigurationFormType(
+                        id: $id,
+                        container: $container,
+                        formRegistry: $formRegistry,
+                        attribute: $attribute,
+                    );
                 }
             }
         }
@@ -123,5 +124,19 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
         return (string) $this->getNotificationChannelClassReflection($container, $id)
             ->getMethod(self::CONFIGURATION_FORM_TYPE_METHOD)
             ->invoke(null);
+    }
+
+    private function registerNotificationChannelConfigurationFormType(
+        string $id,
+        ContainerBuilder $container,
+        Definition $formRegistry,
+        array $attribute,
+    ): void {
+        $formRegistry->addMethodCall('add', [$attribute['identifier'], 'default', $attribute['form-type']]);
+
+        $container->getDefinition($id)->addTag(self::NOTIFICATION_CHANNEL_CONFIGURATION_FORM_TYPE_TAG, [
+            'channel' => $attribute['identifier'],
+            'form-type' => $attribute['form-type'],
+        ]);
     }
 }

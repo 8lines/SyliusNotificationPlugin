@@ -22,7 +22,7 @@ final class NotificationEventVariableDefinitions implements \IteratorAggregate
     {
         /** @var NotificationEventVariableDefinition $item */
         foreach ($this->items as $item) {
-            if (false === $item->getName()->same($name)) {
+            if (false === $item->getName()->isEqual($name)) {
                 continue;
             }
             return $item;
@@ -31,7 +31,8 @@ final class NotificationEventVariableDefinitions implements \IteratorAggregate
         throw new \InvalidArgumentException(sprintf('Variable with name "%s" not found.', $name->value()));
     }
 
-    public function getIterator(): Traversable {
+    public function getIterator(): Traversable
+    {
         return new \ArrayIterator($this->items);
     }
 }
