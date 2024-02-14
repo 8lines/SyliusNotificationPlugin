@@ -1,0 +1,9 @@
+{
+  "entrypoints": {
+    "8lines-sylius-notification-plugin-admin": {
+      "js": [
+        "/public/build/8lines-sylius-notification-plugin-admin.js"
+      ]
+    }
+  }
+}

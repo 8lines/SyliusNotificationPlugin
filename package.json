@@ -1,0 +1,9 @@
+{
+    "name": "@8lines/sylius-notification-plugin",
+    "description": "Notification plugin for Sylius",
+    "repository": "https://github.com/8lines/SyliusNotificationPlugin.git",
+    "license": "MIT",
+    "scripts": {
+        "dist": "yarn encore production --config-name 8lines-plugin-dist"
+    }
+}
