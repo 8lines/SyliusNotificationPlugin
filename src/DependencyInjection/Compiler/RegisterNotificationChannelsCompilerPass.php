@@ -22,6 +22,8 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
     private const IS_CHANNEL_SUPPORTED_METHOD = 'supports';
     private const CONFIGURATION_FORM_TYPE_METHOD = 'getConfigurationFormType';
 
+    private const NOTIFICATION_CHANNEL_SERVICE = 'eightlines_sylius_notification_plugin.notification_channel.%s';
+
     /**
      * @throws \Exception
      */
@@ -35,6 +37,10 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
 
         $registry = $container->getDefinition(self::NOTIFICATION_CHANNELS_REGISTRY);
         $formRegistry = $container->getDefinition(self::NOTIFICATION_CHANNEL_FORM_TYPES_REGISTRY);
+
+        $this->registerNotificationChannelAdaptersDefinitions(
+            container: $container,
+        );
 
         foreach ($container->findTaggedServiceIds(self::NOTIFICATION_CHANNEL_TAG, true) as $id => $attributes) {
             /** @var array $attribute */
@@ -72,9 +78,10 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
 
     private function getNotificationChannelClassReflection(
         ContainerBuilder $container,
-        string $id
+        string $id,
+        ?string $classId = null,
     ): \ReflectionClass {
-        $class = $container->getDefinition($id)->getClass();
+        $class = $classId ?? $container->getDefinition($id)->getClass();
 
         if (null === $class) {
             throw new \InvalidArgumentException(
@@ -138,5 +145,26 @@ final class RegisterNotificationChannelsCompilerPass implements CompilerPassInte
             'channel' => $attribute['identifier'],
             'form-type' => $attribute['form-type'],
         ]);
+    }
+
+    private function registerNotificationChannelAdaptersDefinitions(ContainerBuilder $container): void
+    {
+        $adapters = [
+            'slack' => 'EightLines\SyliusNotificationPlugin\NotificationChannel\Symfony\SlackNotificationChannel',
+        ];
+
+        foreach ($adapters as $identifier => $adapter) {
+            if (false === class_exists($adapter)) {
+                continue;
+            }
+
+            $identifier = sprintf(self::NOTIFICATION_CHANNEL_SERVICE, $identifier);
+
+            $definition = new Definition($adapter);
+            $definition->addTag(self::NOTIFICATION_CHANNEL_TAG);
+            $definition->setAutowired(true);
+
+            $container->setDefinition($identifier, $definition);
+        }
     }
 }

@@ -9,6 +9,12 @@ eightlines_sylius_notification_plugin:
         action:
             channel_code:
                 not_blank: Channel code cannot be blank.
+            custom:
+                email_from:
+                    not_blank: Email cannot be blank.
+                    not_valid: Email is not valid.
+                template:
+                    not_exist: Template does not exist.
             content:
                 subject:
                     not_blank: Subject cannot be blank.

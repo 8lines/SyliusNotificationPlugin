@@ -12,9 +12,13 @@ use Symfony\Component\Form\FormEvents;
 
 final class AddContentFormSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @param array<string, mixed> $options
+     */
     public function __construct(
         private bool $subject = true,
         private bool $message = true,
+        private array $options = [],
     ) {
     }
 
@@ -29,11 +33,16 @@ final class AddContentFormSubscriber implements EventSubscriberInterface
     {
         $form = $event->getForm();
 
-        $form->add('content', NotificationContentType::class, [
-            'block_prefix' => 'notification_content',
-            'data_class' => NotificationContent::class,
-            'subject' => $this->subject,
-            'message' => $this->message,
-        ]);
+        $form->add(
+            child: 'content',
+            type: NotificationContentType::class,
+            options: [
+                'block_prefix' => 'notification_content',
+                'data_class' => NotificationContent::class,
+                'subject' => $this->subject,
+                'message' => $this->message,
+                'entry_options' => $this->options,
+            ]
+        );
     }
 }

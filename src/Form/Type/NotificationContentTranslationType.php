@@ -20,7 +20,8 @@ final class NotificationContentTranslationType extends AbstractResourceType
         if (true === $options['subject']) {
             $builder->add('subject', TextType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.subject',
-                'constraints' => true === $options['required']
+                'required' => true === $options['subject_required'],
+                'constraints' => true === $options['subject_required']
                     ? [new NotBlank([
                         'message' => 'eightlines_sylius_notification_plugin.notification.action.content.subject.not_blank',
                         'groups' => ['sylius'],
@@ -31,7 +32,8 @@ final class NotificationContentTranslationType extends AbstractResourceType
         if (true === $options['message']) {
             $builder->add('message', TextareaType::class, [
                 'label' => 'eightlines_sylius_notification_plugin.ui.message',
-                'constraints' => true === $options['required']
+                'required' => true === $options['message_required'],
+                'constraints' => true === $options['message_required']
                     ? [new NotBlank([
                         'message' => 'eightlines_sylius_notification_plugin.notification.action.content.message.not_blank',
                         'groups' => ['sylius'],
@@ -52,6 +54,18 @@ final class NotificationContentTranslationType extends AbstractResourceType
 
         $resolver
             ->define('message')
+            ->allowedTypes('bool')
+            ->default(true)
+        ;
+
+        $resolver
+            ->define('subject_required')
+            ->allowedTypes('bool')
+            ->default(true)
+        ;
+
+        $resolver
+            ->define('message_required')
             ->allowedTypes('bool')
             ->default(true)
         ;

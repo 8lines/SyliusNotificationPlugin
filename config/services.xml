@@ -130,6 +130,14 @@
         </service>
 
         <!-- Notification Channels -->
+        <service id="eightlines_sylius_notification_plugin.notification_channel.mailer"
+                 class="EightLines\SyliusNotificationPlugin\NotificationChannel\Symfony\MailerNotificationChannel">
+            <argument type="service" id="mailer.mailer" />
+            <argument type="service" id="twig" />
+
+            <tag name="eightlines_sylius_notification_plugin.notification_channel" />
+        </service>
+
         <service id="eightlines_sylius_notification_plugin.notification_channel.audit_log"
                  class="EightLines\SyliusNotificationPlugin\NotificationChannel\Sylius\AuditLogNotificationChannel">
             <argument type="service" id="eightlines_sylius_notification_plugin.factory.audit_log" />
@@ -185,6 +193,7 @@
             <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_event" />
             <argument type="service" id="eightlines_sylius_notification_plugin.resolver.notification_channel" />
             <argument type="service" id="eightlines_sylius_notification_plugin.applicator.notification_variables" />
+            <argument type="service" id="logger" />
         </service>
 
         <service id="eightlines_sylius_notification_plugin.command.service.send_notification_by_event"
@@ -205,5 +214,11 @@
 
         <service id="eightlines_sylius_notification_plugin.factory.audit_log"
                  alias="EightLines\SyliusNotificationPlugin\Factory\AuditLogFactoryInterface" />
+
+        <!-- Validators -->
+        <service id="EightLines\SyliusNotificationPlugin\Validator\TemplateExistsValidator">
+            <argument type="service" id="twig" />
+            <tag name="validator.constraint_validator" />
+        </service>
     </services>
 </container>

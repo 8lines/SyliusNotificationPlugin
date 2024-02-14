@@ -29,11 +29,12 @@ final class NotificationContentType extends AbstractResourceType
         $builder->add('translations', ResourceTranslationsType::class, [
             'entry_type' => NotificationContentTranslationType::class,
             'entry_options' => function (string $localeCode) use ($options): array {
-                return [
-                    'subject' => $options['subject'],
-                    'message' => $options['message'],
-                    'required' => $localeCode === $this->defaultLocaleCode,
+                $entryOptions = [
+                    'subject_required' => $localeCode === $this->defaultLocaleCode,
+                    'message_required' => $localeCode === $this->defaultLocaleCode,
                 ];
+
+                return array_merge($entryOptions, $options['entry_options']);
             },
         ]);
     }
@@ -52,6 +53,12 @@ final class NotificationContentType extends AbstractResourceType
             ->define('message')
             ->allowedTypes('bool')
             ->default(true)
+        ;
+
+        $resolver
+            ->define('entry_options')
+            ->allowedTypes('array')
+            ->default([])
         ;
     }
 }

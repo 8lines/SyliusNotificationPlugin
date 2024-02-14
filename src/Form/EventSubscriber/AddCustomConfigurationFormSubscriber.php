@@ -10,6 +10,9 @@ use Symfony\Component\Form\FormEvents;
 
 final class AddCustomConfigurationFormSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @param array<string, mixed> $options,
+     */
     public function __construct(
         private string $type,
         private array $options = [],
@@ -26,6 +29,11 @@ final class AddCustomConfigurationFormSubscriber implements EventSubscriberInter
     public function preSetData(FormEvent $event): void
     {
         $form = $event->getForm();
-        $form->add('custom', $this->type, $this->options);
+
+        $form->add(
+            child: 'custom',
+            type: $this->type,
+            options: array_merge(['label' => false], $this->options),
+        );
     }
 }
