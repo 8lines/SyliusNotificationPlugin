@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\Form\Type;
 
-use EightLines\SyliusNotificationPlugin\Entity\NotificationConfiguration;
+use EightLines\SyliusNotificationPlugin\Entity\NotificationAction;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class NotificationActionType extends AbstractConfigurableNotificationActionElementType
 {
@@ -27,7 +26,7 @@ final class NotificationActionType extends AbstractConfigurableNotificationActio
                 $data = $event->getData();
 
                 $channelCode = $data?->getChannelCode();
-                $channelCodeSelected = null !== $channelCode || '' !== $channelCode;
+                $channelCodeSelected = null !== $channelCode && '' !== $channelCode;
 
                 $form->add('channelCode', NotificationChannelChoiceType::class, [
                     'label' => 'eightlines_sylius_notification_plugin.ui.notification_channel',
