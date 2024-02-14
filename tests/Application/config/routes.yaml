@@ -1,9 +1,3 @@
-8lines_sylius_cart_links_shop:
-    resource: "@EightLinesSyliusNotificationPlugin/config/routing/shop_routing.yml"
-    prefix: /{_locale}
-    requirements:
-        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
-
-8lines_sylius_cart_links_admin:
+sylius_notification_plugin_admin:
     resource: "@EightLinesSyliusNotificationPlugin/config/routing/admin_routing.yml"
     prefix: /admin
