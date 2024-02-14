@@ -54,15 +54,16 @@ final class AuditLogFactory implements AuditLogFactoryInterface
         return new AuditLog();
     }
 
-    private function getAuditLogInvoker(AdminUserInterface|CustomerInterface|null $invoker): AuditLogInvoker
-    {
+    private function getAuditLogInvoker(
+        AdminUserInterface|CustomerInterface|null $invoker,
+    ): AuditLogInvoker {
         $auditLogInvoker = new AuditLogInvoker();
 
         if (null === $invoker) {
             return $auditLogInvoker;
         }
 
-        $auditLogInvoker->setId((int)$invoker->getId());
+        $auditLogInvoker->setId((int) $invoker->getId());
 
         if ($invoker instanceof CustomerInterface) {
             $auditLogInvoker->setType(AuditLogInvoker::CUSTOMER);
@@ -76,7 +77,7 @@ final class AuditLogFactory implements AuditLogFactoryInterface
         $firstName = $invoker->getFirstName();
         $lastName = $invoker->getLastName();
 
-        if (null !== $firstName || null !== $lastName) {
+        if (null !== $firstName && null !== $lastName) {
             $auditLogInvoker->setFullName(sprintf('%s %s',
                 $firstName,
                 $lastName,
