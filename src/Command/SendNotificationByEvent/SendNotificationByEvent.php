@@ -19,18 +19,25 @@ use EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface;
 use Psr\Log\LoggerInterface;
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 final class SendNotificationByEvent implements SendNotificationByEventInterface
 {
+    public const ADMIN_PHONE_NUMBERS_KEY = 'eightlines_sylius_notification_plugin.admin_phone_numbers';
+
     public function __construct(
         private NotificationResolverInterface $notificationResolver,
         private NotificationEventResolverInterface $notificationEventResolver,
         private NotificationChannelResolverInterface $notificationChannelResolver,
         private NotificationVariablesApplicatorInterface $notificationVariablesApplicator,
         private LoggerInterface $logger,
+        private ParameterBag $parameterBag,
     ) {
     }
 
+    /**
+     * @throws \Exception
+     */
     public function sendNotificationByEvent(
         string $eventCode,
         mixed $subject,
@@ -93,6 +100,9 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function runNotificationAction(
         NotificationActionInterface $notificationAction,
         NotificationEventContext $notificationEventContext,
@@ -145,7 +155,12 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
 
         $primaryNotificationRecipient = $syliusInvoker instanceof CustomerInterface
             ? NotificationRecipient::createFromCustomer($syliusInvoker, true, $primaryRecipientLocaleCode)
-            : NotificationRecipient::createFromAdminUser($syliusInvoker, true, $primaryRecipientLocaleCode);
+            : NotificationRecipient::createFromAdminUser(
+                adminUser: $syliusInvoker,
+                primary: true,
+                localeCode: $primaryRecipientLocaleCode,
+                phoneNumber: $this->getAdminUserPhoneNumber($syliusInvoker)
+            );
 
         $notificationChannelContext = NotificationChannelContext::create(
             action: $notificationAction,
@@ -167,7 +182,10 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
 
         if (true === $notificationConfiguration->hasAdditionalRecipients()) {
             $additionalRecipients = array_map(
-                callback: fn (AdminUserInterface $adminUser) => NotificationRecipient::createFromAdminUser($adminUser),
+                callback: fn (AdminUserInterface $adminUser): NotificationRecipient => NotificationRecipient::createFromAdminUser(
+                    adminUser: $adminUser,
+                    phoneNumber: $this->getAdminUserPhoneNumber($adminUser),
+                ),
                 array: $notificationConfiguration->getAdditionalRecipients()->toArray(),
             );
 
@@ -249,6 +267,8 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
 
     /**
      * @param NotificationActionInterface[] $actions
+     *
+     * @throws \Exception
      */
     private function handleNotificationActions(
         NotificationEventContext $context,
@@ -306,5 +326,22 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
             recipient: null,
             notificationContext: $context,
         );
+    }
+
+    private function getAdminUserPhoneNumber(AdminUserInterface $adminUser): ?string
+    {
+        if (false === $this->parameterBag->has(self::ADMIN_PHONE_NUMBERS_KEY)) {
+            return null;
+        }
+
+        $adminPhoneNumbers = $this->parameterBag->get(self::ADMIN_PHONE_NUMBERS_KEY);
+
+        if (false === is_array($adminPhoneNumbers)) {
+            return null;
+        }
+
+        /** @var string|null $phoneNumber */
+        $phoneNumber = $adminPhoneNumbers[(string) $adminUser->getId()] ?? null;
+        return $phoneNumber;
     }
 }

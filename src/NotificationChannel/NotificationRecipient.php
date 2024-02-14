@@ -45,6 +45,7 @@ final class NotificationRecipient
         AdminUserInterface $adminUser,
         bool $primary = false,
         ?string $localeCode = null,
+        ?string $phoneNumber = null,
     ): self {
         return new self(
             id: (int) $adminUser->getId(),
@@ -53,7 +54,7 @@ final class NotificationRecipient
             firstName: $adminUser->getFirstName(),
             lastName: $adminUser->getLastName(),
             email: $adminUser->getEmail(),
-            phoneNumber: null,
+            phoneNumber: $phoneNumber,
             localeCode: $localeCode ?? $adminUser->getLocaleCode(),
         );
     }
