@@ -96,9 +96,4 @@ final class MailerNotificationChannel implements NotificationChannelInterface
     {
         return MailerNotificationChannelFormType::class;
     }
-
-    public static function supports(): bool
-    {
-        return true;
-    }
 }

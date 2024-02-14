@@ -17,6 +17,4 @@ interface NotificationChannelInterface
     public static function supportsUnknownRecipient(): bool;
 
     public static function getConfigurationFormType(): ?string;
-
-    public static function supports(): bool;
 }

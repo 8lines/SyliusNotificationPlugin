@@ -57,9 +57,4 @@ final class AuditLogNotificationChannel implements NotificationChannelInterface
     {
         return MessageWithoutRecipientType::class;
     }
-
-    public static function supports(): bool
-    {
-        return true;
-    }
 }
