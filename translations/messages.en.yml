@@ -8,6 +8,7 @@ eightlines_sylius_notification_plugin:
         message: Message
         notification_channel: Notification channel
         notification_channels: Notification channels
+        recipient: Recipient
         recipients: Recipients
         notify_primary_recipient: Should primary recipient receive this notification?
         additional_recipients: Additional recipients
@@ -17,4 +18,5 @@ eightlines_sylius_notification_plugin:
         invoker: Invoker
         context: Context
         email_from: Email from
+        phone_number_from: Phone number from
         template: Template
