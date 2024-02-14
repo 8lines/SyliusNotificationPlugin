@@ -14,7 +14,6 @@ use Twig\Environment;
 final class TemplateExistsValidator extends ConstraintValidator
 {
     public function __construct(
-
         private Environment $environment,
     ) {
     }
