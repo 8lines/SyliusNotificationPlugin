@@ -266,6 +266,9 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     private function sendNotificationToPrimaryRecipient(
         NotificationChannelContext $context,
         NotificationRecipient $recipient,
@@ -278,6 +281,8 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
 
     /**
      * @param NotificationRecipient[] $recipients
+     *
+     * @throws \Exception
      */
     private function sendNotificationToAdditionalRecipients(
         NotificationChannelContext $context,
@@ -291,6 +296,9 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     private function sendNotificationToUnknownRecipient(
         NotificationChannelContext $context,
     ): void {
