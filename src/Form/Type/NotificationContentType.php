@@ -30,6 +30,8 @@ final class NotificationContentType extends AbstractResourceType
             'entry_type' => NotificationContentTranslationType::class,
             'entry_options' => function (string $localeCode) use ($options): array {
                 $entryOptions = [
+                    'subject' => $options['subject'],
+                    'message' => $options['message'],
                     'subject_required' => $localeCode === $this->defaultLocaleCode,
                     'message_required' => $localeCode === $this->defaultLocaleCode,
                 ];
