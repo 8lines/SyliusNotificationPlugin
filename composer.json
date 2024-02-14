@@ -1,12 +1,13 @@
 {
     "name": "8lines/sylius-notification-plugin",
     "type": "sylius-plugin",
-    "description": "Notification plugin for Sylius.",
+    "description": "Notification plugin for Sylius",
     "keywords": [
         "sylius",
         "sylius-plugin"
     ],
     "license": "MIT",
+    "version": "1.0",
     "require": {
         "php": "^8.0",
         "sylius/mailer-bundle": "^1.8 || ^2.0@beta",
