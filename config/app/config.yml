@@ -4,6 +4,6 @@ imports:
 jms_serializer:
     metadata:
         directories:
-            custom-sylius-customer:
-                namespace_prefix: "Sylius\\Component\\Customer\\Model"
+            custom-sylius-admin-user:
+                namespace_prefix: "Sylius\\Component\\Core\\Model"
                 path: "@EightLinesSyliusNotificationPlugin/../config/serializer"

@@ -12,3 +12,7 @@ eightlines_sylius_notification_plugin:
         notify_primary_recipient: Should primary recipient receive this notification?
         additional_recipients: Additional recipients
         notification_messages: Notification messages
+        audit_logs: Audit Logs
+        audit_log: Audit Log
+        invoker: Invoker
+        context: Context

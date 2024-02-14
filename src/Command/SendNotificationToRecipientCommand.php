@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace EightLines\SyliusNotificationPlugin\Command;
 
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationContext;
-use Sylius\Component\Core\Model\CustomerInterface;
+use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationRecipient;
 
 final class SendNotificationToRecipientCommand
 {
     public function __construct(
-        private ?CustomerInterface $recipient,
+        private ?NotificationRecipient $recipient,
         private bool $primaryRecipient,
         private NotificationContext $context,
     ) {
     }
 
-    public function getRecipient(): ?CustomerInterface
+    public function getRecipient(): ?NotificationRecipient
     {
         return $this->recipient;
     }

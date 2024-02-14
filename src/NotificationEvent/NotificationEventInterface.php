@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace EightLines\SyliusNotificationPlugin\NotificationEvent;
 
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\CustomerInterface;
 
 interface NotificationEventInterface
 {
@@ -15,7 +14,7 @@ interface NotificationEventInterface
 
     public function getVariableDefinitions(): NotificationEventVariableDefinitions;
 
-    public function getPrimaryRecipient(NotificationContext $context): CustomerInterface;
+    public function getPrimaryRecipient(NotificationContext $context): NotificationRecipient;
 
     public function getPrimaryRecipientLocaleCode(NotificationContext $context): ?string;
 

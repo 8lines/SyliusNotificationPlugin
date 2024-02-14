@@ -1,9 +1,9 @@
 {% extends '@SyliusUi/Form/theme.html.twig' %}
 
-{% block eightlines_sylius_notification_plugin_customer_autocomplete_choice_row %}
+{% block eightlines_sylius_notification_plugin_admin_user_autocomplete_choice_row %}
     {{ form_row(form, {
-        'remote_url': path('eightlines_sylius_notification_plugin_admin_ajax_customers_by_phrase'),
-        'load_edit_url': path('eightlines_sylius_notification_plugin_admin_ajax_customer_by_id')
+        'remote_url': path('eightlines_sylius_notification_plugin_admin_ajax_admin_users_by_phrase'),
+        'load_edit_url': path('eightlines_sylius_notification_plugin_admin_ajax_admin_users_by_id')
     }) }}
 {% endblock %}
 

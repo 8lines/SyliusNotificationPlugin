@@ -1,0 +1,12 @@
+{% set context = resource.context|json_encode(constant('JSON_PRETTY_PRINT')) %}
+
+<div class="ui styled fluid accordion">
+    <div class="title">
+        <i class="dropdown icon"></i>
+        {{ 'eightlines_sylius_notification_plugin.ui.context'|trans }}
+    </div>
+
+    <div class="content">
+        <pre class="ui segment">{{ context }}</pre>
+    </div>
+</div>

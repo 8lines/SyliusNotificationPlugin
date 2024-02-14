@@ -24,5 +24,13 @@ final class AdminMenuListener
             ->setLabel('eightlines_sylius_notification_plugin.ui.notifications')
             ->setLabelAttribute('icon', 'map signs')
         ;
+
+        $notifications
+            ->addChild('audit_logs', [
+                'route' => 'eightlines_sylius_notification_plugin_admin_audit_log_index',
+            ])
+            ->setLabel('eightlines_sylius_notification_plugin.ui.audit_logs')
+            ->setLabelAttribute('icon', 'clipboard list')
+        ;
     }
 }

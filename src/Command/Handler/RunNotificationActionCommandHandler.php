@@ -7,7 +7,9 @@ namespace EightLines\SyliusNotificationPlugin\Command\Handler;
 use EightLines\SyliusNotificationPlugin\Command\RunNotificationActionCommand;
 use EightLines\SyliusNotificationPlugin\Command\SendNotificationToRecipientCommand;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationContext;
+use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationRecipient;
 use EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolverInterface;
+use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -43,30 +45,49 @@ final class RunNotificationActionCommandHandler
             return;
         }
 
-        $notificationEvent = $command->getContext()->getEvent();
+        $notificationEventContext = $command->getContext();
+
+        $notificationEvent = $notificationEventContext->getEvent();
         $notificationVariables = $command->getVariables();
+
+        $primaryRecipient = $notificationEvent->getPrimaryRecipient(
+            context: $notificationEventContext,
+        );
+
+        $syliusInvoker = $primaryRecipient->getSyliusInvoker();
+        $syliusChannel = $command->getSyliusChannel();
+
+        $primaryNotificationRecipient = $syliusInvoker instanceof CustomerInterface
+            ? NotificationRecipient::createFromCustomer($syliusInvoker)
+            : NotificationRecipient::createFromAdminUser($syliusInvoker);
 
         $notificationContext = NotificationContext::create(
             action: $notificationAction,
-            event: $command->getContext()->getEvent(),
+            event: $notificationEvent,
             channel: $notificationChannel,
             variables: $notificationVariables,
             configuration: $notificationConfiguration,
-            syliusChannel: $command->getSyliusChannel(),
-            eventLevelContext: $command->getContext(),
+            syliusChannel: $syliusChannel,
+            syliusInvoker: $syliusInvoker,
+            eventLevelContext: $notificationEventContext,
         );
 
         if (true === $notificationConfiguration->isNotifyPrimaryRecipient()) {
             $this->sendNotificationToPrimaryRecipient(
                 context: $notificationContext,
-                recipient: $notificationEvent->getPrimaryRecipient($command->getContext()),
+                recipient: $primaryNotificationRecipient,
             );
         }
 
         if (true === $notificationConfiguration->hasAdditionalRecipients()) {
+            $additionalRecipients = array_map(
+                callback: fn (AdminUserInterface $adminUser) => NotificationRecipient::createFromAdminUser($adminUser),
+                array: $notificationConfiguration->getAdditionalRecipients()->toArray(),
+            );
+
             $this->sendNotificationToAdditionalRecipients(
                 context: $notificationContext,
-                recipients: $notificationConfiguration->getAdditionalRecipients()->toArray(),
+                recipients: $additionalRecipients,
             );
         }
 
@@ -79,7 +100,7 @@ final class RunNotificationActionCommandHandler
 
     private function sendNotificationToPrimaryRecipient(
         NotificationContext $context,
-        CustomerInterface $recipient,
+        NotificationRecipient $recipient,
     ): void {
         $this->commandBus->dispatch(new SendNotificationToRecipientCommand(
             recipient: $recipient,
@@ -89,7 +110,7 @@ final class RunNotificationActionCommandHandler
     }
 
     /**
-     * @param CustomerInterface[] $recipients
+     * @param NotificationRecipient[] $recipients
      */
     private function sendNotificationToAdditionalRecipients(
         NotificationContext $context,

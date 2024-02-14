@@ -52,13 +52,13 @@ final class SendNotificationToRecipientCommandHandler
         }
 
         $notificationBody = NotificationBody::create(
-            recipient: $command->getRecipient(),
             subject: $notificationSubject,
             message: $notificationMessage,
         );
 
         $notificationChannel = $command->getContext()->getChannel();
         $notificationChannel->send(
+            recipient: $command->getRecipient(),
             body: $notificationBody,
             context: $command->getContext(),
         );
