@@ -1,0 +1,20 @@
+eightlines_sylius_notification_plugin:
+    ui:
+        notifications: Powiadomienia
+        new_notification: Dodaj nowe powiadomienie
+        edit_notification: Edytuj powiadomienie
+        event: Wydarzenie
+        subject: Temat
+        message: Wiadomość
+        notification_channel: Kanał powiadomień
+        notification_channels: Kanały powiadomień
+        recipients: Odbiorcy
+        notify_primary_recipient: Czy główny odbiorca powinien otrzymać to powiadomienie?
+        additional_recipients: Dodatkowi odbiorcy
+        notification_messages: Wiadomości powiadomień
+        audit_logs: Logi
+        audit_log: Log
+        invoker: Wywołujący
+        context: Kontekst
+        email_from: Email nadawcy
+        template: Szablon

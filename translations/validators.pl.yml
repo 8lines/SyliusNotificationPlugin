@@ -1,0 +1,22 @@
+eightlines_sylius_notification_plugin:
+    notification:
+        code:
+            unique: Istnieje już powiadomienie o takim kodzie.
+            not_blank: Kod nie może być pusty.
+            min_length: Kod musi mieć co najmniej {{ limit }} znaków.
+            max_length: Kod nie może być dłuższy niż {{ limit }} znaków.
+            regex: Kod powiadomienia może składać się tylko z liter, cyfr, myślników i podkreśleń.
+        action:
+            channel_code:
+                not_blank: Kod kanału nie może być pusty.
+            custom:
+                email_from:
+                    not_blank: Email nie może być pusty.
+                    not_valid: Email jest nieprawidłowy.
+                template:
+                    not_exist: Szablon nie istnieje.
+            content:
+                subject:
+                    not_blank: Temat nie może być pusty.
+                message:
+                    not_blank: Wiadomość nie może być pusta.
