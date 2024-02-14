@@ -59,19 +59,12 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
 
         $syliusChannelCode = $notificationPayload->getSyliusChannel()?->getCode();
 
-        if (null === $syliusChannelCode) {
-            $this->logger->debug(
-                message: 'No Sylius channel found in notification event payload',
-                context: ['eventCode' => $eventCode],
+        $notifications = null === $syliusChannelCode
+            ? $this->notificationResolver->resolveByEventCode($eventCode)
+            : $this->notificationResolver->resolveByEventCodeAndSyliusChannelCode(
+                eventCode: $eventCode,
+                channelCode: $syliusChannelCode,
             );
-
-            return;
-        }
-
-        $notifications = $this->notificationResolver->resolveByEventCodeAndSyliusChannelCode(
-            eventCode: $eventCode,
-            channelCode: $syliusChannelCode,
-        );
 
         if (0 === \count($notifications)) {
             $this->logger->debug(
@@ -148,15 +141,6 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         $syliusInvoker = $notificationEventPayload->getSyliusInvoker();
         $syliusChannel = $notificationEventPayload->getSyliusChannel();
 
-        if (null === $syliusChannel) {
-            $this->logger->debug(
-                message: 'No Sylius channel found in notification event payload',
-                context: ['notificationAction' => $notificationAction->getId()],
-            );
-
-            return;
-        }
-
         $primaryRecipientLocaleCode = $notificationEventPayload->getLocaleCode();
 
         $primaryNotificationRecipient = $syliusInvoker instanceof CustomerInterface
@@ -208,7 +192,7 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         $notificationContent = $notificationConfiguration->getContent();
 
         $localeCode = $recipient?->getLocaleCode()
-            ?? $notificationContext->getSyliusChannel()->getDefaultLocale()?->getCode();
+            ?? $notificationContext->getSyliusChannel()?->getDefaultLocale()?->getCode();
 
         $notificationSubject = null === $localeCode
             ? $notificationContent->getSubject()

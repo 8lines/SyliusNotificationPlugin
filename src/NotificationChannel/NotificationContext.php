@@ -21,7 +21,7 @@ final class NotificationContext
         private NotificationChannelInterface $channel,
         private NotificationEventVariables $variables,
         private NotificationConfigurationInterface $configuration,
-        private ChannelInterface $syliusChannel,
+        private ?ChannelInterface $syliusChannel,
         private CustomerInterface|AdminUserInterface $syliusInvoker,
         private EventLevelNotificationContext $eventLevelContext,
     ) {
@@ -33,7 +33,7 @@ final class NotificationContext
         NotificationChannelInterface $channel,
         NotificationEventVariables $variables,
         NotificationConfigurationInterface $configuration,
-        ChannelInterface $syliusChannel,
+        ?ChannelInterface $syliusChannel,
         CustomerInterface|AdminUserInterface $syliusInvoker,
         EventLevelNotificationContext $eventLevelContext,
     ): self {
@@ -74,7 +74,7 @@ final class NotificationContext
         return $this->configuration;
     }
 
-    public function getSyliusChannel(): ChannelInterface
+    public function getSyliusChannel(): ?ChannelInterface
     {
         return $this->syliusChannel;
     }
