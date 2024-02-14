@@ -81,7 +81,7 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
 
         /** @var array<integer, array<integer, NotificationActionInterface>> $notificationActions */
         $notificationActions = array_map(
-            callback: fn(NotificationInterface $item) => $item->getActions()->toArray(),
+            callback: fn(NotificationInterface $item): array => $item->getActions()->toArray(),
             array: $notifications,
         );
 
