@@ -12,7 +12,7 @@ use EightLines\SyliusNotificationPlugin\Resolver\ComparatorResolverInterface;
 final class NotificationRulesEligibilityChecker implements NotificationRulesEligibilityCheckerInterface
 {
     public function __construct(
-        private ComparatorResolverInterface $comparatorResolver
+        private ComparatorResolverInterface $comparatorResolver,
     ) {
     }
 
