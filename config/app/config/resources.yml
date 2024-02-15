@@ -12,6 +12,11 @@ sylius_resource:
                 interface: EightLines\SyliusNotificationPlugin\Entity\NotificationInterface
                 form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationType
                 repository: EightLines\SyliusNotificationPlugin\Repository\NotificationRepository
+        eightlines_sylius_notification_plugin.notification_rule:
+            classes:
+                model: EightLines\SyliusNotificationPlugin\Entity\NotificationRule
+                interface: EightLines\SyliusNotificationPlugin\Entity\NotificationRuleInterface
+                form: EightLines\SyliusNotificationPlugin\Form\Type\NotificationRuleType
         eightlines_sylius_notification_plugin.notification_action:
             classes:
                 model: EightLines\SyliusNotificationPlugin\Entity\NotificationAction
