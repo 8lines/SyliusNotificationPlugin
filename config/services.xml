@@ -6,6 +6,10 @@
             <parameter>sylius</parameter>
         </parameter>
 
+        <parameter key="eightlines_sylius_notification_plugin.form.type.notification_rule.validation_groups" type="collection">
+            <parameter>sylius</parameter>
+        </parameter>
+
         <parameter key="eightlines_sylius_notification_plugin.form.type.notification_action.validation_groups" type="collection">
             <parameter>sylius</parameter>
         </parameter>
@@ -31,6 +35,12 @@
         <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationType">
             <argument>%eightlines_sylius_notification_plugin.model.notification.class%</argument>
             <argument>%eightlines_sylius_notification_plugin.form.type.notification.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Form\Type\NotificationRuleType">
+            <argument>%eightlines_sylius_notification_plugin.model.notification_rule.class%</argument>
+            <argument>%eightlines_sylius_notification_plugin.form.type.notification_rule.validation_groups%</argument>
             <tag name="form.type" />
         </service>
 
@@ -186,6 +196,14 @@
         <service id="eightlines_sylius_notification_plugin.resolver.notification"
                  alias="EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface" />
 
+        <service id="EightLines\SyliusNotificationPlugin\Resolver\ComparatorResolverInterface"
+                 class="EightLines\SyliusNotificationPlugin\Resolver\ComparatorResolver">
+            <argument type="tagged_locator" tag="eightlines_sylius_notification_plugin.comparator" index-by="type" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.resolver.comparator"
+                 alias="EightLines\SyliusNotificationPlugin\Resolver\ComparatorResolverInterface" />
+
         <!-- Command Handlers -->
         <service id="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventInterface"
                  class="EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEvent">
@@ -195,6 +213,7 @@
             <argument type="service" id="eightlines_sylius_notification_plugin.applicator.notification_variables" />
             <argument type="service" id="logger" />
             <argument type="service" id="parameter_bag" />
+            <argument type="service" id="eightlines_sylius_notification_plugin.checker.notification_rules_eligibility" />
         </service>
 
         <service id="eightlines_sylius_notification_plugin.command.service.send_notification_by_event"
@@ -220,6 +239,40 @@
         <service id="EightLines\SyliusNotificationPlugin\Validator\TemplateExistsValidator">
             <argument type="service" id="twig" />
             <tag name="validator.constraint_validator" />
+        </service>
+
+        <!-- Checkers -->
+        <service id="EightLines\SyliusNotificationPlugin\Checker\NotificationRulesEligibilityCheckerInterface"
+                 class="EightLines\SyliusNotificationPlugin\Checker\NotificationRulesEligibilityChecker">
+            <argument type="service" id="eightlines_sylius_notification_plugin.resolver.comparator" />
+        </service>
+
+        <service id="eightlines_sylius_notification_plugin.checker.notification_rules_eligibility"
+                 alias="EightLines\SyliusNotificationPlugin\Checker\NotificationRulesEligibilityCheckerInterface" />
+
+        <!-- Comparators -->
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\EqualToComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="equal_to" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\GreaterThanComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="greater_than" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\GreaterThanOrEqualToComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="greater_than_or_equal_to" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\LessThanComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="less_than" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\LessThanOrEqualToComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="less_than_or_equal_to" />
+        </service>
+
+        <service id="EightLines\SyliusNotificationPlugin\Comparator\NotEqualToComparator">
+            <tag name="eightlines_sylius_notification_plugin.comparator" type="not_equal_to" />
         </service>
     </services>
 </container>
