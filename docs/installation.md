@@ -20,15 +20,15 @@ After that you need to import required config in your `config/packages/_sylius.y
 ```yaml
 imports:
     ...
-    - { resource: "@EightlinesSyliusNotificationPlugin/config/app/config.yml" }
+    - { resource: "@EightLinesSyliusNotificationPlugin/config/app/config.yml" }
 ```
 
 And import routing in your `config/routes.yaml` file:
 
 ```yaml
 sylius_notification_plugin_admin:
+    resource: "@EightLinesSyliusNotificationPlugin/config/routing/admin_routing.yml"
     prefix: /admin
-    resource: "@EightlinesSyliusNotificationPlugin/config/routing/admin_routing.yml"
 ```
 
 Finish the installation by updating the database schema and installing assets:
@@ -79,7 +79,7 @@ Finally, you need to add encore function to your `@SyliusAdminBundle/_scripts.ht
 ```twig
 {# ... #}
 
-{{ encore_entry_script_tags('sylius_notification_plugin_admin', null, 'sylius_notification_plugin_admin') }}
+{{ encore_entry_script_tags('8lines-sylius-notification-plugin-admin', null, 'sylius_notification_plugin_admin') }}
 ```
 
 And run `yarn encore dev` or `yarn encore production`.
