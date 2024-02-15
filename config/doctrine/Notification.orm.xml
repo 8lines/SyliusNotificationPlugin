@@ -23,6 +23,22 @@
             </join-table>
         </many-to-many>
 
+        <many-to-many field="rules" target-entity="EightLines\SyliusNotificationPlugin\Entity\NotificationRule" orphan-removal="true">
+            <cascade>
+                <cascade-all />
+            </cascade>
+
+            <join-table name="8lines_notification_rules">
+                <join-columns>
+                    <join-column name="notification_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
+                </join-columns>
+
+                <inverse-join-columns>
+                    <join-column name="notification_rule_id" referenced-column-name="id" unique="true" nullable="false" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
         <many-to-many field="actions" target-entity="EightLines\SyliusNotificationPlugin\Entity\NotificationAction" orphan-removal="true">
             <cascade>
                 <cascade-all />
