@@ -18,3 +18,23 @@
         {{ form_row(form.configuration) }}
     </div>
 {% endblock %}
+
+{% block notification_rule_widget %}
+    <div class="ui segment">
+        <div class="ui three column stackable centered grid">
+            <div class="bottom aligned row">
+                <div class="six wide column field">
+                    {{ form_row(form.variableName) }}
+                </div>
+
+                <div class="four wide column field">
+                    {{ form_row(form.comparatorType) }}
+                </div>
+
+                <div class="six wide column field">
+                    {{ form_row(form.comparableValue) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
