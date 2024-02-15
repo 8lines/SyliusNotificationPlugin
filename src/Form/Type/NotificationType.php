@@ -8,6 +8,7 @@ use Sylius\Bundle\ChannelBundle\Form\Type\ChannelChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class NotificationType extends AbstractResourceType
@@ -32,8 +33,14 @@ final class NotificationType extends AbstractResourceType
                 'expanded' => true,
                 'label' => 'sylius.ui.channels',
             ])
+            ->add('rules', CollectionType::class, [
+                'label' => 'eightlines_sylius_notification_plugin.ui.rules',
+                'entry_type' => NotificationRuleType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ])
             ->add('actions', NotificationActionCollectionType::class, [
-                'label' => false,
+                'label' => 'eightlines_sylius_notification_plugin.ui.actions',
             ])
         ;
     }
