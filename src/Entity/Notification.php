@@ -17,6 +17,8 @@ class Notification implements NotificationInterface
 
     use NotificationActionsAwareTrait;
 
+    use NotificationRulesAwareTrait;
+
     private ?int $id;
 
     private ?string $code = null;
@@ -27,6 +29,7 @@ class Notification implements NotificationInterface
     {
         $this->initializeChannelsCollection();
         $this->initializeActionsCollection();
+        $this->initializeRulesCollection();
     }
 
     public function getId(): ?int

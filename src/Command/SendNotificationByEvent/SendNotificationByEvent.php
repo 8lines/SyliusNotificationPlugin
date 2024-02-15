@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent;
 
 use EightLines\SyliusNotificationPlugin\Applicator\NotificationVariablesApplicatorInterface;
+use EightLines\SyliusNotificationPlugin\Checker\NotificationRulesEligibilityCheckerInterface;
 use EightLines\SyliusNotificationPlugin\Entity\NotificationActionInterface;
 use EightLines\SyliusNotificationPlugin\Entity\NotificationInterface;
 use EightLines\SyliusNotificationPlugin\NotificationChannel\NotificationBody;
@@ -32,6 +33,7 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         private NotificationVariablesApplicatorInterface $notificationVariablesApplicator,
         private LoggerInterface $logger,
         private ParameterBag $parameterBag,
+        private NotificationRulesEligibilityCheckerInterface $notificationRulesEligibilityChecker,
     ) {
     }
 
@@ -85,6 +87,23 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         $notificationVariables = $notificationEvent->getVariables(
             context: $notificationEventContext,
         );
+
+        $notifications = array_filter(
+            array: $notifications,
+            callback: fn(NotificationInterface $item): bool => $this->notificationRulesEligibilityChecker->isEligible(
+                notification: $item,
+                notificationVariables: $notificationVariables,
+            ),
+        );
+
+        if (0 === \count($notifications)) {
+            $this->logger->debug(
+                message: 'No eligible notifications found for event code and Sylius channel code',
+                context: ['eventCode' => $eventCode, 'syliusChannelCode' => $syliusChannelCode],
+            );
+
+            return;
+        }
 
         /** @var array<integer, array<integer, NotificationActionInterface>> $notificationActions */
         $notificationActions = array_map(

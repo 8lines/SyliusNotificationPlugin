@@ -6,17 +6,21 @@
 
         <div class="ui segment">
             <div class="ui two column stackable grid">
-                <div class="column field">
-                    {{ form_row(form.code) }}
+                <div class="row">
+                    <div class="column field">
+                        {{ form_row(form.code) }}
+                    </div>
+
+                    <div class="column field">
+                        {{ form_row(form.eventCode) }}
+                    </div>
                 </div>
 
-                <div class="column field">
-                    {{ form_row(form.eventCode) }}
+                <div class="row">
+                    <div class="column field">
+                        {{ form_row(form.enabled) }}
+                    </div>
                 </div>
-            </div>
-
-            <div class="one field">
-                {{ form_row(form.enabled) }}
             </div>
 
             <h4 class="ui dividing header">
@@ -32,12 +36,12 @@
     <div class="column">
         <div class="ui segment">
             <h4 class="ui dividing header">
-                {{ 'sylius.ui.actions'|trans }}
+                {{ 'eightlines_sylius_notification_plugin.ui.actions_and_rules'|trans }}
             </h4>
 
             <div data-type="notification-variables" class="ui segment">
                 <h5 class="ui header">
-                    Available notification variables:
+                    {{ 'eightlines_sylius_notification_plugin.ui.available_notification_variables'|trans }}
                 </h5>
 
                 <div data-type="loader" class="ui inverted dimmer">
@@ -47,8 +51,16 @@
                 <div data-type="notification-variables-list"></div>
             </div>
 
-            <div class="column" id="actions">
-                {{ form_row(form.actions) }}
+            <div class="ui segment">
+                <div class="ui two column stackable grid">
+                    <div id="rules" class="column field">
+                        {{ form_row(form.rules) }}
+                    </div>
+
+                    <div id="actions" class="column field">
+                        {{ form_row(form.actions) }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

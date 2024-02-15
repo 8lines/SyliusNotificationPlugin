@@ -20,3 +20,16 @@ eightlines_sylius_notification_plugin:
         email_from: Email from
         phone_number_from: Phone number from
         template: Template
+        actions: Actions
+        rules: Rules
+        actions_and_rules: Actions & Rules
+        available_notification_variables: Available notification variables
+        variable_name: Variable name
+        comparable_value: Comparable value
+        comparator_type:
+            equal_to: '=='
+            not_equal_to: '!='
+            greater_than: '>'
+            greater_than_or_equal_to: '>='
+            less_than: '<'
+            less_than_or_equal_to: '<='

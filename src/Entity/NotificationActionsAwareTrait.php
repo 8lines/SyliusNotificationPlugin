@@ -10,9 +10,7 @@ use Doctrine\Common\Collections\Collection;
 trait NotificationActionsAwareTrait
 {
     /**
-     * @var Collection|NotificationActionInterface[]
-     *
-     * @psalm-var Collection<array-key, NotificationActionInterface>
+     * @var Collection<array-key, NotificationActionInterface>
      */
     private Collection $actions;
 
@@ -28,7 +26,7 @@ trait NotificationActionsAwareTrait
 
     public function addAction(NotificationActionInterface $action): void
     {
-        if ($this->hasAction($action)) {
+        if (true === $this->hasAction($action)) {
             return;
         }
 
@@ -42,7 +40,7 @@ trait NotificationActionsAwareTrait
 
     public function removeAction(NotificationActionInterface $action): void
     {
-        if (!$this->hasAction($action)) {
+        if (false === $this->hasAction($action)) {
             return;
         }
 

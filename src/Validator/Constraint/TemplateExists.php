@@ -10,7 +10,6 @@ use EightLines\SyliusNotificationPlugin\Validator\TemplateExistsValidator;
 final class TemplateExists extends Constraint
 {
     public string $message = 'The string "{{ string }}" is not a valid template.';
-    public string $mode = 'strict';
 
     public function __construct(
         mixed $options = null,
