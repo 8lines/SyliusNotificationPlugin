@@ -83,3 +83,17 @@ Finally, you need to add encore function to your `@SyliusAdminBundle/_scripts.ht
 ```
 
 And run `yarn encore dev` or `yarn encore production`.
+
+### Asynchronous notifications
+If you want to use asynchronous notifications, you need to configure the `messenger` component in your `config/packages/messenger.yaml` file:
+
+```yaml
+framework:
+    messenger:
+        transports:
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+        routing:
+            'EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventInterface': async
+```
+
+This is optional, but recommended for better performance.
