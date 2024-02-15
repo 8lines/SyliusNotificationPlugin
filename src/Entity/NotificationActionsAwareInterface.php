@@ -9,9 +9,7 @@ use Doctrine\Common\Collections\Collection;
 interface NotificationActionsAwareInterface
 {
     /**
-     * @return Collection|NotificationActionInterface[]
-     *
-     * @psalm-return Collection<array-key, NotificationActionInterface>
+     * @return Collection<array-key, NotificationActionInterface>
      */
     public function getActions(): Collection;
 

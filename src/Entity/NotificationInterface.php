@@ -16,7 +16,8 @@ interface NotificationInterface extends
     ToggleableInterface,
     TimestampableInterface,
     ChannelsAwareInterface,
-    NotificationActionsAwareInterface
+    NotificationActionsAwareInterface,
+    NotificationRulesAwareInterface
 {
     public function getEventCode(): ?string;
 
