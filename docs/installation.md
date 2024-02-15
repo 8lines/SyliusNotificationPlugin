@@ -86,6 +86,7 @@ And run `yarn encore dev` or `yarn encore production`.
 
 ### Asynchronous notifications
 If you don't use asynchronous messenger by default, it is recommended to use it for notifications.
+
 To do this, you need to configure the `messenger` component in your `config/packages/messenger.yaml` file:
 
 ```yaml
