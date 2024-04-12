@@ -103,7 +103,7 @@ To do this, you need to configure the `messenger` component in your `config/pack
 framework:
     messenger:
         routing:
-            'EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventInterface': main
+            'EightLines\SyliusNotificationPlugin\Command\SendNotificationByEvent\SendNotificationByEventCommand': main
 ```
 
 This is optional, but recommended for better performance.
