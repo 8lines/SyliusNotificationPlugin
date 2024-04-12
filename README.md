@@ -32,4 +32,5 @@ You can also create your own custom notification channels.
 - [Contribution](./docs/contribution.md)
 
 ### Contact
-Do you have an issue with integration or want to learn more? Write to `dominik@8lines.io`
+Do you have an issue with integration or want to learn more? Visit our website [8lines.io](https://8lines.io) or write to `hello@8lines.io`
+
