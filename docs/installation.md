@@ -1,3 +1,13 @@
+<p align="center">
+    <a href="https://8lines.io">
+        <img alt="8lines" src="https://8lines-static.s3.eu-central-1.amazonaws.com/open-source-logo-main.png">
+    </a>
+</p>
+
+# SyliusNotificationPlugin
+
+--- 
+
 ## Plugin installation
 
 To install the plugin you need to run the following command:

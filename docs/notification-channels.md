@@ -1,3 +1,13 @@
+<p align="center">
+    <a href="https://8lines.io">
+        <img alt="8lines" src="https://8lines-static.s3.eu-central-1.amazonaws.com/open-source-logo-main.png">
+    </a>
+</p>
+
+# SyliusNotificationPlugin
+
+--- 
+
 ## Notification Channels
 Notification channels are implementations of how to send a specific notification.
 Plugin offers a few basic channels, but you can also implement your own.

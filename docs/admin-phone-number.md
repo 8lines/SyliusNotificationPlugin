@@ -1,3 +1,13 @@
+<p align="center">
+    <a href="https://8lines.io">
+        <img alt="8lines" src="https://8lines-static.s3.eu-central-1.amazonaws.com/open-source-logo-main.png">
+    </a>
+</p>
+
+# SyliusNotificationPlugin
+
+--- 
+
 ## Admin phone number
 By default, Sylius doesn't store the phone number of the admin.
 If you want to send notifications to the admin via SMS, you need to provide somewhere the phone number.

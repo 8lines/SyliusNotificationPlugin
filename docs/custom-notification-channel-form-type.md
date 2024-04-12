@@ -1,3 +1,13 @@
+<p align="center">
+    <a href="https://8lines.io">
+        <img alt="8lines" src="https://8lines-static.s3.eu-central-1.amazonaws.com/open-source-logo-main.png">
+    </a>
+</p>
+
+# SyliusNotificationPlugin
+
+--- 
+
 ## Custom Notification Channel Form Type
 To create a custom Notification Channel Form Type, you need to create a class that extends `AbstractType`.
 
