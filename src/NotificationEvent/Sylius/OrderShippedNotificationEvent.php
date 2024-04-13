@@ -42,7 +42,7 @@ final class OrderShippedNotificationEvent implements NotificationEventInterface
         }
 
         return NotificationEventPayload::create(
-            syliusInvoker: $customer,
+            syliusTarget: $customer,
             syliusChannel: $order->getChannel(),
             localeCode: $order->getLocaleCode(),
         );

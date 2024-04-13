@@ -110,6 +110,7 @@
         <service id="eightlines_sylius_notification_plugin.event_listener.notification_event"
                  class="EightLines\SyliusNotificationPlugin\EventListener\NotificationEventListener">
             <argument type="service" id="messenger.default_bus" />
+            <argument type="service" id="security.token_storage" />
         </service>
 
         <!-- Notification Events -->

@@ -42,7 +42,7 @@ final class CustomerRegisteredNotificationEvent implements NotificationEventInte
         $localeCode = $this->localeContext->getLocaleCode();
 
         return NotificationEventPayload::create(
-            syliusInvoker: $customer,
+            syliusTarget: $customer,
             syliusChannel: $channel,
             localeCode: $localeCode,
         );

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace EightLines\SyliusNotificationPlugin\Factory;
 
 use EightLines\SyliusNotificationPlugin\Entity\AuditLog;
+use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInvoker;
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -19,7 +20,7 @@ interface AuditLogFactoryInterface extends BaseFactoryInterface
         string $content,
         string $eventName,
         mixed $context,
-        CustomerInterface|AdminUserInterface|null $invoker,
+        ?NotificationEventInvoker $invoker,
         ?ChannelInterface $channel,
     ): AuditLog;
 }

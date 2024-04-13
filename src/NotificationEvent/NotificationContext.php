@@ -9,14 +9,20 @@ final class NotificationContext
     public function __construct(
         private mixed $subject,
         private NotificationEventInterface $event,
+        private ?NotificationEventInvoker $syliusInvoker,
     ) {
     }
 
     public static function create(
         mixed $subject,
         NotificationEventInterface $event,
+        ?NotificationEventInvoker $syliusInvoker,
     ): self {
-        return new self($subject, $event);
+        return new self(
+            subject: $subject,
+            event: $event,
+            syliusInvoker: $syliusInvoker,
+        );
     }
 
     public function getSubject(): mixed
@@ -27,6 +33,11 @@ final class NotificationContext
     public function getEvent(): NotificationEventInterface
     {
         return $this->event;
+    }
+
+    public function getSyliusInvoker(): ?NotificationEventInvoker
+    {
+        return $this->syliusInvoker;
     }
 
     public function getEventName(): string

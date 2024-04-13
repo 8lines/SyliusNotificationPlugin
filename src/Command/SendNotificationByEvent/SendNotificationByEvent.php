@@ -17,6 +17,7 @@ use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVaria
 use EightLines\SyliusNotificationPlugin\Resolver\NotificationChannelResolverInterface;
 use EightLines\SyliusNotificationPlugin\Resolver\NotificationEventResolverInterface;
 use EightLines\SyliusNotificationPlugin\Resolver\NotificationResolverInterface;
+use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInvoker;
 use Psr\Log\LoggerInterface;
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -43,6 +44,7 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
     public function sendNotificationByEvent(
         string $eventCode,
         mixed $subject,
+        ?NotificationEventInvoker $invoker,
     ): void {
         $notificationEvent = $this->notificationEventResolver->resolveByEventCode(
             eventCode: $eventCode,
@@ -60,6 +62,7 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
         $notificationEventContext = NotificationEventContext::create(
             subject: $subject,
             event: $notificationEvent,
+            syliusInvoker: $invoker,
         );
 
         $notificationPayload = $notificationEvent->getEventPayload(
@@ -167,18 +170,18 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
 
         $notificationEvent = $notificationEventContext->getEvent();
 
-        $syliusInvoker = $notificationEventPayload->getSyliusInvoker();
+        $syliusTarget = $notificationEventPayload->getSyliusTarget();
         $syliusChannel = $notificationEventPayload->getSyliusChannel();
 
         $primaryRecipientLocaleCode = $notificationEventPayload->getLocaleCode();
 
-        $primaryNotificationRecipient = $syliusInvoker instanceof CustomerInterface
-            ? NotificationRecipient::createFromCustomer($syliusInvoker, true, $primaryRecipientLocaleCode)
+        $primaryNotificationRecipient = $syliusTarget instanceof CustomerInterface
+            ? NotificationRecipient::createFromCustomer($syliusTarget, true, $primaryRecipientLocaleCode)
             : NotificationRecipient::createFromAdminUser(
-                adminUser: $syliusInvoker,
+                adminUser: $syliusTarget,
                 primary: true,
                 localeCode: $primaryRecipientLocaleCode,
-                phoneNumber: $this->getAdminUserPhoneNumber($syliusInvoker)
+                phoneNumber: $this->getAdminUserPhoneNumber($syliusTarget)
             );
 
         $notificationChannelContext = NotificationChannelContext::create(
@@ -188,7 +191,8 @@ final class SendNotificationByEvent implements SendNotificationByEventInterface
             variables: $notificationVariables,
             configuration: $notificationConfiguration,
             syliusChannel: $syliusChannel,
-            syliusInvoker: $syliusInvoker,
+            syliusTarget: $syliusTarget,
+            syliusInvoker: $notificationEventContext->getSyliusInvoker(),
             eventLevelContext: $notificationEventContext,
         );
 

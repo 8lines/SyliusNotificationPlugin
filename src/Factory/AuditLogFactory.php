@@ -7,9 +7,8 @@ namespace EightLines\SyliusNotificationPlugin\Factory;
 use EightLines\SyliusNotificationPlugin\Entity\AuditLog;
 use EightLines\SyliusNotificationPlugin\Entity\AuditLogChannel;
 use EightLines\SyliusNotificationPlugin\Entity\AuditLogInvoker;
-use Sylius\Component\Core\Model\AdminUserInterface;
+use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInvoker;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\CustomerInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -24,7 +23,7 @@ final class AuditLogFactory implements AuditLogFactoryInterface
         string $content,
         string $eventName,
         mixed $context,
-        CustomerInterface|AdminUserInterface|null $invoker,
+        ?NotificationEventInvoker $invoker,
         ?ChannelInterface $channel,
     ): AuditLog {
         $auditLog = new AuditLog();
@@ -54,35 +53,17 @@ final class AuditLogFactory implements AuditLogFactoryInterface
         return new AuditLog();
     }
 
-    private function getAuditLogInvoker(
-        AdminUserInterface|CustomerInterface|null $invoker,
-    ): AuditLogInvoker {
+    private function getAuditLogInvoker(?NotificationEventInvoker $invoker): AuditLogInvoker
+    {
         $auditLogInvoker = new AuditLogInvoker();
 
         if (null === $invoker) {
             return $auditLogInvoker;
         }
 
-        $auditLogInvoker->setId((int) $invoker->getId());
-
-        if ($invoker instanceof CustomerInterface) {
-            $auditLogInvoker->setType(AuditLogInvoker::CUSTOMER);
-            $auditLogInvoker->setFullName($invoker->getFullName());
-
-            return $auditLogInvoker;
-        }
-
-        $auditLogInvoker->setType(AuditLogInvoker::ADMIN_USER);
-
-        $firstName = $invoker->getFirstName();
-        $lastName = $invoker->getLastName();
-
-        if (null !== $firstName && null !== $lastName) {
-            $auditLogInvoker->setFullName(sprintf('%s %s',
-                $firstName,
-                $lastName,
-            ));
-        }
+        $auditLogInvoker->setId($invoker->id());
+        $auditLogInvoker->setFullName($invoker->fullName());
+        $auditLogInvoker->setType($invoker->type());
 
         return $auditLogInvoker;
     }

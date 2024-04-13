@@ -7,6 +7,7 @@ namespace EightLines\SyliusNotificationPlugin\NotificationChannel;
 use EightLines\SyliusNotificationPlugin\Entity\NotificationActionInterface;
 use EightLines\SyliusNotificationPlugin\Entity\NotificationConfigurationInterface;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInterface;
+use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventInvoker;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationEventVariables;
 use EightLines\SyliusNotificationPlugin\NotificationEvent\NotificationContext as EventLevelNotificationContext;
 use Sylius\Component\Core\Model\AdminUserInterface;
@@ -22,7 +23,8 @@ final class NotificationContext
         private NotificationEventVariables $variables,
         private NotificationConfigurationInterface $configuration,
         private ?ChannelInterface $syliusChannel,
-        private CustomerInterface|AdminUserInterface $syliusInvoker,
+        private CustomerInterface|AdminUserInterface $syliusTarget,
+        private ?NotificationEventInvoker $syliusInvoker,
         private EventLevelNotificationContext $eventLevelContext,
     ) {
     }
@@ -34,7 +36,8 @@ final class NotificationContext
         NotificationEventVariables $variables,
         NotificationConfigurationInterface $configuration,
         ?ChannelInterface $syliusChannel,
-        CustomerInterface|AdminUserInterface $syliusInvoker,
+        CustomerInterface|AdminUserInterface $syliusTarget,
+        ?NotificationEventInvoker $syliusInvoker,
         EventLevelNotificationContext $eventLevelContext,
     ): self {
         return new self(
@@ -44,6 +47,7 @@ final class NotificationContext
             variables: $variables,
             configuration: $configuration,
             syliusChannel: $syliusChannel,
+            syliusTarget: $syliusTarget,
             syliusInvoker: $syliusInvoker,
             eventLevelContext: $eventLevelContext,
         );
@@ -79,7 +83,12 @@ final class NotificationContext
         return $this->syliusChannel;
     }
 
-    public function getSyliusInvoker(): CustomerInterface|AdminUserInterface
+    public function getSyliusTarget(): CustomerInterface|AdminUserInterface
+    {
+        return $this->syliusTarget;
+    }
+
+    public function getSyliusInvoker(): ?NotificationEventInvoker
     {
         return $this->syliusInvoker;
     }

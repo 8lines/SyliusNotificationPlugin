@@ -66,14 +66,14 @@ Finally, it should return a [NotificationEventPayload](https://github.com/8lines
 public function getEventPayload(NotificationContext $context): NotificationEventPayload
 {
     return NotificationEventPayload::create(
-        syliusInvoker: /* ... */,
+        syliusTarget: /* ... */,
         syliusChannel: /* ... */,
         localeCode: /* ... */,
     );
 }
 ```
 
-- `syliusInvoker` - The invoker of the event.
+- `syliusTarget` - User that is the target of the event.
 - `syliusChannel` - The Sylius channel where the event was triggered.
 - `localeCode` - The locale code of the event.
 

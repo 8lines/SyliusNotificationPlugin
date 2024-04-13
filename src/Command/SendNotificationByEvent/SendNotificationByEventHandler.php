@@ -19,6 +19,7 @@ final class SendNotificationByEventHandler
         $this->sendNotificationByEvent->sendNotificationByEvent(
             eventCode: $command->getEventName(),
             subject: $command->getSubject(),
+            invoker: $command->getInvoker(),
         );
     }
 }
