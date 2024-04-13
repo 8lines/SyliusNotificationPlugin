@@ -7,7 +7,7 @@
         "sylius-plugin"
     ],
     "license": "MIT",
-    "version": "1.0",
+    "version": "1.0.1",
     "require": {
         "php": "^8.0",
         "sylius/mailer-bundle": "^1.8 || ^2.0@beta",
