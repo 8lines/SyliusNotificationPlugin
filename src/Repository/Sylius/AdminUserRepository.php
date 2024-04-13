@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace EightLines\SyliusNotificationPlugin\Repository\Sylius;
 
-use Sylius\Bundle\CoreBundle\Doctrine\ORM\UserRepository as BaseSyliusUserRepository;
+use Sylius\Bundle\UserBundle\Doctrine\ORM\UserRepository as BaseSyliusUserRepository;
 
 final class AdminUserRepository extends BaseSyliusUserRepository
 {
