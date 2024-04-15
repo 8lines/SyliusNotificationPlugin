@@ -9,6 +9,10 @@ Make your Sylius application notify you about important events.
 
 ---
 
+[![SyliusNotificationPlugin - Introduction](https://i.ytimg.com/vi/ygLPBGFk0mE/maxresdefault.jpg)](https://www.youtube.com/watch?v=ygLPBGFk0mE "SyliusNotificationPlugin - Introduction")
+
+---
+
 ### Table of Content
 - [Overview](#overview)
 - [Documentation](#documentation)
