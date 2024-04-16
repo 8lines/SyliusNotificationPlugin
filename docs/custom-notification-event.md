@@ -53,8 +53,6 @@ final class CustomNotificationEvent implements NotificationEventInterface
 This method is used to get the name of the Notification Event.
 It should return a string that represents the exact name of the event supported by the Symfony EventDispatcher.
 
-```php
-
 ### getEventPayload()
 This method is used to get the payload of the Notification Event.
 
