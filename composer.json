@@ -13,7 +13,7 @@
         "sylius/mailer-bundle": "^1.8 || ^2.0@beta",
         "sylius/sylius": "^1.12",
         "symfony/notifier": "^6.0",
-        "symfony/webpack-encore-bundle": "^1.15"
+        "symfony/webpack-encore-bundle": "^2.1"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
